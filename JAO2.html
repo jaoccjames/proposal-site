@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>智慧化都市更新決策支持平台｜資料創新應用建議提案</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --card:#f8fafc;
+      --ink:#111827;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-2:#16a34a;
+      --warn:#d97706;
+      --danger:#dc2626;
+      --ring:#e2e8f0;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#f1f5f9;color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+    .container{max-width:1080px;margin-inline:auto;padding:40px 20px}
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:28px}
+    .title{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:.5px;color:var(--accent)}
+    .badge{border:1px solid var(--ring);border-radius:999px;padding:8px 14px;color:var(--muted);background:#fff}
+    .card{background:#fff;border:1px solid var(--ring);border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.05);padding:24px;margin:18px 0}
+    h2{font-size:22px;margin:0 0 12px 0;color:var(--accent)}
+    h3{font-size:18px;margin:18px 0 8px 0;color:var(--accent-2)}
+    p{margin:6px 0}
+    .grid{display:grid;gap:14px}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media(max-width:900px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
+    .label{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+    .list{padding-left:18px}
+    .list li{margin:4px 0}
+    table{width:100%;border-collapse:collapse;border:1px solid var(--ring);border-radius:8px;overflow:hidden}
+    thead th{background:var(--accent);color:#fff;text-align:left;padding:12px 14px;font-weight:700}
+    tbody td{padding:12px 14px;border-bottom:1px solid var(--ring);vertical-align:top}
+    tbody tr:nth-child(even){background:#f9fafb}
+    .kpi{display:flex;gap:16px;flex-wrap:wrap}
+    .kpi .item{flex:1 1 200px;background:#f9fafb;border:1px solid var(--ring);border-radius:8px;padding:14px}
+    .kpi .val{font-size:24px;font-weight:700;color:var(--accent)}
+    .kpi .cap{color:var(--muted)}
+    .footer{color:var(--muted);margin-top:28px;font-size:14px}
+    .btn{display:inline-block;margin-top:8px;padding:10px 14px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:#fff;text-decoration:none}
+    .note{font-size:14px;color:var(--muted)}
+    .tag{display:inline-block;background:#e0f2fe;border:1px solid #bae6fd;color:#0369a1;padding:2px 8px;border-radius:999px;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div class="title">資料創新應用建議提案｜智慧化都市更新決策支持平台</div>
+        <div class="note">單位：國家住都中心｜版本：v1.0｜作者：James JAO</div>
+      </div>
+      <div class="badge">提案單</div>
+    </header>
+
+    <!-- 一、提案簡報（依格式） -->
+    <section class="card">
+      <h2>一、提案簡報 <span class="tag">表格化摘要</span></h2>
+      <div class="grid cols-2">
+        <div>
+          <div class="label">如何協助</div>
+          <p>協助 <strong>政府主管機關與服務使用者</strong>，在 <strong>都市更新與社會住宅規劃決策</strong> 的時候，建立以資料驅動的決策流程。</p>
+        </div>
+        <div>
+          <div class="label">整合</div>
+          <p>整合 <strong>國家住都中心內部社宅資料庫</strong>、<strong>都市更新案審查紀錄</strong>，以及 <strong>外部開放資料（地籍、人口統計、交通流量、環境感測器數據）</strong>。</p>
+        </div>
+        <div>
+          <div class="label">利用 / 掌握</div>
+          <p>利用 <strong>AI 大數據分析與數位孿生模擬</strong>，掌握 <strong>區域發展潛力、居民需求特徵與環境承載</strong>。</p>
+        </div>
+        <div>
+          <div class="label">解決 / 創造</div>
+          <p>解決 <strong>資訊不透明、效率低與需求錯配</strong> 的痛點，創造 <strong>透明、公正、以民眾需求為核心的決策效益</strong>。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、BRiCKS 分析表 -->
+    <section class="card">
+      <h2>二、利害關係人 BRiCKS 分析</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>利害關係人 (S)</th>
+            <th>價值 / 效益 (B)</th>
+            <th>損失 / 風險 (Ri)</th>
+            <th>門檻與配套 (C)</th>
+            <th>主要解決方式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>(S1) 政府主管機關</td>
+            <td>提升都市更新及社宅決策效率；建立需求優先順序；公開指標。</td>
+            <td>演算法偏誤導致政策不公平；過度依賴模型造成僵化。</td>
+            <td>演算法治理與透明化；決策紀錄留存；外部審議。</td>
+            <td>建置「<strong>數位孿生決策平台</strong>」與公開審議流程。</td>
+          </tr>
+          <tr>
+            <td>(S2) 其他協力提供者</td>
+            <td>資料共享提升規劃精準度與跨域效率。</td>
+            <td>資料交換成本與隱私疑慮；資料品質不一。</td>
+            <td>跨機關資料共享標準與品質 SLA；權限控管。</td>
+            <td>資料交換 API、資料目錄、隱私保護協議。</td>
+          </tr>
+          <tr>
+            <td>(S3) 服務接受／使用者</td>
+            <td>提高住宅分配公平性、增加透明度與參與感。</td>
+            <td>個資外洩或需求被誤解。</td>
+            <td>資料匿名化與差分隱私；多語介面；申訴機制。</td>
+            <td>社區需求調查與偏好模型；使用者儀表板。</td>
+          </tr>
+          <tr>
+            <td>(S4) 衍生議題關注者</td>
+            <td>提升社會大眾對都市更新的信任與監督。</td>
+            <td>忽略人文與文化脈絡。</td>
+            <td>社會溝通與多元價值納入程序；公開評估。</td>
+            <td>與 NGO／專家定期對話與工作坊。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 三、創新亮點 -->
+    <section class="card">
+      <h2>三、創新亮點</h2>
+      <ul class="list">
+        <li><strong>數位孿生 (Digital Twin)</strong>：建立虛擬模型模擬人口流動、交通壓力與社宅配置方案。</li>
+        <li><strong>AI 需求預測模型</strong>：分析人口結構與通勤模式，預測住宅需求。</li>
+        <li><strong>公民參與平台</strong>：整合民眾意見與情境可視化，避免政策黑箱。</li>
+        <li><strong>跨域資料整合</strong>：整合土地、建築、交通、環境等資料，打造決策支持平台。</li>
+      </ul>
+    </section>
+
+    <!-- 四、效益預期 -->
+    <section class="card">
+      <h2>四、效益預期</h2>
+      <div class="kpi">
+        <div class="item">
+          <div class="val">-30%</div>
+          <div class="cap">審查工時（短期：流程最佳化）</div>
+        </div>
+        <div class="item">
+          <div class="val">+40%</div>
+          <div class="cap">資料可取得度（中期：跨域整合）</div>
+        </div>
+        <div class="item">
+          <div class="val">95%</div>
+          <div class="cap">模型可解釋性（長期：治理完善）</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <p>備註：本頁依「提案簡報」與「利害關係人 BRiCKS 分析」設計，適合列印與轉為 PDF。</p>
+      <a class="btn" href="#" onclick="window.print()">列印／另存 PDF</a>
+    </section>
+  </div>
+</body>
+</html>
