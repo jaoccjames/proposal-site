@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>提案簡報｜智慧包租代管推廣與租屋匹配平台</title>
+  <style>
+    :root{
+      --bg:#ffffff; --ink:#0f172a; --muted:#475569; --ring:#e2e8f0;
+      --accent:#0b6fb6; --accent-2:#16a34a; --chip:#e0f2fe; --chip-ink:#075985;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:#f5f7fb;color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+    .container{max-width:980px;margin-inline:auto;padding:36px 18px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}
+    .title{font-size:clamp(22px,3vw,34px);font-weight:800;color:var(--accent)}
+    .meta{color:var(--muted)}
+    .badge{border:1px solid var(--ring);border-radius:999px;padding:6px 12px;color:var(--muted);background:#fff}
+    .card{background:#fff;border:1px solid var(--ring);border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.05);padding:20px;margin:14px 0}
+    h2{font-size:20px;margin:0 0 8px 0;color:var(--accent)}
+    h3{font-size:16px;margin:12px 0 6px 0;color:var(--accent-2)}
+    p{margin:4px 0}
+    .grid{display:grid;gap:12px}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media(max-width:880px){.cols-2{grid-template-columns:1fr}}
+    .label{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+    .list{padding-left:18px}
+    .list li{margin:4px 0}
+    .chip{display:inline-block;background:var(--chip);color:var(--chip-ink);border:1px solid #bae6fd;border-radius:999px;padding:2px 8px;font-size:12px;margin:2px 6px 2px 0}
+    table{width:100%;border-collapse:collapse;border:1px solid var(--ring);border-radius:8px;overflow:hidden}
+    thead th{background:var(--accent);color:#fff;text-align:left;padding:10px 12px;font-weight:700}
+    tbody td{padding:10px 12px;border-bottom:1px solid var(--ring);vertical-align:top}
+    tbody tr:nth-child(even){background:#f9fbff}
+    .footer{color:var(--muted);margin-top:18px;font-size:14px}
+    .btn{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:#fff;text-decoration:none}
+    @media print{
+      body{background:#fff}
+      .container{max-width:none;padding:0}
+      .card{box-shadow:none;border-color:#ddd}
+      .btn{display:none}
+      header{margin-bottom:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div class="title">提案簡報｜智慧包租代管推廣與租屋匹配平台</div>
+        <div class="meta">單位：國家住都中心｜版本：v1.0｜作者：James JAO</div>
+      </div>
+      <div class="badge">依表格格式</div>
+    </header>
+
+    <!-- 提案簡報（依格式） -->
+    <section class="card">
+      <h2>一、提案簡報（依上傳表格欄位）</h2>
+      <div class="grid cols-2">
+        <div>
+          <div class="label">如何協助（利害關係人／情境）</div>
+          <p>協助 <strong>房東</strong> 降低風險、提升收益確定性；協助 <strong>房客</strong> 快速找到合適房源；協助 <strong>主管機關</strong> 精準投放資源並提升政策透明度與成效。</p>
+        </div>
+        <div>
+          <div class="label">整合（內外部資料）</div>
+          <p>
+            <span class="chip">不動產登記／地籍</span>
+            <span class="chip">建物年齡／社區管理</span>
+            <span class="chip">代管履約／租賃糾紛紀錄</span>
+            <span class="chip">租客需求（家庭型態／收入／通勤）</span>
+            <span class="chip">交通可達性／醫療學區／環境治安</span>
+          </p>
+        </div>
+        <div>
+          <div class="label">利用（分析方法）／掌握（特徵）</div>
+          <ul class="list">
+            <li><strong>AI 風險預測</strong>：拖欠率、退租機率、空置期；<em>形成風險分級</em>。</li>
+            <li><strong>推薦系統</strong>：房東房源 × 房客偏好向量之 Top‑N 媒合。</li>
+            <li><strong>區塊鏈履約憑證</strong>：交屋／點交／修繕節點不可竄改，建立信任。</li>
+            <li><strong>熱區地圖可視化</strong>：供需缺口、可達性、族群公平性。</li>
+          </ul>
+        </div>
+        <div>
+          <div class="label">解決（痛點）／創造（效益）</div>
+          <ul class="list">
+            <li>解決：房東不願出屋、房客找屋困難、政府缺少即時成效追蹤。</li>
+            <li>效益：房東風險可控、房客快速媒合、政策定向補助與透明治理。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRiCKS 分析（依格式） -->
+    <section class="card">
+      <h2>二、利害關係人 BRiCKS 分析</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>利害關係人 (S)</th>
+            <th>正面價值／效益 (B)</th>
+            <th>損失／風險 (Ri)</th>
+            <th>門檻與配套 (C)</th>
+            <th>主要解決方式 (Key Solution)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>(S1) 政府主管機關</td>
+            <td>成效追蹤即時化、資源精準投放、透明治理。</td>
+            <td>演算法偏誤引發不公平爭議。</td>
+            <td>建立演算法治理、開放指標、外部審查。</td>
+            <td>決策儀表板＋公平性監測＋公開審議。</td>
+          </tr>
+          <tr>
+            <td>(S2) 協力提供者（代管業者／保險公司）</td>
+            <td>提升服務效率、拓展保固／保險商機。</td>
+            <td>資料交換與隱私合規成本。</td>
+            <td>資料共享標準、品質 SLA、權限控管。</td>
+            <td>API 串接、資料目錄、保固／保險方案。</td>
+          </tr>
+          <tr>
+            <td>(S3) 服務使用者（房東／房客）</td>
+            <td>房東風險降低、房客媒合效率提升。</td>
+            <td>個資外洩或媒合錯配風險。</td>
+            <td>差分隱私、假名化、申訴／修正機制。</td>
+            <td>風險分級報告、推薦清單、補助與租金試算。</td>
+          </tr>
+          <tr>
+            <td>(S4) 衍生關注者（NGO／學者／社區）</td>
+            <td>促進公平性與社會信任。</td>
+            <td>過度量化忽略在地人文。</td>
+            <td>多元價值納入程序、影響評估公開。</td>
+            <td>公民對話／工作坊與專家審議。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 行動與列印 -->
+    <section class="footer">
+      <a class="btn" href="#" onclick="window.print()">列印／另存 PDF</a>
+    </section>
+  </div>
+</body>
+</html>
