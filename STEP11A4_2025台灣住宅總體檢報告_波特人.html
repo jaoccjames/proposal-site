@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>住宅數據循證分析操作流程圖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 50px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .phase {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .phase-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .phase-number {
+            background: white;
+            color: #667eea;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .steps-container {
+            display: grid;
+            gap: 20px;
+            padding-left: 30px;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left-color: #764ba2;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .step-content {
+            margin-left: 0;
+        }
+        
+        .step-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .step-item:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .label {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .label-action {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .label-target {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .label-focus {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .label-dimension {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .label-spec {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .label-alert {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .label-scope {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+        
+        .label-output {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+        
+        .arrow {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 30px;
+            color: #667eea;
+        }
+        
+        .final-output {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 40px;
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+        }
+        
+        .connector {
+            width: 3px;
+            height: 30px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>住宅數據循證分析操作流程圖 (SOP Flow)</h1>
+        
+        <!-- Phase 1 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">1</div>
+                <div>數據校準 (Data Grounding)</div>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 1</span>
+                        分段抽樣校對
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-action">動作</span>
+                            每 10 頁進行一次對齊
+                        </div>
+                        <div class="step-item">
+                            <span class="label label-target">目標</span>
+                            確保「系統分頁」=「文件原始頁碼」
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 2</span>
+                        錯誤修正與錨定
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-action">動作</span>
+                            手動指正錯誤頁碼與標題
+                        </div>
+                        <div class="step-item">
+                            <span class="label label-focus">重點</span>
+                            未對齊前不進行後續分析
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connector"></div>
+        
+        <!-- Phase 2 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">2</div>
+                <div>循證挖掘 (Evidence-Based Extraction)</div>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 3</span>
+                        三維度基礎定義
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-dimension">維度</span>
+                            算什麼、看指標 (YOY/占比)、支撐何種政策
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 4</span>
+                        強化分析強度 (10 亮點 / 3 意涵)
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-spec">規範</span>
+                            每頁必須產出 10 個具數據證明的亮點
+                        </div>
+                        <div class="step-item">
+                            <span class="label label-alert">警示</span>
+                            嚴防字數縮水,隨時下達「恢復強度」指令
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connector"></div>
+        
+        <!-- Phase 3 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">3</div>
+                <div>議題建構 (Thematic Structuring)</div>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 5</span>
+                        跨文本議題歸納
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-action">動作</span>
+                            結合「工作計畫書」與「稅籍差異表」
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 6</span>
+                        架構優化與去重
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-action">動作</span>
+                            合併 Step 5C 等多個來源,剔除重複項
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connector"></div>
+        
+        <!-- Phase 4 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">4</div>
+                <div>專家報告產製 (Professional Synthesis)</div>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 7</span>
+                        專題深度論述 (Deep Dive)
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-spec">要求</span>
+                            針對單一子議題,撰寫 >500 字專家報告
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 8</span>
+                        議題面向整合 (Integration)
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-scope">範疇</span>
+                            數據精度、物理韌性、供需趨勢、空間利用、資產效能
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">Step 9</span>
+                        總結報告發布
+                    </div>
+                    <div class="step-content">
+                        <div class="step-item">
+                            <span class="label label-output">產出</span>
+                            台灣住宅狀況調查與家戶結構總結報告
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow">▼</div>
+        
+        <div class="final-output">
+            ✓ 完整住宅數據循證分析報告產製完成
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 臺灣住宅總體檢：社會變遷與空間利用</title>
+    <style>
+        body {
+            font-family: 'Noto Sans CJK TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            border-left: 6px solid #e74c3c;
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #2980b9;
+            font-size: 1.4em;
+            border-bottom: 1px dashed #cccccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        details {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        summary {
+            font-weight: bold;
+            font-size: 1.3em;
+            padding: 15px 20px;
+            cursor: pointer;
+            outline: none;
+            color: #2c3e50;
+            background-color: #ecf0f1;
+            border-bottom: 1px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            transition: background-color 0.3s ease;
+        }
+        summary:hover {
+            background-color: #e0e6e7;
+        }
+        details[open] summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+        ul {
+            margin-left: 20px;
+            margin-bottom: 1em;
+            list-style-type: disc;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px dashed #a8d5ff;
+        }
+        .image-container img {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .image-caption {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+        }
+        .highlight {
+            background-color: #ffe0b2; /* Light orange */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .icon {
+            margin-right: 8px;
+            vertical-align: middle;
+            color: #3498db;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+        }
+        .section-header .icon {
+            font-size: 1.5em;
+        }
+        strong {
+            color: #e74c3c;
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h1>2025 臺灣住宅總體檢：社會變遷與空間利用</h1>
+
+    <details open>
+        <summary><span class="section-header"><i class="fas fa-info-circle icon"></i> 壹、緒論：存量治理時代的居住結構性挑戰</span></summary>
+        <div class="content">
+            <p>各位鄉親父老、兄弟姐妹！我們臺灣的住宅市場，已經從過去那種瘋狂蓋房子、追求數量擴張的時代，全面轉型進入了全新的「存量治理」模式啦！這就像是我們家裡的東西越來越多，不再只是想著買新貨，而是要好好整理、有效利用現有的資源。</p>
+            <p>在這波大轉型中，政策的核心不再是「蓋多少」，而是「怎麼蓋」、「給誰住」！隨著社會走向單身化、超高齡化，以及弱勢族群樣態越來越複雜，我們的都會區出現了令人憂心的「居住錯置」現象。這份報告就是要用最科學的數據，幫大家把脈，看清楚這些社會變遷對我們的居住空間到底帶來了哪些衝擊，並找出最精準的治理策略。</p>
+        </div>
+    </details>
+
+    <details>
+        <summary><span class="section-header"><i class="fas fa-users icon"></i> 貳、都會單身浪潮：單人家戶與微型住宅的供需失衡</span></summary>
+        <div class="content">
+            <p>當代臺灣，尤其是都會區，正迎來一股強勁的「單身浪潮」！這股浪潮直接衝擊了我們的居住型態與市場供需。想像一下，以前家裡都是三代同堂、兄弟姐妹擠一間房，現在很多年輕人或熟齡族選擇一個人生活，這對房子的需求當然就不一樣了。</p>
+            <ul>
+                <li><strong>臺北市的「單身社會」先遣區：</strong> 根據數據顯示，臺北市簡直是這波單身潮的領頭羊！單人家戶的佔比高達<span class="highlight">36.69%</span>，而且光是2024年，就增加了<span class="highlight">55,890戶</span>單人家庭。新成屋市場也被這股力量扭曲，原本是育兒家庭主力市場的<span class="highlight">30-39坪傳統三房型正在消失</span>，取而代之的是爆炸性成長的微型住宅。</li>
+                <li><strong>微型住宅的兩面刃：</strong>
+                    <ul>
+                        <li>近四年來，<span class="highlight">0-19坪的微型住宅淨增量高達195,994宅</span>，其中單人家庭的入住比例更是驚人的<span class="highlight">54.21%</span>！這數字聽起來好像很符合單身需求，但別高興得太早，其中有<span class="highlight">10.24%的空置率</span>，根本就是被拿去投資囤房，而不是真正提供居住需求。</li>
+                        <li>這些微型宅許多因為採光通風不佳或物理品質低劣，根本不適宜人居，變成炒房客的囊中物，真正需要小坪數居住的民眾反而找不到好房子。</li>
+                    </ul>
+                </li>
+                <li><strong>政策呼籲：</strong> 專家們大聲疾呼，政府應該把社會住宅中「一房型」的比例拉高到<span class="highlight">50%至60%</span>，並且建立符合現代單身生活品質的居住標準。別再用老舊的核心家庭思維來規劃了，跟上時代的腳步，我們的政策才能真正接地氣！</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary><span class="section-header"><i class="fas fa-users-cog icon"></i> 參、雙重老化危機：超高齡老宅中的孤獨老化與醫療近便性</span></summary>
+        <div class="content">
+            <p>臺灣社會不只在單身化，更面臨嚴峻的「雙重老化」挑戰：一方面是房子老了，另一方面是住在裡面的人也老了，而且還是孤單的老去。這可不是開玩笑，這關係到我們的居住安全與社會照護網路！</p>
+            <ul>
+                <li><strong>「老屋住老人」的結構鎖定：</strong>
+                    <ul>
+                        <li>截至2024年，全國屋齡<span class="highlight">50年以上</span>的超高齡住宅已經突破<span class="highlight">136.8萬宅</span>，而且每年還以近<span class="highlight">11萬宅</span>的速度在增加！</li>
+                        <li>更令人心疼的是，這些老宅裡的單人家庭佔比，從2020年的24.46%一口氣飆升到2024年的<span class="highlight">35.62%</span>。這代表什麼？我們的社會安全網正面臨「每三間老宅就有一位獨居長者」的嚴峻考驗！</li>
+                    </ul>
+                </li>
+                <li><strong>適老化空間與移居缺口：</strong>
+                    <ul>
+                        <li>許多50年以上的老屋，多半是低層建築，沒有電梯，對行動不便的長輩來說，簡直是「垂直孤島」！想出門看醫生、買菜都困難重重。</li>
+                        <li>GIS圖資分析更殘酷地揭露，有些孤老長輩聚居的區域，醫療近便性與環境無障礙程度竟然是負相關！越需要，卻越難以到達。</li>
+                    </ul>
+                </li>
+                <li><strong>政策呼籲：</strong> 專家建議，政府應該引導這些長輩將不適合居住的大宅活化，推動「以大換小」的移居模式，讓他們能住進具備醫療機能的小型機能宅或社會住宅。讓老人家可以「在地老化」的同時，也能有尊嚴、有品質地生活。</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary><span class="section-header"><i class="fas fa-exclamation-triangle icon"></i> 肆、資源佔用與效率失靈：空間錯置與登記類別之背離</span></summary>
+        <div class="content">
+            <p>當社會結構與居住需求開始脫鉤，就會出現一種「資源錯置」的現象，這讓我們的住宅效率大打折扣，甚至埋下許多潛在的居住風險。這就像是家裡的衣櫃，好衣服都塞在裡面沒人穿，舊衣服卻堆得滿滿的。</p>
+            <ul>
+                <li><strong>「老人住大宅、青年住蟻居」的代際錯置：</strong>
+                    <ul>
+                        <li>數據顯示，全國約有<span class="highlight">14.3萬戶單身家戶</span>，竟然住在<span class="highlight">70坪以上的大宅</span>裡！這些大宅可能因為繼承等原因，缺乏有效流動，佔用了大量的空間資源，與他們實際的社會需求產生了顯著的落差。</li>
+                        <li>這種現象，讓年輕人只能在城市邊緣或微型宅中蝸居，造成嚴重的「老人住大宅、青年住蟻居」的代際錯置。</li>
+                        <li><strong>政策呼籲：</strong> 政府應透過稅賦優惠或租金補貼等誘因，鼓勵這些大型住宅資源釋出，流回市場，提供給真正需要大坪數的育兒家庭。</li>
+                    </ul>
+                </li>
+                <li><strong>登記類別的規避風險：</strong>
+                    <ul>
+                        <li>更令人擔憂的是，新成屋中用途登記為「其他用途」的比例，竟然高達<span class="highlight">88.41%</span>，而實際作為「住家用」的卻很少。這表示有大約<span class="highlight">11.5萬宅</span>的非典型居住單元，可能隱藏著嚴重的消防安全預警盲區，以及租賃市場的黑數。</li>
+                        <li>這種「假用途」的登記亂象，不僅扭曲了空間利用的公平性，也讓政府難以精準掌握實際居住樣態，影響政策的制定與執行。</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary><span class="section-header"><i class="fas fa-hand-holding-heart icon"></i> 伍、弱勢家戶穩定性：單親家庭的居住困境</span></summary>
+        <div class="content">
+            <p>在社會變遷的浪潮中，弱勢家戶的居住穩定性更是我們不能忽視的一環。特別是單親家庭，他們在居住市場上面臨著更多挑戰與困境，需要社會的溫暖與政策的支援。</p>
+            <ul>
+                <li><strong>低自有率與空間壓縮：</strong>
+                    <ul>
+                        <li>單親家庭的自有率僅有<span class="highlight">33.33%</span>，是所有家戶類別中最低的，這意味著他們高度依賴租賃市場，居住權益相對不穩定。</li>
+                        <li>由於經濟能力的限制，許多單親家庭被迫集中到<span class="highlight">0-19坪的微型住宅</span>，面臨嚴重的「空間壓縮」。狹小的居住空間，不僅影響生活品質，也常因頻繁搬遷，導致子女教育的穩定性受到嚴重影響。</li>
+                    </ul>
+                </li>
+                <li><strong>政策呼籲：</strong> 專家建議，政府應該為單親家庭建立專屬的居住安定支援系統。例如，透過「租轉購」信用確保機制，幫助他們累積購屋的信用，並提供特定坪數的社會住宅配給，確保他們能有穩定、適居的居住環境。</li>
+            </ul>
+        </div>
+    </details>
+
+    <details open>
+        <summary><span class="section-header"><i class="fas fa-chart-line icon"></i> 陸、結論與專家建議：數據驅動的精準治理</span></summary>
+        <div class="content">
+            <p>各位鄉親！經過這麼一番深入的體檢，我們可以清楚看到，臺灣的住宅市場正面臨「財富代際重組」與「空間配置失焦」的雙重挑戰！當前供需失衡的根源，不在於蓋的房子不夠多，而是取得模式的非市場化（高繼承比例），以及市場供給房型的極端化（過度小宅化）。</p>
+            <p>要解決這些問題，我們必須告別過去那種「大水漫灌」式的總量迷思，轉向精準的「結構治理」！而數據，就是我們推動居住正義最科學、最有力的武器！</p>
+            <h3>數據驅動的精準治理三大處方：</h3>
+            <ol>
+                <li><strong>動態對齊，告別「核心家庭」迷思：</strong>
+                    <ul>
+                        <li>我們已經清楚看到，<span class="highlight">「36%的都會單身比」</span>與<span class="highlight">「35%的老宅孤老率」</span>是臺灣空間治理的兩條關鍵紅線！住宅政策不能再只以「核心家庭」為單位來規劃了。</li>
+                        <li><strong>建議：</strong> 善用「住宅狀況成果資訊網站」動態監測區域家戶變動，將社會住宅的房型比例，與單身、單親等地區人口結構精準掛鉤，讓住宅供給真正符合社會需求。</li>
+                    </ul>
+                </li>
+                <li><strong>穿透監管，排除消防安全盲點：</strong>
+                    <ul>
+                        <li>那些用途登記不明的新屋，就像是居住的「黑盒子」，不僅扭曲了數據，更埋下消防安全的隱患。</li>
+                        <li><strong>建議：</strong> 透過電力大數據勾稽，清查這些登記用途不明的新屋實際居住狀況，揪出隱藏的風險，讓居住安全不再有盲區。</li>
+                    </ul>
+                </li>
+                <li><strong>活化錯置，緩解房型消失危機：</strong>
+                    <ul>
+                        <li>「老人住大宅、青年住蟻居」的代際錯置，以及標準家庭房的消失，是我們社會的痛點。</li>
+                        <li><strong>建議：</strong> 提供稅賦優惠等「綠色通道」，誘導那<span class="highlight">14萬戶單人住大宅</span>的資源釋出，回到市場，緩解育兒家庭對中坪數房型的迫切需求，讓居住空間能更有效率地利用。</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>總結來說，唯有透過大數據資料管線，動態監測資產流量與存量，並透過稅制調節與空間政策對齊，才能將住宅資源從「資產鎖定」迴歸「居住本質」，最終落實我們追求的，真正的居住正義！</p>
+        </div>
+    </details>
+</body>
+</html>
+
