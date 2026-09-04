@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>住在台灣｜住宅狀況調查數據故事</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F4F0;
+    --ink:#23281F;
+    --ink-soft:#5A5F55;
+    --hairline:#D9D7CE;
+    /* 三篇主色 */
+    --p1:#2E7F8C; --p1-tint:#DEEEF0; --p1-deep:#1D5A64;
+    --p2:#A65A2E; --p2-tint:#F2E3D6; --p2-deep:#7A3E1C;
+    --p3:#6B5B8E; --p3-tint:#E8E3F0; --p3-deep:#4C3F6B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif; font-weight:400;
+    line-height:1.9; letter-spacing:.02em;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;
+    background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3));
+    z-index:200;transition:width .1s linear;}
+
+  #topnav{position:sticky;top:0;z-index:100;
+    background:rgba(245,244,240,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--hairline);}
+  #topnav .bar{max-width:960px;margin:0 auto;padding:10px 20px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  #topnav .home{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;
+    text-decoration:none;color:var(--ink);letter-spacing:.08em;
+    margin-right:auto;white-space:nowrap;}
+  #topnav .home:hover{opacity:.7;}
+  .navchip{font-size:12.5px;font-weight:700;letter-spacing:.06em;
+    text-decoration:none;padding:5px 12px;border-radius:20px;
+    border:1.5px solid transparent;white-space:nowrap;
+    transition:transform .15s ease, box-shadow .15s ease;}
+  .navchip:hover,.navchip:focus-visible{transform:translateY(-1px);box-shadow:0 2px 6px rgba(35,40,31,.18);}
+  .navchip:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .navchip.n1{color:var(--p1-deep);border-color:var(--p1);background:var(--p1-tint);}
+  .navchip.n2{color:var(--p2-deep);border-color:var(--p2);background:var(--p2-tint);}
+  .navchip.n3{color:var(--p3-deep);border-color:var(--p3);background:var(--p3-tint);}
+
+  #backtop{position:fixed;right:22px;bottom:26px;z-index:150;
+    width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--ink);color:#F5F4F0;font-size:20px;line-height:1;
+    box-shadow:0 4px 14px rgba(35,40,31,.3);
+    opacity:0;visibility:hidden;transform:translateY(10px);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s;}
+  #backtop.show{opacity:1;visibility:visible;transform:translateY(0);}
+  #backtop:hover{background:#000;}
+  #backtop:focus-visible{outline:3px solid var(--p1);outline-offset:3px;}
+  #backtop small{display:block;font-size:9px;letter-spacing:.1em;margin-top:2px;}
+
+  header{padding:56px 0 0;}
+  .spectrum{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:40px;}
+  .spectrum span{flex:1;}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.35em;color:var(--ink-soft);margin-bottom:14px;}
+  h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(34px,6vw,52px);line-height:1.3;letter-spacing:.04em;}
+  .masthead-sub{margin-top:18px;font-size:16px;color:var(--ink-soft);max-width:34em;}
+  .meta-note{margin-top:28px;padding:16px 20px;border-left:3px solid var(--hairline);font-size:13.5px;color:var(--ink-soft);line-height:1.8;}
+
+  /* ── 首頁三篇總覽卡 ── */
+  .parts{margin:48px 0 0;display:grid;gap:26px;}
+  .part-card{border:1px solid var(--hairline);border-top:6px solid var(--pc);
+    border-radius:14px;background:#FDFDFB;box-shadow:0 2px 14px rgba(35,40,31,.05);
+    padding:clamp(24px,4.5vw,38px);}
+  .pc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+  .pc-no{font-size:12.5px;font-weight:700;letter-spacing:.3em;color:#fff;background:var(--pc);
+    border-radius:4px;padding:4px 12px 4px 15px;}
+  .pc-head h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(22px,4vw,30px);color:var(--pc-deep);line-height:1.4;}
+  .pc-ct{margin-left:auto;font-size:12.5px;font-weight:700;letter-spacing:.08em;color:var(--pc);white-space:nowrap;}
+  .pc-sub{margin-top:10px;font-size:14.5px;color:var(--ink-soft);max-width:38em;}
+  .pc-list{margin-top:18px;display:grid;gap:8px;}
+  .toc-group{margin-top:8px;font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--pc-deep);}
+  .toc-row{display:flex;align-items:baseline;gap:12px;
+    padding:11px 14px;border-radius:10px;border:1px solid var(--hairline);background:#fff;
+    font-size:14px;color:var(--ink);text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;}
+  a.toc-row:hover{transform:translateX(4px);box-shadow:0 2px 10px rgba(35,40,31,.1);}
+  a.toc-row:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .toc-no{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--pc);letter-spacing:.04em;white-space:nowrap;}
+  .toc-name{color:var(--ink);}
+  .toc-ct{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--pc);white-space:nowrap;}
+  .toc-row.pending{opacity:.5;background:transparent;}
+  .toc-row.pending .toc-ct{color:var(--ink-soft);}
+  .toc-row.xref{border-style:dashed;background:transparent;}
+  .toc-row.xref .toc-ct{color:var(--ink-soft);}
+
+  /* ── 篇章大標 ── */
+  .part-head{margin:120px 0 0;scroll-margin-top:80px;border-top:2px solid var(--ink);padding-top:34px;}
+  .part-head .pc-no{background:var(--pc);}
+  .part-head h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(28px,5vw,40px);color:var(--pc-deep);line-height:1.4;margin-top:14px;}
+  .part-head p{margin-top:10px;color:var(--ink-soft);font-size:15.5px;max-width:36em;}
+  .facet-head{margin:72px 0 0;scroll-margin-top:80px;}
+  .facet-head .fno{display:inline-block;color:var(--pc-deep);border:1.5px solid var(--pc);background:var(--pc-tint);
+    font-size:12.5px;font-weight:700;letter-spacing:.22em;padding:4px 12px 4px 15px;border-radius:20px;margin-bottom:12px;}
+  .facet-head h3{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(22px,4vw,30px);line-height:1.4;color:var(--ink);}
+  .facet-head p{margin-top:8px;color:var(--ink-soft);font-size:14.5px;max-width:36em;}
+  .pending-box{margin:26px 0 0;padding:18px 22px;border:1.5px dashed var(--hairline);border-radius:12px;
+    font-size:14px;color:var(--ink-soft);background:transparent;}
+  .pending-box b{color:var(--ink);}
+  .xref-card{margin:26px 0 0;padding:18px 22px;border:1.5px dashed var(--pc);border-radius:12px;
+    font-size:14.5px;color:var(--ink);background:var(--pc-tint);}
+  .xref-card a{color:var(--pc-deep);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--pc);}
+  .xref-card a:hover{opacity:.7;}
+
+  /* ── 章節標 ── */
+  .section-head{margin:96px 0 8px;scroll-margin-top:80px;}
+  .section-head .band{display:inline-block;color:#fff;
+    font-size:13px;font-weight:700;letter-spacing:.3em;
+    padding:6px 16px 6px 19px;border-radius:4px;margin-bottom:18px;background:var(--ax);}
+  .section-head h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(26px,4.5vw,36px);line-height:1.4;color:var(--ax-deep);}
+  .section-head p{margin-top:12px;color:var(--ink-soft);font-size:15.5px;max-width:36em;}
+  .sub-divider{margin:72px 0 -24px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;color:var(--ax-deep);
+    display:flex;align-items:center;gap:14px;}
+  .sub-divider::after{content:"";flex:1;height:1px;background:var(--hairline);}
+
+  /* ── 故事卡 ── */
+  .ax-section{--ax:#1E6E51;--ax-tint:#DEEDE4;--ax-deep:#134A36;}
+  .story{margin:56px 0;background:#FDFDFB;
+    border:1px solid var(--hairline);border-left:6px solid var(--ax);
+    border-radius:14px;padding:clamp(28px,5vw,48px);
+    box-shadow:0 2px 14px rgba(35,40,31,.05);
+    scroll-margin-top:80px;}
+  .story .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.28em;color:var(--ax);margin-bottom:20px;}
+  .flag{display:inline-block;letter-spacing:.1em;font-size:11px;color:#fff;background:var(--ax);
+    border-radius:3px;padding:1px 8px;margin-left:8px;vertical-align:1px;}
+  .flag.lv{background:transparent;color:var(--ax-deep);border:1px solid var(--ax);}
+  .flag.ext{background:transparent;color:var(--ink-soft);border:1px solid var(--ink-soft);}
+  .pull{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:26px;border-bottom:1px dashed var(--hairline);}
+  .pull .num{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(48px,9vw,76px);line-height:1;color:var(--ax);letter-spacing:-.01em;}
+  .pull .num small{font-size:.45em;}
+  .pull.formula .num{font-size:clamp(26px,5vw,40px);line-height:1.4;}
+  .pull .label{font-size:14px;color:var(--ink-soft);max-width:16em;line-height:1.7;}
+  .story h3{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.55;letter-spacing:.03em;margin-bottom:22px;}
+  .story p{font-size:16px;margin-bottom:1.1em;text-align:justify;}
+  .story p:last-of-type{margin-bottom:0;}
+  .story p strong{color:var(--ax-deep);font-weight:700;}
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 18px;}
+  .quad div{border:1px solid var(--hairline);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.7;background:#fff;}
+  .quad b{display:block;color:var(--ax-deep);margin-bottom:4px;}
+  .policy{margin-top:24px;background:var(--ax-tint);border-radius:10px;padding:18px 22px;font-size:15px;line-height:1.85;}
+  .policy .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.22em;color:#fff;background:var(--ax);border-radius:3px;padding:2px 10px 2px 12px;margin-bottom:8px;}
+  .src{margin-top:20px;font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em;}
+  .src::before{content:"◈ ";color:var(--ax);}
+  .story-foot{margin-top:18px;display:flex;gap:14px;font-size:13px;}
+  .story-foot a{color:var(--ax-deep);text-decoration:none;font-weight:700;letter-spacing:.05em;border-bottom:1.5px solid var(--ax);padding-bottom:1px;}
+  .story-foot a:hover{opacity:.7;}
+
+  footer{margin-top:96px;padding:36px 0 100px;border-top:1px solid var(--hairline);font-size:13px;color:var(--ink-soft);line-height:2;}
+  footer p{margin-bottom:10px;max-width:40em;}
+  .spectrum.bottom{margin:0 0 28px;}
+
+  @media (max-width:560px){
+    .quad{grid-template-columns:1fr;}
+    .toc-row{flex-wrap:wrap;}
+    .toc-ct{margin-left:0;}
+  }
+</style>
+</head>
+<body id="top">
+
+<div id="progress" aria-hidden="true"></div>
+
+<nav id="topnav" aria-label="主導覽">
+  <div class="bar">
+    <a class="home" href="#top">住在台灣</a>
+    <a class="navchip n1" href="#part1">壹・數字俯瞰</a>
+    <a class="navchip n2" href="#part2">貳・主題解析</a>
+    <a class="navchip n3" href="#part3">參・未來深探</a>
+  </div>
+</nav>
+
+<button id="backtop" aria-label="回到首頁頂端" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲<small>TOP</small></button>
+
+<header class="wrap">
+  <div class="spectrum" aria-hidden="true">
+    <span style="background:var(--p1)"></span><span style="background:var(--p2)"></span><span style="background:var(--p3)"></span>
+  </div>
+  <div class="kicker">住宅狀況調查・數據故事總站</div>
+  <h1>住在台灣</h1>
+  <p class="masthead-sub">
+    937萬間房子、981萬個戶口、67萬筆政策租約、52萬筆成屋買賣——
+    50則數據故事看清台灣人「住」的現在，18個交叉分析提案探向下一步。
+    三部曲：俯瞰、解析、深探。
+  </p>
+  <div class="meta-note">
+    本站彙整《住宅狀況調查》系列分析之數據故事：第壹篇取自〈常態性住宅狀況分析〉期中報告書（基準日2025年6月30日）；
+    第貳篇取自〈主題式住宅議題分析〉之主題分析3（近三年交易，2026/08/26）與主題分析4（政策參與者，2026/08/26）；
+    第參篇為後續交叉分析之提案。文中「宅」指房屋稅籍等資料之住宅單位、「戶」指戶籍登記家戶，兩者為不同母體；
+    低度使用住宅與未來屋齡分布為依報告方法之推估值。各篇章開頭另載明其資料口徑。
+  </div>
+
+  <div class="parts">
+
+    <!-- 第壹篇卡 -->
+    <div class="part-card" style="--pc:var(--p1);--pc-deep:var(--p1-deep);--pc-tint:var(--p1-tint)">
+      <div class="pc-head"><span class="pc-no">第壹篇</span><h2>數字俯瞰台灣住宅</h2><span class="pc-ct">4章・20則</span></div>
+      <p class="pc-sub">對應〈常態性住宅狀況分析〉——以屋齡、家戶、供需分配與縣市四條軸線，俯瞰台灣住宅的全貌與五年趨勢。</p>
+      <div class="pc-list">
+        <a class="toc-row" href="#s1-1"><span class="toc-no">1-1</span><span class="toc-name">房子變老了——住宅老化危機</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row" href="#s1-2"><span class="toc-no">1-2</span><span class="toc-name">家變小了——家戶結構劇變</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row" href="#s1-3"><span class="toc-no">1-3</span><span class="toc-name">房子夠不夠？在誰手上？——供需與分配</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row" href="#s1-4"><span class="toc-no">1-4</span><span class="toc-name">城鄉與縣市的故事</span><span class="toc-ct">5則 ↓</span></a>
+      </div>
+    </div>
+
+    <!-- 第貳篇卡 -->
+    <div class="part-card" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
+      <div class="pc-head"><span class="pc-no">第貳篇</span><h2>主題解析台灣住宅</h2><span class="pc-ct">4面向・30則</span></div>
+      <p class="pc-sub">對應〈主題式住宅議題分析〉四大面向——低度使用、近三年交易與政策參與者的深度解析；年齡分群與售購屋者主題待資料產出後擴充。</p>
+      <div class="pc-list">
+        <div class="toc-group">2-1　年齡分群面向</div>
+        <div class="toc-row pending"><span class="toc-no">2-1</span><span class="toc-name">青壯年・中壯年・高齡者族群主題</span><span class="toc-ct">待擴充</span></div>
+        <div class="toc-group">2-2　當前住宅議題面向</div>
+        <a class="toc-row" href="#s2-2-1"><span class="toc-no">2-2-1</span><span class="toc-name">空著的房子——低度使用住宅</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row xref" href="#s1-1"><span class="toc-no">2-2-2</span><span class="toc-name">老舊住宅狀況</span><span class="toc-ct">互見 1-1 →</span></a>
+        <a class="toc-row xref" href="#s1-3"><span class="toc-no">2-2-3</span><span class="toc-name">住宅擁有狀況</span><span class="toc-ct">互見 1-3 →</span></a>
+        <div class="toc-group">2-3　購屋與售屋面向</div>
+        <div class="toc-row pending"><span class="toc-no">2-3-1</span><span class="toc-name">最近一年售屋者主題</span><span class="toc-ct">待擴充</span></div>
+        <div class="toc-row pending"><span class="toc-no">2-3-2</span><span class="toc-name">最近一年購屋者主題</span><span class="toc-ct">待擴充</span></div>
+        <a class="toc-row" href="#s2-3-3"><span class="toc-no">2-3-3</span><span class="toc-name">成交的台灣——近三年交易住宅屬性</span><span class="toc-ct">10則 ↓</span></a>
+        <div class="toc-group">2-4　政策參與者面向（租約上的台灣）</div>
+        <a class="toc-row" href="#s2-4-1"><span class="toc-no">2-4-1</span><span class="toc-name">誰在租？——房客的臉孔</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row" href="#s2-4-2"><span class="toc-no">2-4-2</span><span class="toc-name">誰在出租？——房東的臉孔</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row" href="#s2-4-3"><span class="toc-no">2-4-3</span><span class="toc-name">租到什麼房？——政策物件的品質</span><span class="toc-ct">5則 ↓</span></a>
+      </div>
+    </div>
+
+    <!-- 第參篇卡 -->
+    <div class="part-card" style="--pc:var(--p3);--pc-deep:var(--p3-deep);--pc-tint:var(--p3-tint)">
+      <div class="pc-head"><span class="pc-no">第參篇</span><h2>未來深探台灣住宅</h2><span class="pc-ct">4章・18案</span></div>
+      <p class="pc-sub">50則故事之後的18個交叉分析提案——以「設籍×用電」為方法論母表，把政策意涵從方向性建議推進到可操作的機制。</p>
+      <div class="pc-list">
+        <a class="toc-row" href="#s3-1"><span class="toc-no">3-1</span><span class="toc-name">設籍——被低估的關鍵欄位</span><span class="toc-ct">5案 ↓</span></a>
+        <a class="toc-row" href="#s3-2"><span class="toc-no">3-2</span><span class="toc-name">空屋的真相——用電資料是照妖鏡</span><span class="toc-ct">4案 ↓</span></a>
+        <a class="toc-row" href="#s3-3"><span class="toc-no">3-3</span><span class="toc-name">人與世代——把「誰」放回統計裡</span><span class="toc-ct">6案 ↓</span></a>
+        <a class="toc-row" href="#s3-4"><span class="toc-no">3-4</span><span class="toc-name">房東與產權——釋出誘因的證據</span><span class="toc-ct">3案 ↓</span></a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ════════════════ 第壹篇 ════════════════ -->
+  <div class="part-head" id="part1" style="--pc:var(--p1);--pc-deep:var(--p1-deep)">
+    <span class="pc-no">第壹篇</span>
+    <h2>數字俯瞰台灣住宅</h2>
+    <p>937萬間房子、981萬個戶口，交織成台灣人「住」的真實樣貌。四條軸線、20則故事，俯瞰台灣住宅的全貌與五年趨勢。</p>
+    <div class="meta-note">
+      資料來源：《住宅狀況調查—常態性住宅狀況分析》期中報告書。除另有標註外，統計基準日為2025年6月30日；
+      「宅」指房屋稅籍等資料之住宅單位、「戶」指戶籍登記家戶，兩者為不同母體。未來屋齡分布為依報告方法之推估值。
+    </div>
+  </div>
+
+  <!-- ══════════ 1-1 房子變老了 ══════════ -->
+  <section class="ax-section" style="--ax:#A65A2E;--ax-tint:#F2E3D6;--ax-deep:#7A3E1C">
+    <div class="section-head" id="s1-1">
+      <span class="band">1-1</span>
+      <h2>房子變老了——住宅老化危機</h2>
+      <p>人口高齡化人人在談，但另一場高齡化正安靜地發生在我們頭頂上：台灣的房子，老得比想像中快，而接棒的新房子遠遠不夠。</p>
+    </div>
+
+    <article class="story" id="c1-1-1">
+      <div class="eyebrow">1-1-1｜總體診斷</div>
+      <div class="pull"><span class="num">33.92<small>年</small></span><span class="label">2025年全國住宅平均屋齡，五年間增加1.92年</span></div>
+      <h3>平均屋齡33.92年：台灣的房子，正在加速變老</h3>
+      <p>走進台灣任何一條巷弄，平均每看到十間房子，就有將近四間屋齡超過41年——這不是感覺，是統計。2025年，全國住宅平均屋齡達33.92年，五年間增加1.92年；屋齡41年以上的老宅占38.10%，五年上升6.46個百分點。</p>
+      <p>工程界常以50至60年作為鋼筋混凝土住宅的設計壽命，理想的屋齡結構應是年輕、中齡、老屋各占約三分之一。現實卻是：20年以下的年輕住宅僅占23.68%，41年以上老宅高達38.10%，<strong>天平已明顯傾斜</strong>。更關鍵的是速度——老屋與新屋的數量比，從2021年的1.37倍一路升到2025年的1.61倍。老化不是緩慢發生，而是正在加速。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        這組數字是都更、危老重建與住宅修繕政策的倒數計時器。「延壽」（修繕補強）與「換血」（重建）必須雙軌並進，否則「房子總量增加、能安心住的房子減少」的矛盾將成真。
+      </div>
+      <div class="src">資料依據：期中報告 表9、表10、圖5（屋齡分組占比—五年趨勢及區域）</div>
+      <div class="story-foot"><a href="#s1-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-1-2">
+      <div class="eyebrow">1-1-2｜替代率警報</div>
+      <div class="pull"><span class="num">62.14<small>%</small></span><span class="label">全國住宅替代率——每100間老屋，只有約62間新屋可接棒</span></div>
+      <h3>替代率只剩62.14%：新房子追不上老房子退場的速度</h3>
+      <p>報告提出了一個直白的指標——「住宅替代率」：屋齡20年以下新宅數，除以41年以上老宅數。100%代表一比一替補；低於100%，就是新血不足。2025年全國替代率僅62.14%：<strong>每100間老宅，只有約62間新宅能接棒。</strong></p>
+      <p>區域落差更觸目：北部68.24%、中部64.61%、南部52.77%，東部只剩33.11%；唯一超過100%的是外島（147.5%）。縣市層級像兩個世界：桃園、新竹縣市與金門替代率逾120%，是近20年的新建熱區；台北市卻僅26.88%、嘉義縣27.03%——過去20年，這些地方的住宅幾乎沒有換過血。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        替代率點名了資源該去的地方：在新建熱區，課題是公共設施跟上開發速度；在替代率不足三成的台北市與嘉義縣，都更與危老的行政量能必須加倍投入，否則老屋退場之日，就是無屋可補之時。
+      </div>
+      <div class="src">資料依據：期中報告 表11、表13（住宅替代率—全國、區域及縣市）</div>
+      <div class="story-foot"><a href="#s1-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-1-3">
+      <div class="eyebrow">1-1-3｜十年推估</div>
+      <div class="pull"><span class="num">33.93<small>%</small></span><span class="label">推估2035年屋齡51年以上老屋占比——十年內從14.51%翻升逾一倍</span></div>
+      <h3>33.93%：十年後，三分之一的台灣住宅將年過半百</h3>
+      <p>把時間快轉十年。報告假設未來的新建與拆除量維持過去十年水準，據此推估：屋齡51年以上的「老屋」，將從2025年的14.51%（約136萬宅）飆升到2035年的33.93%（約354萬宅）；再過十年，2045年達47.49%、約545萬宅——<strong>全台將近一半的房子年過半百。</strong></p>
+      <p>最劇烈的是台北市：老屋占比十年內將從20.74%跳升至53.13%，暴增32.39個百分點，2035年就有過半住宅超過50歲。而且報告指出，多數縣市老屋占比的最大增幅落在「2025到2035年」這個區間——高峰不在遙遠的未來，就在眼前這十年。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        推估的前提是「一切維持現狀」，這正是警訊的意義：若都更、危老重建與新建供給不加速，這張時間表就會如期兌現。未來十年，是扭轉住宅老化的黃金窗口。
+      </div>
+      <div class="src">資料依據：期中報告 圖8、表15、表16（2035及2045年住宅屋齡推估）</div>
+      <div class="story-foot"><a href="#s1-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-1-4">
+      <div class="eyebrow">1-1-4｜城鄉反差</div>
+      <div class="pull"><span class="num">52.36<small>%</small></span><span class="label">推估2045年「非六都」屋齡51年以上老屋占比——高於六都的45.58%</span></div>
+      <h3>52.36%：住宅老化的重災區，不在都會在鄉鎮</h3>
+      <p>談住宅老化，直覺以為是台北都會區的事。推估數字卻說：鄉鎮更嚴重。2045年，六都的51年以上老屋占比為45.58%，非六都地區卻達52.36%——<strong>過半數住宅年過半百。</strong></p>
+      <p>攤開縣市名單，推估2045年老屋占比逾五成的縣市多達12個；其中台北市、嘉義縣、花蓮、台東、屏東更將突破60%。除了台北，這些地方多半人口外流、居民高齡化，自主重建的財務能量最弱，市場驅動的都更也最不容易到達——房子最老的地方，恰好是市場最不想去的地方。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        老化重災區與都更資源集中區，正好錯開。政策需要「非都會版」解方：公辦都更與整建維護量能下鄉、修繕補助向偏鄉加碼，並把長照與住宅政策接軌，正視「老人住老屋」的居住安全。
+      </div>
+      <div class="src">資料依據：期中報告 圖8、表14、表16（六都/非六都及縣市老化程度推估）</div>
+      <div class="story-foot"><a href="#s1-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-1-5">
+      <div class="eyebrow">1-1-5｜東部切片</div>
+      <div class="pull"><span class="num">33.11<small>%</small></span><span class="label">東部區域住宅替代率——每三間老屋，只有約一間新屋可替補</span></div>
+      <h3>替代率33.11%：東部，被新房子遺忘的地方</h3>
+      <p>在住宅老化的地圖上，東部是顏色最深的一塊。花東地區屋齡41年以上老宅占比48.47%，全國最高；20年以下年輕住宅僅16.05%，全國最低；替代率33.11%——<strong>每三間老屋，只有約一間新屋能替補。</strong></p>
+      <p>往後看更沉重：推估2035年東部51年以上老屋占比達45.68%，2045年升至61.81%，十間房子六間年過半百，居全國之冠。而東部同時是家戶擁屋率最低的區域——53.74%的家戶未單獨持有住宅，全國最高。房子老、自有資源少，兩重弱勢在此疊加。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        東部需要的不是等待市場，而是政府主導的整建維護、耐震補強與公共住宅投資——在觀光與移居熱潮之外，先把「一直住在這裡的人」的屋頂修好。
+      </div>
+      <div class="src">資料依據：期中報告 表10、表11、圖9（區域屋齡結構與推估）、表39（家戶持有住宅數）</div>
+      <div class="story-foot"><a href="#s1-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 1-2 家變小了 ══════════ -->
+  <section class="ax-section" style="--ax:#3D5A80;--ax-tint:#E1E8F1;--ax-deep:#2A3F5C">
+    <div class="section-head" id="s1-2">
+      <span class="band">1-2</span>
+      <h2>家變小了——家戶結構劇變</h2>
+      <p>戶口簿正在改寫台灣的家庭想像：一個人的戶口成為最大宗，大家庭退成稀有物種，而家裡的成員，愈來愈常是一位長者。</p>
+    </div>
+
+    <article class="story" id="c1-2-1">
+      <div class="eyebrow">1-2-1｜獨戶時代</div>
+      <div class="pull"><span class="num">40.24<small>%</small></span><span class="label">「1人戶」占全國戶籍數比率——首度突破四成</span></div>
+      <h3>40.24%：台灣正快速走向「一個人的家」</h3>
+      <p>2025年第2季，一個歷史性的數字出現了：全國「1人戶」占總戶籍數40.24%，首度突破四成——每10個戶口，就有4個只登記著一個人，比五年前上升5.91個百分點。天平的另一端，「6人以上戶」占比4.35%，首度跌破5%；全國平均戶內人數2.38人，五年少了0.24人。</p>
+      <p>更顛覆直覺的是：1人戶占比最高的前三名不是台北、不是六都，而是<strong>基隆（44.01%）、澎湖（43.95%）、宜蘭（43.33%）</strong>——「一個人的戶口」早已不是都會專利，而是全台共同的進行式。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        當1人與2-3人戶合計已近八成（78.40%），住宅規劃的「標準家庭」想像必須翻新：宜居的小宅型、社宅的單人房配比、獨居者的社區支持網絡，都是新的必答題。
+      </div>
+      <div class="src">資料依據：期中報告 圖14、表23、表24（每戶籍人數—五年趨勢、區域及縣市）</div>
+      <div class="story-foot"><a href="#s1-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-2-2">
+      <div class="eyebrow">1-2-2｜屋裡的人變少了</div>
+      <div class="pull"><span class="num">2.91<small>人</small></span><span class="label">平均每宅設籍人數——首度跌破3人</span></div>
+      <h3>2.91人：平均每間房子住的人，首度跌破三人</h3>
+      <p>戶口簿上的家在變小，房子裡實際設籍的人也在變少。2025年第2季，全國有設籍的802萬宅中，平均每宅設籍人數2.91人，首度跌破3人；「1人住戶」占32.10%，首次突破三成，「6人以上住戶」9.68%，首次低於一成。全國最大的居住群像，是「住在16至25坪房子裡的1人住戶」，占所有設籍住宅的8.85%。</p>
+      <p>更耐人尋味的是：即使在66坪以上的大房子裡，1人住戶也占24.43%，高於6人以上住戶的17.44%——<strong>大房子裡住一個人，已經比住一大家子更常見。</strong></p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        空間與人口的錯配正在浮現：有人擠小宅，有人守大屋。鼓勵高齡者換屋釋出大宅、建立分租與共居的合法框架，能讓既有的居住空間被更好地使用。
+      </div>
+      <div class="src">資料依據：期中報告 圖16、表25（每宅設籍人數）、表66（住宅面積與宅內人口數交叉表）</div>
+      <div class="story-foot"><a href="#s1-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-2-3">
+      <div class="eyebrow">1-2-3｜家有一老</div>
+      <div class="pull"><span class="num">36.90<small>%</small></span><span class="label">家中有66歲以上長者的家戶比率——共362萬戶</span></div>
+      <h3>超過三分之一的家戶，住著一位66歲以上的長者</h3>
+      <p>2025年，全國981萬戶籍家戶中，有362萬戶住著至少一位66歲以上的長者，占36.90%——超過三分之一。同時，戶長本身就是高齡者的家戶占29.75%，五年上升3.07個百分點；年輕戶長（35歲以下）僅占10.41%，年輕、中齡、高齡戶長大致呈1：6：3。</p>
+      <p>區域分布上，東部（40.03%）與南部（38.47%）的高齡家戶比率高於全國——<strong>而這恰好與住宅老化最嚴重的區域高度重疊</strong>：東部41年以上老宅占48.47%，全國之最。「老人住老屋」不只是印象，而是統計上的雙重疊加。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        高齡家戶的居住是複合課題：無障礙改善、電梯增設、耐震補強，需與長照體系整合；而都更遲緩的老市街，正是高齡家戶最集中之處——住宅政策與高齡政策，必須寫成同一份政策。
+      </div>
+      <div class="src">資料依據：期中報告 表27、圖19（戶長年齡）、表31、表32（有高齡人口之家戶）、表10（區域屋齡）</div>
+      <div class="story-foot"><a href="#s1-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-2-4">
+      <div class="eyebrow">1-2-4｜孩子去哪了</div>
+      <div class="pull"><span class="num">21.53<small>%</small></span><span class="label">家中有未成年（0-17歲）人口的家戶比率——僅約211萬戶</span></div>
+      <h3>只剩21.53%的家戶，還有未成年的孩子</h3>
+      <p>在981萬個家戶裡，還有未成年孩子的家，只剩211萬2,197戶，占21.53%；其中育有學齡前（0至6歲）幼兒的家戶更僅82萬3,694戶，占8.40%。換句話說，<strong>走過任何一條街，每五戶人家只有一戶有孩子，每十二戶才有一戶有幼兒。</strong></p>
+      <p>區域差異透露端倪：中部育幼比率最高（有幼兒家戶占9.09%），南部（7.71%）、東部（7.66%）與外島（7.34%）皆低於全國。少子化不再只是出生數的新聞標題，它已經具體改寫了台灣家戶的組成，也改寫了住宅需求的樣貌。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        育兒家戶已是「少數群體」，居住政策更該精準傾斜：社宅育兒家庭優先配額、租金補貼加碼、學區與托育資源導向的住宅供給，讓願意生養的家庭住得起、也住得近。
+      </div>
+      <div class="src">資料依據：期中報告 表29、表30（育有0-6歲、0-17歲人口之家戶—全國、區域及縣市）</div>
+      <div class="story-foot"><a href="#s1-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-2-5">
+      <div class="eyebrow">1-2-5｜一宅多戶</div>
+      <div class="pull"><span class="num">1.22<small>戶</small></span><span class="label">平均每一有設籍住宅登記的戶數——約130萬宅設籍2戶以上</span></div>
+      <h3>平均1.22戶：一個屋簷下，不只一本戶口簿</h3>
+      <p>我們習慣「一間房子＝一個家」，戶籍資料卻說沒這麼簡單。全國802萬有設籍住宅，平均每宅設籍1.22戶：83.82%的住宅只設籍1戶，但有16.18%——約130萬宅——的屋簷下，登記著兩本以上的戶口簿。</p>
+      <p>合住最盛的是外島與農業縣：金門平均每宅高達1.96戶、僅56.04%單戶設籍；澎湖合住比率27.45%、嘉義縣22.76%、雲林20.82%。耐人尋味的是台北市——合住比率20.65%，竟與農業縣相當。<strong>報告解讀：這反映首都居住成本高，以及為就學、福利條件而設籍的現象。</strong>相對地，新竹縣（87.53%）、基隆（87.63%）等人口移入城市，「一宅一戶」最純粹。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        「戶數」與「房數」之間，隔著一層合住與寄籍。以戶為單位的補貼與統計，可能高估居住需求；辨明一宅多戶的組成——三代同堂、分戶節稅或寄籍——是政策精準化的前提。
+      </div>
+      <div class="src">資料依據：期中報告 表49、表50（每住宅設籍家戶數—全國、區域及縣市）</div>
+      <div class="story-foot"><a href="#s1-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 1-3 房子夠不夠？在誰手上？ ══════════ -->
+  <section class="ax-section" style="--ax:#1E6E51;--ax-tint:#DEEDE4;--ax-deep:#134A36">
+    <div class="section-head" id="s1-3">
+      <span class="band">1-3</span>
+      <h2>房子夠不夠？在誰手上？——供需與分配</h2>
+      <p>台灣的房子，總量早已超過家戶數。但「夠」是平均出來的幻覺——真正的問題藏在分配裡：誰有房、誰沒房、房子正在往誰的手上流動。</p>
+    </div>
+
+    <article class="story" id="c1-3-1">
+      <div class="eyebrow">1-3-1｜供給總量</div>
+      <div class="pull"><span class="num">107.6<small>%</small></span><span class="label">2025年全國住宅供給率——每100戶家庭，約有108宅可分</span></div>
+      <h3>107.6%的供給率：房子總量夠了，為什麼還是不夠住？</h3>
+      <p>帳面上，台灣不缺房。2025年全國住宅存量951萬宅，普通家戶884萬戶，平均每100戶家庭有將近108間房可分。但把時間拉長看，故事變了：過去五年住宅存量成長5.47%，家戶數卻成長9.67%，供給率因此下滑4.28個百分點。<strong>房子在增加，「家」增加得更快。</strong></p>
+      <p>家戶為什麼暴增？一是家越拆越小，單人戶、小家庭成為主流；二是2024年7月囤房稅2.0上路後，部分多屋家庭可能將配偶、子女分戶設籍到名下房屋，戶口簿一夕變多。最近一年家戶數暴增45.9萬戶、年增5.48%，遠高於往年。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        住宅供需不能只看總量。誰組成了新家戶、他們住得起哪裡的房，才是關鍵。當供給率逐年逼近100%，區位錯配與可負擔性，將比「蓋得夠不夠」更重要。
+      </div>
+      <div class="src">資料依據：期中報告 表7、表8、圖4（住宅存量、普通家戶數及住宅供給率五年趨勢）</div>
+      <div class="story-foot"><a href="#s1-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-3-2">
+      <div class="eyebrow">1-3-2｜首都缺口</div>
+      <div class="pull"><span class="num">99.97<small>%</small></span><span class="label">台北市住宅供給率——全國唯一低於100%的縣市</span></div>
+      <h3>99.97%：台北是全國唯一房子比家戶少的城市</h3>
+      <p>全台22縣市，21個房子多過家戶，只有一個例外——台北市。2025年台北住宅存量95萬3,492宅，普通家戶95萬3,745戶，短缺253宅。數字看似只差一點點，意義卻很重：<strong>首都是全國唯一「絕對數量不夠住」的地方。</strong>對照組是宜蘭125.95%、連江125.27%、基隆116.48%，房子多到有餘裕。</p>
+      <p>更深一層看，台北的問題不只是量。它的住宅替代率僅26.88%——每100間屋齡41年以上的老宅，只有不到27間20年以下的新宅可以接棒，居全國最低段班。不夠住，又老得快，雙重壓力疊加。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        台北的解方不在郊區蓋新城，而在加速都市更新與危老重建——讓老房子原地長出新房子；同時以社會住宅與租金補貼，接住等不到都更的人。
+      </div>
+      <div class="src">資料依據：期中報告 表8（住宅供給率—全國及縣市）、表13（住宅替代率—全國及縣市）</div>
+      <div class="story-foot"><a href="#s1-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-3-3">
+      <div class="eyebrow">1-3-3｜擁屋的兩個台灣</div>
+      <div class="pull"><span class="num">41.27<small>%</small></span><span class="label">名下未單獨持有任何住宅的家戶比率——將近405萬戶</span></div>
+      <h3>41.27%的家戶，名下沒有一間單獨持有的房</h3>
+      <p>把全台981萬戶籍家戶的財產攤開，會看見兩個台灣。一邊：41.27%的家戶未單獨持有任何住宅，將近405萬戶。另一邊：9.85%的家戶持有2宅、3.96%持有3宅以上，合計約135萬戶握有超過一間房。若把「共同持有」也算進來、以實際同住的住戶計算，<strong>持有2宅以上者達27.16%，超過四分之一。</strong></p>
+      <p>區域差異同樣鮮明：東部有53.74%的家戶無單獨持有住宅，全國最高；外島金門卻有三成住戶持有3宅以上。需要提醒的是，「未持有」不等於「無屋可住」——許多人住在配偶或父母名下的房子。但擁屋分布的傾斜，是明確的訊號。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        住宅政策不能只問「總量夠不夠」，更要問「在誰手上」。囤房稅制、空屋活化與租屋市場健全化，正是回應這道裂縫的工具。
+      </div>
+      <div class="src">資料依據：期中報告 表39、表40、表41（家戶及住戶持有住宅數—全國及區域）</div>
+      <div class="story-foot"><a href="#s1-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-3-4">
+      <div class="eyebrow">1-3-4｜世代依賴</div>
+      <div class="pull"><span class="num">76.14<small>%</small></span><span class="label">未滿18歲戶長的住宅中，產權登記在非同宅親屬（多為父母）名下的比率</span></div>
+      <h3>當戶長未滿18歲：孩子名義上的家，大人名下的房</h3>
+      <p>統計裡有個耐人尋味的角落：戶長未滿18歲的住宅中，僅5.86%為設籍者自己持有，高達76.14%登記在「非同宅設籍的親屬」——多半是父母——名下。即使成年了也一樣：18至25歲戶長的住宅，自有比率僅24.94%，仍有62.77%由親屬持有。<strong>年輕世代的「獨立門戶」，往往是戶籍上的獨立，不是產權上的獨立。</strong></p>
+      <p>背後原因很務實：為了就學學區、就業通勤而分戶設籍，或所有權人為適用自用住宅優惠稅率所做的安排。報告更發現，35歲以下青年戶長所住的房子，約四成產權握在46至55歲的壯年世代手裡。世代之間的居住依賴，是高房價下的家庭互助，也是政策的鏡子。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        當青年成家的門檻需要父母資產才跨得過，租屋協助、青年安居金融支持與社宅供給，就是為沒有這張家庭安全網的年輕人補位。
+      </div>
+      <div class="src">資料依據：期中報告 表73（戶長年齡與設籍者自有狀況交叉表）、表75（戶長年齡與所有權人年齡交叉表）</div>
+      <div class="story-foot"><a href="#s1-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-3-5">
+      <div class="eyebrow">1-3-5｜世代移轉</div>
+      <div class="pull"><span class="num">11.15<small>%</small></span><span class="label">住宅所有權以「繼承＋贈與」取得的合計占比，且逐年攀升</span></div>
+      <h3>繼承加贈與占比11.15%：房產大移轉的時代開場了</h3>
+      <p>台灣的房子怎麼換主人？答案七成靠買賣。2025年，本國自然人單獨持有的772萬宅中，以「買賣」取得者占72.33%，且逐年上升。但另一條曲線更值得注意：<strong>「繼承」與「贈與」合計占11.15%，雙雙逐年攀升</strong>——早年大量購屋的世代正逐漸老去，房產開始沿著家族血脈向下流動。</p>
+      <p>區域差異藏著線索：東部繼承贈與比率達15.68%，明顯高於北部的10.10%。北部房市交易活絡，房子在世代移轉後很快又被賣掉；中南部與東部的房子，則更常「留在家裡」。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        世代移轉潮帶來三個課題：繼承的多是高齡老宅，修繕重建需求將湧現；多人共同繼承的產權共有，可能讓老屋更難整合都更；而當「繼承取代購屋」成為常態，沒有祖產的家庭，居住劣勢恐被世代放大。
+      </div>
+      <div class="src">資料依據：期中報告 表34、表35、圖25（住宅所有權取得原因—五年趨勢及區域）</div>
+      <div class="story-foot"><a href="#s1-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 1-4 城鄉與縣市 ══════════ -->
+  <section class="ax-section" style="--ax:#2E7F8C;--ax-tint:#DEEEF0;--ax-deep:#1D5A64">
+    <div class="section-head" id="s1-4">
+      <span class="band">1-4</span>
+      <h2>城鄉與縣市的故事</h2>
+      <p>全國平均會抹平差異，縣市數字才有表情。五個地方切片——基隆、外島、桃竹科技廊帶、彰化與新北——各自說著一種台灣的居住未來。</p>
+    </div>
+
+    <article class="story" id="c1-4-1">
+      <div class="eyebrow">1-4-1｜港都獨居</div>
+      <div class="pull"><span class="num">44.01<small>%</small></span><span class="label">基隆市「1人戶」占比——全國最高</span></div>
+      <h3>44.01%：基隆，一個人的城市</h3>
+      <p>談到獨居，多數人想到台北的單身公寓。統計卻把鏡頭轉向基隆：全台「1人戶」占比最高的城市（44.01%）；以實際設籍的住戶計算，1人住戶也達36.7%，而6人以上住戶僅4.99%，是全國小口化最鮮明的縣市。</p>
+      <p>這座港都同時擁有116.48%的住宅供給率，房子有餘裕——但多是屋齡20至40年、占比近五成的中齡住宅，推估2045年將有過半住宅年逾半百（50.71%）。人口外移、通勤台北、房價相對可負擔，讓基隆成為單身與小家庭的落腳處，也讓它成為觀察<strong>「一個人的城市」如何老去</strong>的最佳樣本。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        基隆是縮影：供給充足不等於居住品質。對獨居化與住宅老化並行的中型城市，重點不在蓋新房，而在舊屋更新、公寓電梯化與社區照顧網絡的織補。
+      </div>
+      <div class="src">資料依據：期中報告 表24（1人戶占比）、圖18、表26（每宅設籍人數）、表8（供給率）、表16（屋齡推估）</div>
+      <div class="story-foot"><a href="#s1-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-4-2">
+      <div class="eyebrow">1-4-2｜外島悖論</div>
+      <div class="pull"><span class="num">17.35<small>%</small></span><span class="label">金門縣低度使用住宅占比——全國最高</span></div>
+      <h3>17.35%：擁屋最多的外島，也是空屋最多的地方</h3>
+      <p>金門是統計上最矛盾的島。它的住戶擁屋率全國最高：僅20.96%的住戶未單獨持有住宅，持有3宅以上者更達30.83%——<strong>將近三分之一的住戶坐擁三屋。</strong>它的房子也最年輕：屋齡20年以下占44.87%，全國第一。但同一座島，低度使用率17.35%同樣是全國之冠。</p>
+      <p>謎底藏在歷史與制度裡：戰地政務解除後地籍登記較晚、小三通與金門大橋帶動開發熱潮，加上設籍誘因，讓「登記在金門的家」遠多於「實際住在金門的人」。鄰居連江縣則是另一種特殊：6人以上大家庭占14.91%，全國最高。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        外島數字提醒我們：戶籍、產權與實際居住是三件事。以設籍為基礎的資源分配在外島容易失真，政策需輔以「實際居住」的判準，建設投資才不會追著虛的人口跑。
+      </div>
+      <div class="src">資料依據：期中報告 表43（住戶持有住宅數—縣市）、表16（屋齡）、表52（低度使用—縣市）、表24（戶內人數—縣市）</div>
+      <div class="story-foot"><a href="#s1-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-4-3">
+      <div class="eyebrow">1-4-3｜新建熱區</div>
+      <div class="pull"><span class="num">120<small>%+</small></span><span class="label">桃園、新竹縣市、金門的住宅替代率——年輕住宅明顯多於老宅</span></div>
+      <h3>替代率逾120%：桃竹，長出新房子的地方</h3>
+      <p>台灣也有房子愈長愈多的地方。桃園、新竹縣、新竹市與金門的住宅替代率都超過120%——年輕住宅比老宅多出兩成以上，是近20年的新建熱區。新竹縣屋齡20年以下住宅占41.44%，本島最年輕；桃園也達33.50%。</p>
+      <p>但熱區有熱區的煩惱：新竹縣供給率僅100.45%、新竹市101.90%、台中103.42%，全落在「勉強足夠」一級——<strong>房子蓋得快，人湧入得更快</strong>，科技廊帶的磁吸效應讓供給始終追著需求跑。老屋問題在別處是存量危機，在這裡則是成長管理的考題。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        新建熱區的課題不是「夠不夠」，而是「跟不跟得上」：學校、托育、交通必須與開發同步；並以可負擔住宅確保移入的年輕工作者，不會被自己創造出來的房價推走。
+      </div>
+      <div class="src">資料依據：期中報告 表13（住宅替代率—縣市）、表16（屋齡占比）、表8（住宅供給率—縣市）</div>
+      <div class="story-foot"><a href="#s1-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-4-4">
+      <div class="eyebrow">1-4-4｜大家庭堡壘</div>
+      <div class="pull"><span class="num">8.27<small>%</small></span><span class="label">彰化縣「6人以上戶」占比——本島最高、全國平均的1.9倍</span></div>
+      <h3>8.27%：彰化，大家庭最後的堡壘</h3>
+      <p>當全台的家戶奔向「一個人」，彰化往另一個方向站著。它的「6人以上戶」占8.27%，本島最高、全國平均的1.9倍；「4至5人戶」也達21.33%，合計近三成家戶是四人以上的大家庭。平均戶內人數2.74人，明顯高於全國的2.38人。三合院、透天厝與家族比鄰而居，在這裡仍是日常——連住宅型態都看得出來：<strong>彰化住商合一的住宅占16.42%，店面樓上住人的街屋文化鮮明。</strong></p>
+      <p>但堡壘也在老去：彰化屋齡51年以上老屋占比，推估將從2025年的20.61%升至2045年的57.54%——屆時近六成住宅年過半百。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        大家庭聚居讓長照與育兒仍能仰賴家族網絡，這是政策的資產；但承載這一切的老屋正在到期。農業縣的整建維護、三合院與透天的重建工具，不能再套用公寓大廈的都會邏輯。
+      </div>
+      <div class="src">資料依據：期中報告 表24（戶內人數—縣市）、表48（使用類型—縣市）、表16（屋齡推估—縣市）</div>
+      <div class="story-foot"><a href="#s1-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c1-4-5">
+      <div class="eyebrow">1-4-5｜小宅之都</div>
+      <div class="pull"><span class="num">27.45<small>坪</small></span><span class="label">新北市住宅平均面積——22縣市中最小（全國平均36.88坪）</span></div>
+      <h3>27.45坪：新北，全台房子最小的城市</h3>
+      <p>全國住宅平均36.88坪，新北市只有27.45坪——比多數農業縣少了近20坪，是22縣市中最小。攤開結構：新北16至25坪的住宅占39.29%，加上15坪以下的11.59%，<strong>超過一半的房子在25坪以內。</strong>這是四百萬人口都會的生存邏輯：地價高、通勤族多、單身與小家庭湧入（新北1人戶占42.16%，六都最高），小宅成為市場與居民相互妥協的答案。</p>
+      <p>而全國正朝同一方向走：20坪以下小宅占比五年間升至19.32%，平均面積連年縮水——「新北模式」，正在變成「台灣模式」。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        小宅化難以逆轉，政策重點應從「抑制」轉向「顧好品質」：最小居住面積基準、小宅的採光通風與公共空間規範，以及防止小坪數淪為純投資商品的制度設計。
+      </div>
+      <div class="src">資料依據：期中報告 表4（住宅面積—縣市）、圖12（面積五年趨勢）、表24（1人戶占比—縣市）</div>
+      <div class="story-foot"><a href="#s1-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ════════════════ 第貳篇 ════════════════ -->
+  <div class="part-head" id="part2" style="--pc:var(--p2);--pc-deep:var(--p2-deep)">
+    <span class="pc-no">第貳篇</span>
+    <h2>主題解析台灣住宅</h2>
+    <p>從全貌走進議題：空著的房子、成交的房子、租約上的房子。四大面向、30則故事，逐題解析台灣住宅最受關注的現場。</p>
+    <div class="meta-note">
+      本篇對應《住宅狀況調查—主題式住宅議題分析》四大面向。各主題資料口徑於章節開頭載明；
+      「老舊住宅狀況」與「住宅擁有狀況」兩主題與第壹篇1-1、1-3互見；
+      年齡分群面向（2-1）及售屋者、購屋者主題（2-3-1、2-3-2）待資料產出後擴充。
+    </div>
+  </div>
+
+  <!-- ── 面向 2-1 ── -->
+  <div class="facet-head" id="s2-1" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
+    <span class="fno">面向 2-1</span>
+    <h3>年齡分群面向</h3>
+    <p>青壯年、中壯年與高齡者三個族群的住宅圖像。</p>
+  </div>
+  <div class="pending-box">
+    <b>待擴充。</b>本面向之「青壯年族群」「中壯年族群」「高齡者族群」三個主題，將於主題分析資料產出後納入；
+    屆時各則編號採 2-1-1-□ 至 2-1-3-□。年齡視角目前可先參見 1-2-3（家有一老）、1-3-4（世代依賴）、2-4-1-2（青年租客）等則。
+  </div>
+
+  <!-- ── 面向 2-2 ── -->
+  <div class="facet-head" id="s2-2" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
+    <span class="fno">面向 2-2</span>
+    <h3>當前住宅議題面向</h3>
+    <p>低度使用、老舊住宅與住宅擁有——三個最常被問起的住宅議題。</p>
+  </div>
+
+  <!-- ══════════ 2-2-1 空著的房子 ══════════ -->
+  <section class="ax-section" style="--ax:#6B5B8E;--ax-tint:#E8E3F0;--ax-deep:#4C3F6B">
+    <div class="section-head" id="s2-2-1">
+      <span class="band">2-2-1</span>
+      <h2>空著的房子——低度使用住宅</h2>
+      <p>電表不會說謊。當一間房子連續數月幾乎不用電，它大概沒有在「住」。全台推估近百萬間這樣的房子，正安靜地等待被看見。</p>
+      <div class="meta-note">資料來源同第壹篇（常態性期中報告）；低度使用住宅為依報告方法（特定月份平均每月用電低於60度）之推估值。</div>
+    </div>
+
+    <article class="story" id="c2-2-1-1">
+      <div class="eyebrow">2-2-1-1｜空屋總量</div>
+      <div class="pull"><span class="num">10.42<small>%</small></span><span class="label">推估全國低度使用（用電）住宅占比——約97萬6,796宅</span></div>
+      <h3>10.42%：全台推估近百萬間房子，幾乎沒在用電</h3>
+      <p>房子有沒有人住，電表最誠實。依內政部定義，特定月份平均每月用電不到60度的住宅，即為「低度使用」。2025年，透過773萬宅的稅籍與台電資料勾稽，推估全國低度使用住宅達97萬6,796宅、占比10.42%——<strong>全台每10間房，就有1間幾乎沒在用電。</strong></p>
+      <p>分布很不平均：人口湧入的北部僅8.83%，外島高達16.76%；全國有16個縣市超過10%，金門17.35%最高，本島以台東16.12%居冠。而新北、台北、桃園、台中、新竹縣市等居住需求最強的6縣市，反而落在6%至10%的「中等」區間。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        近百萬宅的閒置量能，是住宅政策的隱藏籌碼：空屋稅制誘因、包租代管媒合、結合地方創生的閒置屋活化，能讓「沒人用的房子」重新接上「需要房子的人」。惟低度用電屬推估指標，制度設計須保留判斷彈性。
+      </div>
+      <div class="src">資料依據：期中報告 表51、表52（低度使用住宅數及占比—全國、區域及縣市）</div>
+      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-2-1-2">
+      <div class="eyebrow">2-2-1-2｜沉睡的空屋</div>
+      <div class="pull"><span class="num">51.88<small>%</small></span><span class="label">低度使用住宅中，連續空置達4期（兩年）以上的比率</span></div>
+      <h3>51.88%的空屋，已經連續空了兩年以上</h3>
+      <p>空屋不可怕，可怕的是一直空著。追蹤低度使用住宅的連續期間（每期半年）發現：只空1期的占26.84%——這類多屬待售、換屋之間的正常過渡。但<strong>連續空置4期、也就是兩年以上的，高達51.88%</strong>；連續1年以上者合計約占四分之三（74.28%）。台灣的空屋，大多不是「市場流通中」，而是長期沉睡。</p>
+      <p>區域對照更清楚：東部與外島的長期空置最嚴重，北部最輕——愈是市場冷的地方，房子一旦空下來，就愈難再醒。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        政策應區分「過渡型空屋」與「沉睡型空屋」：前者交給市場自然消化；後者才是空屋稅、修繕活化與公益出租的目標。以連續空置期數精準鎖定對象，比一刀切更有效，也更公平。
+      </div>
+      <div class="src">資料依據：期中報告 表53、表54（住宅連續低度使用期數占比—全國、區域及縣市）</div>
+      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-2-1-3">
+      <div class="eyebrow">2-2-1-3｜新屋悖論</div>
+      <div class="pull"><span class="num">27.28<small>%</small></span><span class="label">屋齡1年以下新成屋的低度使用率——全屋齡最高</span></div>
+      <h3>27.28%：最新的房子，反而最常空著</h3>
+      <p>直覺上，老房子才會空。數據卻指向另一端：屋齡1年以下的新成屋，低度使用率高達27.28%，全屋齡最高；設籍率更只有33.1%，全屋齡最低。市場最搶手的反而是11至20年的中古屋，低度使用率僅6.91%。面積也有同樣的分界：15坪以下小宅低度使用率17.98%，且<strong>將近一半（47.28%）沒有任何人設籍</strong>——小宅常被作為投資、學區設籍等居住以外的用途。</p>
+      <p>報告也誠實提醒：用電60度的判準有其極限，小宅可能有人住但省電，大宅可能沒人住卻耗電，估算方法仍可持續精進。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        「最新的房子最常空著」暗示部分新屋首先是資產、其次才是住所。針對新成屋的持有成本設計、交屋後的空置追蹤，是讓新屋回到居住本業的關鍵。
+      </div>
+      <div class="src">資料依據：期中報告 表57、表58（屋齡、面積×低度使用交叉表）、表59、表60（屋齡、面積×設籍狀況交叉表）</div>
+      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-2-1-4">
+      <div class="eyebrow">2-2-1-4｜空屋的臉孔</div>
+      <div class="pull"><span class="num">60.25<small>%</small></span><span class="label">低度使用住宅中，宅內僅設籍1人的比率</span></div>
+      <h3>60.25%：空屋的戶口簿上，常常只有一個名字</h3>
+      <p>空屋長什麼樣子？交叉分析給了一張臉孔素描。在低度用電的住宅中，設籍1人的占60.25%，加上設籍2人的18.08%，合計78.33%——<strong>每五間空屋，將近四間的戶口簿上只有一、兩個名字。</strong>反過來看，設籍1人的住宅，低度使用率13.91%，是各人數組別中最高；設籍4人以上的住宅，低度使用率則不到3%。</p>
+      <p>這組數字戳破了一種可能：不少「1人戶」也許根本不是有人獨居，而是有人「把戶籍放在那裡」——為了學區、稅率或福利，房子本身卻空著。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        設籍與居住的脫鉤，會讓以戶籍為基礎的人口與需求統計失真。空屋認定若結合「用電＋設籍」雙指標，就能把「真獨居」與「假設籍」分開——讓獨居關懷與空屋活化，各自找對對象。
+      </div>
+      <div class="src">資料依據：期中報告 表76（宅內人口數與低度使用狀況交叉表）</div>
+      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-2-1-5">
+      <div class="eyebrow">2-2-1-5｜退場前奏</div>
+      <div class="pull"><span class="num">67.86<small>%</small></span><span class="label">屋齡51年以上住宅的設籍比率——約三分之一已無人設籍</span></div>
+      <h3>67.86%：年過半百的老屋，三成已無人設籍</h3>
+      <p>房子的一生，也有謝幕的段落。統計顯示，屋齡6至50年的住宅，設籍率都在八成以上——這是住宅「服役中」的常態。但跨過51年門檻，設籍率驟降至67.86%：<strong>大約每三間半百老屋，就有一間已無人設籍。</strong>報告的解讀很直白：這些住宅「逐漸邁入不堪使用或產權複雜的狀態」——屋況差到住不了，或繼承共有喬不攏，房子就這樣被留在原地。</p>
+      <p>再對照屋齡推估：51年以上老屋十年後將從136萬宅暴增到約354萬宅。今天三成無人設籍的比率，乘上明天翻倍的老屋數量，就是一幅正在放大的「住宅退場」圖像。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        台灣有完整的住宅「出生」制度（建照、使照），卻缺乏「退場」機制。老屋安全查核、強制修繕或拆除的法制、共有產權的整合工具，是住宅政策必須補上的最後一哩。
+      </div>
+      <div class="src">資料依據：期中報告 表59（屋齡與設籍狀況交叉表）、表15（2035年屋齡推估）</div>
+      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <div class="xref-card" id="s2-2-2" style="--pc:#A65A2E;--pc-deep:#7A3E1C;--pc-tint:#F2E3D6">
+      <b>2-2-2　老舊住宅狀況</b>——本主題之數據故事已完整收錄於第壹篇 <a href="#s1-1">1-1「房子變老了——住宅老化危機」（1-1-1～1-1-5）</a>，兩處互見、不另重複。
+    </div>
+    <div class="xref-card" id="s2-2-3" style="--pc:#1E6E51;--pc-deep:#134A36;--pc-tint:#DEEDE4">
+      <b>2-2-3　住宅擁有狀況</b>——本主題之數據故事已完整收錄於第壹篇 <a href="#s1-3">1-3「房子夠不夠？在誰手上？」（1-3-1～1-3-5）</a>，兩處互見、不另重複。
+    </div>
+  </section>
+
+  <!-- ── 面向 2-3 ── -->
+  <div class="facet-head" id="s2-3" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
+    <span class="fno">面向 2-3</span>
+    <h3>購屋與售屋面向</h3>
+    <p>誰在賣、誰在買、成交的是什麼房。</p>
+  </div>
+  <div class="pending-box">
+    <b>2-3-1 最近一年售屋者主題、2-3-2 最近一年購屋者主題：待擴充。</b>兩主題將於資料產出後納入；屆時各則編號採 2-3-1-□、2-3-2-□。
+  </div>
+
+  <!-- ══════════ 2-3-3 成交的台灣 ══════════ -->
+  <section class="ax-section" style="--ax:#9A6420;--ax-tint:#F0E4D0;--ax-deep:#6E4614">
+    <div class="section-head" id="s2-3-3">
+      <span class="band">2-3-3</span>
+      <h2>成交的台灣——近三年交易住宅屬性</h2>
+      <p>三年、十二季、52萬筆成屋買賣——實價登錄第一次以本案口徑攤開：台灣人買什麼屋齡、付多少錢、選什麼格局、買在哪裡。10則故事，分三小節說給你聽。</p>
+      <div class="meta-note">
+        資料來源：《主題分析3—近三年交易住宅屬性》(2026/08/26)。實價登錄不動產買賣案件2023年第1季至2025年第4季共12季、22縣市，
+        經排除非住宅與預售屋（270,042筆，占住宅交易33.0%）後，統計母體為522,531筆成屋交易，一宅一筆。
+        本主題所有統計均不含預售屋；屋齡採B分組（配合房地合一稅2.0，未滿2年合併計）；格局房數極端值已依原報告驗算處理；
+        「存量」對照值取自常態性報告。引用時請併註資料時點與「不含預售屋」之口徑。
+      </div>
+    </div>
+
+    <div class="sub-divider">市場的規模與胃口——誰在動、買多新（2-3-3-1～3）</div>
+
+    <article class="story" id="c2-3-3-1">
+      <div class="eyebrow">2-3-3-1｜市場的體溫</div>
+      <div class="pull"><span class="num">5.57<small>%</small></span><span class="label">近三年成屋交易量占稅籍住宅存量之比——六都6.03%、其他縣市4.46%</span></div>
+      <h3>5.57%：近三年，每一百間房子只有五、六間換過手</h3>
+      <p>台灣的房市新聞天天喧騰，但把鏡頭拉遠，市場其實很安靜。近三年（2023–2025）全國成屋買賣52.3萬筆，除以938萬間稅籍住宅，<strong>只有5.57%的房子換過手</strong>——粗估年均不到2%，若以此速度，一間房子平均要五十多年才輪到一次買賣。</p>
+      <p>熱度也分城鄉：六都的近三年換手率6.03%，其他縣市僅4.46%。這個數字是理解台灣住宅政策的底層事實：絕大多數房子長年不進市場，價格與品質的訊號，是由每年不到2%的交易決定的；而九成五的存量——包括98萬空屋與362萬有長者的家——安靜地留在原地。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        流動性這麼低的市場，「管交易」的政策（稅制、信用管制）只能碰到冰山一角；老屋更新、空屋活化、高齡居住等課題，終究要靠「動存量」的工具。住宅政策的主戰場在那95%沒有換手的房子裡。
+      </div>
+      <div class="src">資料依據：主題分析3 表5（縣市別交易量及交易/稅籍住宅數比）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-2">
+      <div class="eyebrow">2-3-3-2｜看不見的三分之一</div>
+      <div class="pull"><span class="num">33.0<small>%</small></span><span class="label">近三年住宅交易中預售屋之占比（270,042筆，已自本統計排除）</span></div>
+      <h3>33.0%：每三筆住宅交易，就有一筆買的是還沒蓋好的房子</h3>
+      <p>在進入這份統計之前，先看一眼被排除的部分——它本身就是一則故事。近三年81.9萬筆住宅買賣中，有27萬筆是預售屋，占33.0%：<strong>每三個買房的台灣人，就有一個買的是圖紙上的房子</strong>，交屋要等二到四年。</p>
+      <p>這個比例說明預售制度已不是市場的配角，而是新屋供給的主要通路之一。它也劃出本主題的邊界：以下所有統計都是「成屋」的世界——52.3萬筆看得到、摸得到的房子。讀後面每一則時請記得，市場還有三分之一的交易，發生在還不存在的房子上；尤其新屋、大坪數產品的真實供給，比成屋統計顯示的更多。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        三分之一的交易建立在「先付錢、後交屋」的信任上，預售履約保證、建商財務監理與逾期交屋救濟，重要性不亞於成屋市場管理；交易統計與政策評估也應成屋、預售兩本帳並讀。
+      </div>
+      <div class="src">資料依據：主題分析3 篩選流程表（預售屋270,042筆，占住宅交易33.0%）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-3">
+      <div class="eyebrow">2-3-3-3｜市場的胃口</div>
+      <div class="pull"><span class="num">29.48<small>%</small></span><span class="label">成交住宅屋齡10年以下之占比——40年以上老屋僅占20.88%，約為其存量占比之半</span></div>
+      <h3>29.48%：成交的房子，近三成不到十歲</h3>
+      <p>存量與流量，是兩個不同的台灣。存量端，全國住宅近四成（38.10%）屋齡超過41年；但在交易端，近三年成交的房子有29.48%屋齡不到10年——其中15.38%甚至未滿2年，等於每六、七筆交易就有一筆是剛落成的新屋。反過來看，<strong>40年以上老屋只占成交的20.88%，約為它在存量中占比的一半</strong>。</p>
+      <p>畫面很清楚：市場的胃口偏新。新房子蓋好很快賣掉，老房子則沉在存量裡少有人接手——這正是「替代率62.14%、老屋退場緩慢」在交易端的鏡像：不是老屋不想退，是買方不接、換手無門。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        老屋流動性低，意味著「以市場換手帶動更新」這條路先天狹窄。都更危老政策應把「難以出售的老屋」視為政策對象而非市場問題，搭配整合平台與誘因，替不動的老屋開一條退場的路。
+      </div>
+      <div class="src">資料依據：主題分析3 表1（屋齡別）；存量對照取自常態性報告表9</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <div class="sub-divider" style="--ax-deep:#1F4A50">價格與格局——付多少錢、買什麼樣（2-3-3-4～6）</div>
+  </section>
+
+  <section class="ax-section" style="--ax:#2F6B72;--ax-tint:#DFEBEC;--ax-deep:#1F4A50">
+    <article class="story" id="c2-3-3-4">
+      <div class="eyebrow">2-3-3-4｜千萬門檻</div>
+      <div class="pull"><span class="num">22.37<small>%</small></span><span class="label">成交總價落在1,000–1,500萬之占比，各分組之最——48.37%在千萬以下成交</span></div>
+      <h3>22.37%：台灣人買房的主戰場，是一千到一千五百萬</h3>
+      <p>台灣的「一間房子多少錢」，答案藏在分布裡。近三年成交總價最大宗落在1,000–1,500萬，占22.37%；累計來看，48.37%的交易在1,000萬以下成交，70.74%在1,500萬以下——<strong>中位數那間房子，就是一間千萬出頭的房子</strong>。至於新聞版面上的豪宅，3,000萬以上其實只占7.38%。</p>
+      <p>這條分布線就是台灣購屋的「主戰場」：一半的買方在千萬上下進場，七成在一千五百萬內解決。它也是檢驗政策的一把尺——優惠貸款的額度上限、稅制級距、囤房稅的豪宅認定，畫在哪一條線上，決定政策照顧到的是分布的主體，還是尾巴。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        金融支持與稅制設計應貼著市場中位數走：額度畫得太低，主戰場的買方用不到；畫得太高，補貼會外溢到分布右尾。這條「千萬中線」值得成為各項購屋協助定期校準的基準。
+      </div>
+      <div class="src">資料依據：主題分析3 表12（總價別）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-5">
+      <div class="eyebrow">2-3-3-5｜一坪之價</div>
+      <div class="pull"><span class="num">29.32<small>%</small></span><span class="label">成交單價落在每坪20–30萬之占比，各分組之最——每坪50萬以上合計僅16.78%</span></div>
+      <h3>29.32%：最多人成交的單價，是一坪20到30萬</h3>
+      <p>「一坪百萬」的新聞看多了，容易忘記全國市場的真實刻度。近三年成交單價最大宗是每坪20–30萬，占29.32%；有四分之一（25.06%）的交易甚至在20萬以下成交。往高處看，每坪50萬以上的交易合計16.78%，80萬以上只有4.67%。</p>
+      <p>換句話說，<strong>台灣一半以上的住宅買賣，發生在每坪30萬以下的世界</strong>——那是雙北蛋黃區以外的廣大台灣。媒體鏡頭對準的高價帶，是真實存在、但只占不到兩成的市場切片。用台北的單價想像全國，會系統性誤判可負擔性問題的地理分布：對多數縣市而言，問題不是「一坪一百萬買不起」，而是所得追不上那一坪二、三十萬。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        居住負擔政策需要地理解析度。同一套補貼或信用管制，落在一坪25萬與一坪85萬的市場，效果天差地遠；負擔能力指標與政策強度，應以縣市甚至生活圈為單位分別校準。
+      </div>
+      <div class="src">資料依據：主題分析3 表13（單價別）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-6">
+      <div class="eyebrow">2-3-3-6｜三房仍是王</div>
+      <div class="pull"><span class="num">64.26<small>%</small></span><span class="label">成交住宅為3房以上之占比——2廳65.20%、2衛42.68%，「三房兩廳兩衛」仍是標準答案</span></div>
+      <h3>64.26%：家越變越小，市場仍是三房的天下</h3>
+      <p>存量端我們看過：一人戶已破四成、每宅設籍只剩2.91人。但交易端呈現的是另一個台灣——近三年成交的住宅，64.26%是3房以上，配上2廳（65.20%）與2衛（42.68%），「三房兩廳兩衛」依然是市場的標準答案；1房以下的交易合計僅16.10%。</p>
+      <p>兩組數字並不矛盾，而是揭示了「誰在買房」：進場的多是成家置產、有換屋能力的家庭，買的是家庭格局；而人數最多的一人戶，大量停留在租屋與既有住宅裡，不是交易市場的主角。<strong>市場供給跟著「買得起的人」走，不是跟著「人口結構」走</strong>——這道缺口，就是單身與高齡者住宅選擇稀少的來源。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        當市場自然供給以三房家庭宅為主，小家戶的居住選項——小宅、社宅、合宜租屋——難以靠市場補足，需要政策供給補位；同時應留意三房產品在家戶持續縮小下的長期去化風險。
+      </div>
+      <div class="src">資料依據：主題分析3 表6、7、8（格局房廳衛數）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <div class="sub-divider" style="--ax-deep:#572E43">品質與地圖——電梯、老公寓與冷熱縣市（2-3-3-7～10）</div>
+  </section>
+
+  <section class="ax-section" style="--ax:#7C4460;--ax-tint:#EEDFE7;--ax-deep:#572E43">
+    <article class="story" id="c2-3-3-7">
+      <div class="eyebrow">2-3-3-7｜無電梯的四成</div>
+      <div class="pull"><span class="num">39.73<small>%</small></span><span class="label">成交住宅無電梯之占比（207,593筆）——每五筆交易有兩筆買的是無梯宅</span></div>
+      <h3>39.73%：今天買下的無電梯住宅，是二十年後的高齡困境</h3>
+      <p>電梯，是住宅統計裡最貼近老後生活的一個欄位。近三年成交的52.3萬筆住宅中，39.73%沒有電梯——包括幾乎全數的公寓（占交易15.01%）與九成以上的透天厝。值得一提的是，透天已有7.32%配了電梯，「透天等於爬樓梯」的印象正在鬆動，但整體而言，每五筆交易仍有兩筆買的是無梯宅。</p>
+      <p>把這個數字放到人口結構上看：全國已有36.90%的家戶住著66歲以上長者。<strong>今天30歲買下四樓無梯公寓的人，30年後就是每天爬樓梯的65歲屋主</strong>——這四成交易，正在預約二、三十年後的垂直移動困境。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        無障礙不能只靠新建案。既有無梯宅的電梯增設、爬梯機與居家改善補助，應視為高齡化基礎建設；購屋資訊揭露也可強化「電梯／無障礙」欄位，讓買方在人生最長的一筆消費裡，把老後納入考量。
+      </div>
+      <div class="src">資料依據：主題分析3 表9（電梯別）、表3（建物類型別及註解）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-8">
+      <div class="eyebrow">2-3-3-8｜絕版品</div>
+      <div class="pull"><span class="num">0.29<small>%</small></span><span class="label">屋齡未滿2年成交中公寓之占比——公寓交易集中於屋齡40–49年（占該組48.01%）</span></div>
+      <h3>0.29%：新公寓近乎停產——每一筆公寓交易都是在買老屋</h3>
+      <p>在近三年的交易裡，有一種產品正在絕版：無電梯公寓。屋齡未滿2年的成交中，公寓只占0.29%；2–4年占0.36%、5–9年占0.54%——換句話說，<strong>市場上幾乎買不到「新的公寓」</strong>，這個產品在1990年代後就近乎停產了。今天成交的公寓集中在哪？屋齡40–49年的交易中，公寓占48.01%，正是1970到80年代那批公寓的黃金世代；至於50年以上的交易，61.01%是透天老厝。</p>
+      <p>所以每一筆公寓買賣，本質上都是在買一間老屋——買方買下的除了居住功能，往往還有一張「等待都更危老」的期權。公寓，就是台灣住宅更新的主戰場本身。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        公寓存量只出不進、整棟老去，其改建速度決定了台灣市容與居住安全的下一個三十年。都更危老資源應優先鎖定屋齡40年以上的公寓聚落，並正視「為改建而買」的市場行為對整合與房價的影響。
+      </div>
+      <div class="src">資料依據：主題分析3 表15（屋齡×建物類型）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-9">
+      <div class="eyebrow">2-3-3-9｜愈新愈大、愈老愈小</div>
+      <div class="pull"><span class="num">78.25<small>%</small></span><span class="label">屋齡40–49年成交中35坪以下之合計占比——未滿2年新屋15坪以下僅0.80%</span></div>
+      <h3>78.25%：40年老屋的成交，近八成是35坪以下</h3>
+      <p>屋齡與坪數交叉，浮現一條清楚的斜線：房子愈老，成交坪數愈小。屋齡40–49年的交易中，35坪以下合計占78.25%（其中26–35坪就占40.30%）；50年以上老屋更有36.85%落在16–25坪。反觀屋齡未滿2年的新成屋：15坪以下只占0.80%，56坪以上卻占27.32%；5–9年組的大坪數比例更高達33.23%。</p>
+      <p>這對想「小而新」的家庭是個壞消息：<strong>市場上的小宅幾乎都是老的，新的幾乎都是大的</strong>（本統計不含預售屋，預售小宅另計）。於是單身族與小家庭面臨一道選擇題——要新，就得買大、買貴；預算有限，就得接受40年公寓。「愈新愈大」的供給邏輯，與「家愈變愈小」的人口現實，正朝相反方向走。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        小坪數×新品質的住宅，是市場供給的明顯缺口。社宅與包租代管正好補在這一格；民間端則可檢討基準容積、車位與公設規範對小宅開發的隱性抑制，讓「小而新」成為可能的商品。
+      </div>
+      <div class="src">資料依據：主題分析3 表14（屋齡×面積）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-3-3-10">
+      <div class="eyebrow">2-3-3-10｜冷熱地圖</div>
+      <div class="pull"><span class="num">6.77<small>%</small></span><span class="label">桃園近三年換手率，全國之冠——最冷的雲林僅2.95%，冷熱相差逾一倍</span></div>
+      <h3>6.77%：桃園的房子最會換手，雲林的最不動</h3>
+      <p>把換手率攤到22個縣市，市場的冷熱地圖一目了然。最熱的是桃園：近三年6.77%的住宅換過手，全國之冠；基隆6.67%緊追在後，高雄（6.54%）、台中（6.15%）居次。最冷的在中南部農業縣：雲林2.95%、嘉義縣3.10%、彰化3.15%、澎湖3.02%——房子幾乎不進市場；連江更只有0.69%。</p>
+      <p>熱區的邏輯與先前「桃竹替代率逾120%」互為印證：新屋供給多的地方，交易自然活絡；基隆的高換手，則可能反映台北購屋壓力的外溢。冷區的邏輯藏在文化裡：<strong>自建透天、世代同堂、房產傳家，房子走繼承而不走市場</strong>——這也呼應了彰化「大家庭堡壘」與繼承贈與逐年攀升的長期趨勢。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        冷區的老屋幾乎不可能靠市場換手更新，重建整建資源應對冷區加權投放；熱區則要留意外溢購屋帶來的通勤與公共設施壓力。一套全國一致的政策，注定同時錯過冷與熱。
+      </div>
+      <div class="src">資料依據：主題分析3 表5（縣市別交易/稅籍住宅數比）</div>
+      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ── 面向 2-4 ── -->
+  <div class="facet-head" id="s2-4" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
+    <span class="fno">面向 2-4</span>
+    <h3>政策參與者面向——租約上的台灣</h3>
+    <p>300億租金補貼、社宅包租代管、六都直接興辦社宅——超過67萬筆租約大數據，第一次讓我們同時看清三張臉：誰在租屋、誰在出租、他們租的是什麼房。</p>
+    <div class="meta-note">
+      資料來源：《主題分析4—政策參與者分群》(2026/08/26)。租金補貼與包租代管為2025年第2季有效契約，六都直接興辦社宅為2026年2月28日有效契約。
+      兩項租賃政策租約有12.11%重疊（包租代管與租補制度接軌）；六都社宅因資料性質，本系列僅呈現「占比」、不使用案量絕對數。
+      「全國」對照值取自住宅狀況調查及戶籍統計。報告書本面向依政策別分五主題（租補家戶、包管家戶、社宅家戶、租補房東、包管房東）；
+      本系列以「房客／房東／物件」三個角色橫切三項政策，五個政策主題之內容均涵蓋於下列三章。
+    </div>
+  </div>
+
+  <!-- ══════════ 2-4-1 誰在租 ══════════ -->
+  <section class="ax-section" style="--ax:#B0433A;--ax-tint:#F3DFDD;--ax-deep:#7E2F28">
+    <div class="section-head" id="s2-4-1">
+      <span class="band">2-4-1</span>
+      <h2>誰在租？——房客的臉孔</h2>
+      <p>67萬筆租約背後，是67萬個正在被政策接住的家。他們比想像中年輕、比想像中集中，也有一群人，明顯地缺席了。</p>
+    </div>
+
+    <article class="story" id="c2-4-1-1">
+      <div class="eyebrow">2-4-1-1｜規模總覽</div>
+      <div class="pull"><span class="num">57.4<small>萬筆</small></span><span class="label">300億租金補貼2025年第2季有效契約數——全台最大的居住扶助現場</span></div>
+      <h3>57.4萬筆租約：全台最大的居住扶助現場</h3>
+      <p>如果要找一個「政府正在幫誰租房子」的現場，答案藏在57萬4,453筆租約裡。這是300億元中央擴大租金補貼的有效契約數——約當每17個戶籍家戶，就有1戶正領取租屋協助。加上社宅包租代管的9萬8,417筆，以及六都陸續開出的直接興辦社宅，三條政策軌道各自運轉，也彼此接軌：<strong>租補租約中有12.11%同時是包租代管案件</strong>，是兩制整合留下的清晰痕跡。</p>
+      <p>地圖攤開，三項政策的主場各不相同：租金補貼最大宗在台中（占全國租約21.26%）；包租代管重心在桃園（28.04%）與新北（24.00%）；直接興辦社宅則近半集中台北市（占比49.64%）。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        三軌各有擅場——補貼廣、包管中、社宅深。下一步的課題是讓三者從「並行」走向「分工」：依家戶需求的深淺配對協助強度，而不是讓民眾自己在三條軌道之間摸索。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 資料筆數說明、表1-1（租約縣市分布）</div>
+      <div class="story-foot"><a href="#s2-4-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-1-2">
+      <div class="eyebrow">2-4-1-2｜青春前傾</div>
+      <div class="pull"><span class="num">27.1<small>%</small></span><span class="label">租金補貼房客中18-24歲的占比——所有年齡組之最</span></div>
+      <h3>27.1%：租金補貼最大的客群，是18到24歲</h3>
+      <p>翻開300億租金補貼的房客名冊，最大的一群不是想像中的中年租屋族，而是18到24歲——占27.1%；再加上25到29歲的13.76%，光是30歲以下就撐起四成租約。把鏡頭拉遠對照：18至39歲青年占全國人口27%，在租補房客中卻占58.74%，<strong>濃度超過人口結構的兩倍</strong>；18-24歲占全國人口僅6.93%，在租補中的占比接近四倍於此。</p>
+      <p>這揭示了租金補貼實際扮演的角色：它是許多年輕人離開家、進入城市求學就業時，領到的第一份居住支持——申請年齡放寬至18歲、設籍限制鬆綁的擴大方案，正好接住了這群人。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        補貼已成為「青年離家的第一張船票」，但船票之後呢？從租補、包管到社宅、再到協助購屋的階梯是否銜接，決定這群人五年後是「畢業」還是「滯留」。政策應開始追蹤補貼世代的居住流向。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-1（房客與房東年齡分組）；全國人口結構對照同表</div>
+      <div class="story-foot"><a href="#s2-4-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-1-3">
+      <div class="eyebrow">2-4-1-3｜三張臉譜</div>
+      <div class="pull"><span class="num">20.15<small>%</small></span><span class="label">六都直接興辦社宅房客中65歲以上的占比——三項政策中最高</span></div>
+      <h3>20.15%：直接興辦社宅，接住最多高齡房客</h3>
+      <p>把三項政策的房客年齡曲線疊在一起，會看到三張不同的臉。租金補貼的高峰在18-24歲（27.1%），是一條「青春前傾」的曲線；社宅包租代管的高峰後移到25-34歲（合計27.23%），是成家前後的年輕家庭；六都直接興辦社宅的高峰再後移到30-39歲（合計28.29%），而且曲線尾端翹起——<strong>65歲以上房客占20.15%，三者中最高</strong>，幾乎與全國高齡人口占比（19.59%）同步。</p>
+      <p>差異不是偶然：補貼的申請門檻最低，學生租客也能輕鬆辦理；包管與社宅有媒合與管理，服務較深；直接興辦社宅更有弱勢保障與無障礙設計，成為高齡租客最穩妥的落腳處。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        三張臉譜證明「一項政策服務不了所有人」。與其比較誰的量大，不如確立分工：補貼顧廣度、包管顧中間、社宅顧深度——並讓高齡與弱勢者在三軌之間有明確的轉介路徑。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-1（三項政策房客年齡分組；六都社宅僅引用占比）</div>
+      <div class="story-foot"><a href="#s2-4-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-1-4">
+      <div class="eyebrow">2-4-1-4｜消失的族群</div>
+      <div class="pull"><span class="num">9.28<small>%</small></span><span class="label">租金補貼房客中65歲以上的占比——僅及全國高齡人口占比（19.59%）之半</span></div>
+      <h3>9.28%：租金補貼裡，消失的老年租客</h3>
+      <p>全國每五個人就有一個超過65歲（19.59%），但在300億租金補貼的57萬房客中，高齡者只占9.28%——不到人口結構的一半；80歲以上更僅占0.76%。老年租客去哪了？一部分答案是「不必租」：住宅調查顯示高齡世代自有率高，多數長者住在自己名下的房子。但另一部分答案，可能藏在租屋市場的暗處——房東顧慮風險而婉拒獨居長者、高齡者不熟悉線上申請、或根本不知道自己符合資格。</p>
+      <p>對照組會說話：服務較深的包租代管，高齡房客占11.14%；有專人管理的六都社宅，高齡占比達20.15%。<strong>愈需要人協助的族群，愈出現在協助愈深的政策裡。</strong></p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        租補的「高齡缺口」未必是需求不存在，而可能是門檻擋住了人。主動查調資格、臨櫃與代辦協助、搭配房東端的高齡友善出租誘因，是把消失的老年租客找回來的三把鑰匙。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-1（房客年齡分組及全國人口對照）</div>
+      <div class="story-foot"><a href="#s2-4-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-1-5">
+      <div class="eyebrow">2-4-1-5｜合租世代</div>
+      <div class="pull"><span class="num">24.65<small>%</small></span><span class="label">18-24歲租補房客租在「61坪以上」物件的比率——近全體平均（13.77%）的兩倍</span></div>
+      <h3>24.65%：四分之一的青春，合租在大房子裡</h3>
+      <p>統計表裡有個乍看奇怪的數字：18到24歲的租補房客，有24.65%租在「61坪以上」的房子——比任何年齡層都高，將近全體平均（13.77%）的兩倍。難道年輕人最闊綽？謎底更可能是<strong>「合租」</strong>：這裡的面積是租屋物件的登記面積，一棟大房子隔成多個房間分租，每位房客各簽一約，於是一群18-24歲的名字，同時掛在同一間61坪的房子底下。</p>
+      <p>房東端的數據呼應這個推測：平均每名自然人房東持有1.47筆租補租約；而僅占房東數1.42%的法人，卻握有13.23%的租約——整棟分租的專業經營者，正是青年合租市場的重要供給方。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        合租是青年真實的居住方式，卻長期落在「一戶一宅」的政策想像之外。分租空間的消防與安全規範、合租契約的權益保障、補貼認定如何面對「一宅多約」，是這串數字丟給制度的三個問題。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-5（房客年齡×租屋面積）；主題分析4(1) 表1-2（房東類型與數量）</div>
+      <div class="story-foot"><a href="#s2-4-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 2-4-2 誰在出租 ══════════ -->
+  <section class="ax-section" style="--ax:#3D5A80;--ax-tint:#E1E8F1;--ax-deep:#2A3F5C">
+    <div class="section-head" id="s2-4-2">
+      <span class="band">2-4-2</span>
+      <h2>誰在出租？——房東的臉孔</h2>
+      <p>租約的另一端，站著近37萬名房東。他們不是想像中的囤房大戶——多數只有一間房、年過半百，而且，愈新的政策吸引愈新的房東。</p>
+    </div>
+
+    <article class="story" id="c2-4-2-1">
+      <div class="eyebrow">2-4-2-1｜散戶天下</div>
+      <div class="pull"><span class="num">98.56<small>%</small></span><span class="label">300億租金補貼房東中自然人的占比——法人僅1.42%</span></div>
+      <h3>98.56%：政策租屋市場，是個人房東的天下</h3>
+      <p>誰在當政策房東？答案出乎意料地「散」。300億租金補貼的28萬9,535名房東中，98.56%是自然人，法人只占1.42%。台灣的政策租屋市場，不是建商與包租公司的舞台，而是<strong>千千萬萬個人房東的天下</strong>。</p>
+      <p>但另一面也值得注意：那1.42%的法人房東（4,117個），手上握有13.23%的租約（6.4萬筆），平均每個法人約16筆——專業化經營的雛形已經浮現。相對地，自然人房東平均每人僅1.47筆租約，包租代管更低至1.23筆：大多數房東，就只是「把一間房租出去的人」。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        面對98.56%的個人房東，政策工具必須「散戶友善」：簡化稅務、提供修繕與保險配套、壓低參與的行政成本；同時為成長中的法人房東建立專業租賃管理規範，讓兩種供給方各得其所。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表1-2（房東類型與數量）</div>
+      <div class="story-foot"><a href="#s2-4-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-2-2">
+      <div class="eyebrow">2-4-2-2｜世代對租</div>
+      <div class="pull"><span class="num">26.74<small>%</small></span><span class="label">租補房東中65歲以上的占比——房東最大單一年齡組為55-59歲</span></div>
+      <h3>26.74%：每四個房東，就有一個超過65歲</h3>
+      <p>把租約兩端的年齡放在一起，會看到一條世代的河。河的一岸：租補房客過半是18到39歲的青年（58.74%）。河的另一岸：房東近六成是40到64歲的中年（58.98%），65歲以上再占26.74%——<strong>每四個房東就有一個是高齡者</strong>，最大單一族群是55-59歲（13.00%）。青年的房租，流向父母輩與祖父母輩的口袋；台灣的租屋市場，本質上是一場「世代對租」。</p>
+      <p>有趣的是，包租代管的房東明顯年輕一截：高峰落在45-49歲（14.47%），高齡占比降到17.11%——愈新的政策工具，吸引愈年輕的房東世代。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        高齡房東的比例只會愈來愈高，而他們正是最怕麻煩、最容易退出市場的一群。代管服務、修繕協力與稅賦誘因若能鎖定銀髮房東，就能同時守住租屋供給，也守住長者的穩定收入。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-1（房客與房東年齡分組）</div>
+      <div class="story-foot"><a href="#s2-4-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-2-3">
+      <div class="eyebrow">2-4-2-3｜小房東主體</div>
+      <div class="pull"><span class="num">51.48<small>%</small></span><span class="label">租補自然人房東中，名下僅單獨持有一間房的比率</span></div>
+      <h3>51.48%：一半的房東，其實只有一間房</h3>
+      <p>「包租公」三個字，總讓人聯想到囤房大戶。數據給了另一幅畫像：300億租補的25.6萬名自然人房東中，51.48%名下只有一間單獨所有的房子——把它租出去的人，自己可能與家人同住、住在配偶名下的房，或在別的城市打拼。再加上持有兩屋的28.45%，<strong>將近八成的政策房東，擁屋不超過兩間</strong>；真正持有五屋以上的，只占5.77%。</p>
+      <p>包租代管的結構幾乎一模一樣（一屋51.09%、二屋29.72%）；改以家戶計算，圖像依然：約半數房東家戶，只靠一間房收租。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        政策房東的主體是「小房東」而非「大戶」，這改寫了政策槓桿的設計：囤房稅的大棒之外，更需要胡蘿蔔——公益出租人稅賦優惠、免費糾紛調解與代管服務，讓一屋小房東敢租、也願意租給政策戶。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-4、表2-5（自然人房東單獨所有擁屋數—人／家戶）</div>
+      <div class="story-foot"><a href="#s2-4-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-2-4">
+      <div class="eyebrow">2-4-2-4｜投資性格</div>
+      <div class="pull"><span class="num">82.55<small>%</small></span><span class="label">包租代管出租物件以「買賣」取得的比率——全國僅69.11%</span></div>
+      <h3>82.55%：包租代管的房子，八成多是買來的</h3>
+      <p>出租的房子從哪裡來？地政登記給了線索。全國所有單獨所有房屋中，以「買賣」取得的占69.11%；在300億租補房東的出租物件裡，買賣取得升到73.92%；到了社宅包租代管，更高達82.55%——<strong>比全國高出13個百分點以上。</strong></p>
+      <p>反過來看，全國有15.59%的房屋來自「第一次登記」（多為新建取得），在包管物件中只剩4.07%；繼承與贈與合計，也從全國的9.86%降到8.12%。輪廓浮現：交給政策出租的房子，多數是「特地買來」的——它們生來就帶著投資性格，收租正是其存在的理由之一。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        出租宅的投資性格是中性的事實：有人買房收租，市場才有房可租。政策的功課是把這股投資動能導向公益軌道——讓「買來出租」的房子，優先流進包租代管與弱勢可負擔的租屋供給。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-3（單獨所有物件之房東取得原因）</div>
+      <div class="story-foot"><a href="#s2-4-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-2-5">
+      <div class="eyebrow">2-4-2-5｜招募甜蜜點</div>
+      <div class="pull"><span class="num">23.44<small>%</small></span><span class="label">包租代管物件中，房東持有2至5年的比率——為全國同組（11.17%）的兩倍多</span></div>
+      <h3>23.44%：新手房東，最願意把房子交給政策</h3>
+      <p>什麼樣的房東最願意參與政策？答案藏在「持有期間」裡。全國單獨所有房屋中，持有超過二年未逾五年的占11.17%；在社宅包租代管的物件中，這個比率跳到23.44%——整整兩倍多；300億租補也達16.99%。合計持有十年內的「新產權」，在包管物件中約占52%，遠高於全國的33.6%。</p>
+      <p>畫面很清楚：<strong>剛買房不久的新手房東，最願意把房子交給政策</strong>——也許因為房貸壓力需要穩定租金，也許因為年輕房東對公益出租與代管服務的接受度本來就高。相對地，持有超過二十年的老產權，參與比率全面低於全國水準。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        政策房源的招募有明確的「甜蜜點」：交屋潮之後的頭幾年。與其亂槍打鳥，不如在新案交屋、產權移轉的時點精準遞出包租代管的邀請——在房子還沒決定用途之前，先幫它選一條公益的路。
+      </div>
+      <div class="src">資料依據：主題分析4(1) 表2-2（單獨所有物件之房東持有期間）</div>
+      <div class="story-foot"><a href="#s2-4-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 2-4-3 租到什麼房 ══════════ -->
+  <section class="ax-section" style="--ax:#4F7042;--ax-tint:#E4EBDE;--ax-deep:#37502D">
+    <div class="section-head" id="s2-4-3">
+      <span class="band">2-4-3</span>
+      <h2>租到什麼房？——政策物件的品質</h2>
+      <p>補貼付得出房租，但租到的是什麼房？屋齡與坪數兩把尺一量，租屋世界的品質輪廓——與那道看不見的世代之牆——都現形了。</p>
+    </div>
+
+    <article class="story" id="c2-4-3-1">
+      <div class="eyebrow">2-4-3-1｜租進老屋</div>
+      <div class="pull"><span class="num">26.77<small>%</small></span><span class="label">租補租約中屋齡41-50年的占比——各屋齡分組之最</span></div>
+      <h3>26.77%：租補房客最常租的，是41到50年的老屋</h3>
+      <p>政策幫忙付了房租，但房客租到的是什麼房？答案偏舊。300億租補的租約中，租屋屋齡落在41到50年的占26.77%，是所有分組之最；再加上51年以上的11.49%，<strong>近四成（38.26%）的補貼租約，簽在40年以上的老屋裡</strong>；屋齡10年內的物件只占11.27%。</p>
+      <p>這不全是房客的選擇，更是市場的形狀：可負擔的出租房源，本來就集中在都會的老公寓——電梯少、格局舊，但租金是青年與弱勢唯一租得起的價位。補貼進得去的地方，就是老房子密集的地方。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        租金補貼解決了「租得起」，還沒解決「住得好」。當四成補貼流向40年以上老屋，耐震、消防、無障礙等居住安全就該納入下一階段——讓修繕協力與租屋健檢，跟著補貼一起走進老公寓。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-2（租補房客年齡×租屋屋齡）</div>
+      <div class="story-foot"><a href="#s2-4-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-3-2">
+      <div class="eyebrow">2-4-3-2｜看得見的篩選</div>
+      <div class="pull"><span class="num">4.8<small>%</small></span><span class="label">包租代管租約中屋齡51年以上的占比（由筆數計算）——租補為11.49%</span></div>
+      <h3>約4.8%：包租代管裡，半百老屋近乎絕跡</h3>
+      <p>同樣是政策租屋，包租代管的房子明顯新得多。由租約筆數計算，包管物件屋齡51年以上的僅約4.8%——在租補租約中，這個比率是11.49%，濃度超過兩倍。往光譜另一端看，包管物件屋齡10年以下約占16.5%，高於租補的11.27%；主力落在21到40年的中壯齡住宅（合計約47%）。</p>
+      <p>差別從何而來？<strong>包租代管有業者把關</strong>：物件須通過基本屋況檢核、要能管理維護，太老太破的房子自然被篩掉。這是「有人替你看過房」與「自己上市場找房」的品質差距，也解釋了為何包管服務較深、量能卻較小。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        包管的房源篩選證明「品質是可以管理的」。下一步是讓這套檢核逐步外溢：領取租補的物件也應有基本安全查核與資訊揭露，縮小兩軌之間的品質落差。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-3（包管房客年齡×租屋屋齡；全國比率由筆數計算）、表3-2</div>
+      <div class="story-foot"><a href="#s2-4-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-3-3">
+      <div class="eyebrow">2-4-3-3｜坪數界線</div>
+      <div class="pull"><span class="num">27.38<small>%</small></span><span class="label">租補房客租屋面積20坪以下的占比——全國家戶僅約14%</span></div>
+      <h3>27.38%：超過四分之一的租補房客，住在20坪以下</h3>
+      <p>租屋的世界，以坪數畫出了另一條界線。全國家戶住在20坪以下的約14%；但在300億租補的房客裡，租屋面積20坪以下的占27.38%——將近兩倍；社宅包租代管更高，由筆數計算約49%的租約落在20坪以下。<strong>政策房客的居住空間，比「有房的台灣」擠了一大截。</strong></p>
+      <p>不過兩者的「小」不盡相同：租補的小，是市場套房與老公寓分租的現實；包管的小，有一部分是制度設計——一宅分租多戶、以小單元服務單身與小家庭，本就是包管擴大服務量能的方法。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        面積數字提醒政策兩件事：其一，補貼分級應正視「小坪數、高單價」的租金現實；其二，小不必然差——關鍵在最低居住水準的把關，讓小坪數是「精巧」，而不是「將就」。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-4、表3-5、表3-6（居住／租屋面積；全國與包管比率由筆數計算）</div>
+      <div class="story-foot"><a href="#s2-4-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-3-4">
+      <div class="eyebrow">2-4-3-4｜雙重風險</div>
+      <div class="pull"><span class="num">33.83<small>%</small></span><span class="label">65歲以上租補房客中，租屋屋齡41-50年的占比——40年以上合計過半</span></div>
+      <h3>33.83%：三分之一的高齡房客，租在41到50年的老屋</h3>
+      <p>把年齡與屋齡交叉，最沉重的一格落在高齡房客身上。65歲以上的租補房客中，33.83%租在41到50年的老屋，加上51年以上的17.48%——<strong>過半（51.31%）的高齡租客，住在40年以上的老房子裡</strong>；75到79歲這一組更達53.48%。對照18到24歲青年，同樣的比率是33.58%。</p>
+      <p>愈老的房客，租愈老的房：沒有電梯的四樓、老舊的管線、濕滑的浴室，偏偏住著最禁不起跌倒的人。這與住宅調查看到的「老人住老屋」互為鏡像——只是這裡的長者，連房子都不是自己的，更沒有翻修的權利。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        高齡租客是居住風險的最前線。租金補貼之上，應疊加「高齡租屋安全網」：無障礙修繕的房東誘因、社宅與包管的高齡優先配額，以及與長照系統串接的居住風險通報。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-2（房客年齡×租屋屋齡交叉）</div>
+      <div class="story-foot"><a href="#s2-4-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c2-4-3-5">
+      <div class="eyebrow">2-4-3-5｜世代之牆</div>
+      <div class="pull"><span class="num">15<small>%</small></span><span class="label">青年租補房客租到10年內新屋的比率——全國同齡戶長為23.60%</span></div>
+      <h3>15%：租屋青年住進新房子的機會，比同輩少一截</h3>
+      <p>同樣是三十歲上下的年輕人，住的房子卻隔著一道看不見的牆。全國18到39歲的青年戶長，有23.60%住在屋齡10年以下的住宅——年輕人買房、家裡置產，買的往往是新房。但在租補的青年房客中，租到10年內新屋的只有15.00%；30到34歲的落差更鮮明：全國同齡戶長25.95%住新屋，租補房客僅16.31%。</p>
+      <p><strong>牆的兩側，是同一個世代的兩種居住命運</strong>：買得起（或家裡買得起）的人住進新大樓；領補貼租屋的人，多半在中古公寓裡安身。新房子大量蓋出來，卻很少流進租屋市場的政策端。</p>
+      <div class="policy"><span class="tag">政策意涵</span>
+        讓新房子流向租屋端，是縮小落差的解方：社會住宅持續興辦、包租代管在新案交屋期招募房源、鼓勵建商餘屋投入公益出租——別讓「新」成為買房者的專利。
+      </div>
+      <div class="src">資料依據：主題分析4(2) 表3-1（全國家戶×居住屋齡）、表3-2（租補房客×租屋屋齡）</div>
+      <div class="story-foot"><a href="#s2-4-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ════════════════ 第參篇 ════════════════ -->
+  <div class="part-head" id="part3" style="--pc:var(--p3);--pc-deep:var(--p3-deep)">
+    <span class="pc-no">第參篇</span>
+    <h2>未來深探台灣住宅</h2>
+    <p>前兩篇的50則故事把「現況」說清楚了，但有些論點還停在推測——買掉的房子有人住進去嗎？空屋裡掛的戶籍是真獨居還是假設籍？補貼活化了空屋嗎？多屋者為何不出租？四章18個交叉分析提案（含SEGIS外部資料），讓政策意涵從方向性建議進到可操作的機制。</p>
+    <div class="meta-note">
+      本篇為第壹、貳篇50則數據故事之後續深化提案。每案標示串接資料、串接層級與可升級之故事編號。層級三類：
+      建物層級（門牌／建號歸戶即可）；人別層級（涉個資，需於去識別化平台執行）；統計區層級（結合SEGIS等外部公開資料，免個資程序）。
+      建議優先順位：<strong>3-1-1 → 3-1-2 → 3-2-1 → 3-4-1</strong>；3-1-3、3-3-4為第二梯次。
+      文中「補充分析」指年齡分群與當前議題面向之補充故事，尚未收錄於本站，將於2-1及2-2擴充時一併納入。
+    </div>
+  </div>
+
+  <!-- ══════════ 3-1 設籍 ══════════ -->
+  <section class="ax-section" style="--ax:#9E3D3D;--ax-tint:#F1DFDF;--ax-deep:#6E2727">
+    <div class="section-head" id="s3-1">
+      <span class="band">3-1</span>
+      <h2>設籍——被低估的關鍵欄位</h2>
+      <p>用電說「有沒有人用這間房」，設籍說「有沒有人宣稱住這間房」。兩者一致時互相驗證，不一致時——真獨居、假設籍、租屋黑數、北漂人口——正是政策最想看見的地方。這一章讓設籍從配角變成主軸。</p>
+    </div>
+
+    <article class="story" id="c3-1-1">
+      <div class="eyebrow">3-1-1｜四象限盤點 <span class="flag">優先</span><span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">設籍 × 用電</span><span class="label">全國951萬宅逐宅落入「有無設籍 × 是否低度用電」的2×2矩陣</span></div>
+      <h3>一張2×2的表，重新盤點951萬宅</h3>
+      <p>空屋認定目前主要靠用電單一指標；設籍是強化正確性的第二把尺。兩指標交叉，全國住宅分成四種截然不同的狀態：</p>
+      <div class="quad">
+        <div><b>有籍・正常用電｜實居宅</b>戶籍與生活一致，統計的安全區。</div>
+        <div><b>有籍・低度用電｜掛籍宅</b>燈不亮但戶籍在——真獨居或假設籍，交由3-1-2分流。</div>
+        <div><b>無籍・正常用電｜隱形實居宅</b>有人住卻無人設籍——租屋黑數與通勤居所的藏身處。</div>
+        <div><b>無籍・低度用電｜深度空屋</b>沒人住也沒人掛——最嚴格定義的空屋核心。</div>
+      </div>
+      <p>這張表讓空屋率第一次有了區間：<strong>低度用電的10.42%是上界，「無籍低電」的深度空屋是下界</strong>；也讓每個縣市有了「實住宅數」的校正基礎。它是本篇所有設籍相關提案的母表。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-2-1-1空屋總量、2-2-1-4空屋的臉孔、1-2-2每宅2.91人（設籍失真的校正）、1-4-2金門悖論——空屋統計從單指標點估計，升級為雙指標的區間與分型。
+      </div>
+      <div class="src">串接資料：稅籍住宅用電 × 戶籍設籍有無及人數（全國建物層級盤點）</div>
+      <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-1-2">
+      <div class="eyebrow">3-1-2｜雙指標認定 <span class="flag">優先</span><span class="flag lv">建物→人別兩階段</span></div>
+      <div class="pull formula"><span class="num">用電 × 設籍組成</span><span class="label">承3-1-1「掛籍宅」象限：串接設籍者屬性（人數、年齡、遷入時間），實作2-2-1-4「用電＋設籍」雙指標</span></div>
+      <h3>一盞不亮的燈、一個掛著的戶籍：真獨居，還是假設籍？</h3>
+      <p>2-2-1-4發現六成空屋裡設籍1人，並提出解方：「用電＋設籍」雙指標。這一案就是把它做出來——聚焦3-1-1的「掛籍宅」象限，攤開設籍者屬性後，兩張臉會自動分開：設籍者是<strong>高齡長者、久居未遷</strong>——那可能是「真獨居但用電極低」的長者，被空屋統計誤收，該轉給關懷訪視；設籍者<strong>年輕、近期遷入、他處另有實居跡象</strong>——那是為學區、福利或稅制而來的「假設籍」，該回到空屋活化與稅籍稽核的名單。</p>
+      <p>分類統計可先在建物層級完成（免個資程序，即可同時校正空屋率與獨居統計）；產出訪視與稽核名單時再進入人別層級。一張表，讓獨居關懷與空屋活化各自找對對象。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-2-1-4空屋的臉孔、1-2-1一人戶（內含多少幽靈戶）、補充分析「年輕戶長空屋」——雙指標從政策建議變成可操作的認定機制原型。
+      </div>
+      <div class="src">串接資料：稅籍低度用電住宅 × 戶籍設籍組成（人數、年齡、遷入時間）；名單階段於去識別化平台執行</div>
+      <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-1-3">
+      <div class="eyebrow">3-1-3｜稅制性分戶 <span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">分戶紀錄 × 用電</span><span class="label">戶籍分戶時點串接該宅用電狀態，聚焦囤房稅2.0上路前後的變化</span></div>
+      <h3>暴增的45.9萬戶裡，有多少戶籍設在空屋？</h3>
+      <p>最近一年家戶數暴增45.9萬戶（年增5.48%）、年輕戶長占比跳升、每宅設籍戶數達1.22戶——這些訊號都指向同一個假說：<strong>囤房稅2.0催生了一波「稅制性分戶」</strong>。驗證方法很直接：把分戶的時點與地點，對上該住宅的用電狀態——若大量新設戶籍落在低度用電宅，且時間集中在稅制上路前後，證據就齊了。</p>
+      <p>這張表一石三鳥：校正家戶統計的失真（1-2-5、1-3-1供給率的分母）、量化稅制的行為效應、並為稅籍稽核提供風險名單邏輯。它與3-1-2互為表裡：3-1-2看「存量」的設籍組成，本案看「流量」的分戶行為。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        1-2-5一宅多戶、2-2-1-4空屋設籍1人、補充分析「戶長年輕化」——「假設籍」從合理懷疑變成可估規模的現象。
+      </div>
+      <div class="src">串接資料：戶籍分戶異動紀錄 × 稅籍住宅用電（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-1-4">
+      <div class="eyebrow">3-1-4｜租客的戶籍在哪裡 <span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">租約地址 × 承租人設籍</span><span class="label">比對租補／包管／社宅契約地址與承租人實際設籍地址之一致率</span></div>
+      <h3>67萬政策租客，有幾個把戶籍搬進租屋處？</h3>
+      <p>台灣租屋族普遍不把戶籍遷入租屋處——房東怕稅、租客怕麻煩。後果是：住在A處、學區社福投票統計都在B處。市場租屋看不見這個落差，但67萬筆政策租約可以：比對契約地址與承租人設籍地址，<strong>「設籍一致率」多高、不一致者的戶籍掛在哪裡（多半是父母家）</strong>，第一次可以精確計算。</p>
+      <p>這也是3-1-1「隱形實居宅」象限的主要來源之一。而政策上有現成的著力點：公益出租與包管本就規定不得拒絕租客遷入戶籍——一致率就是這條規定的執行率稽核；由此再推向租賃專法對全體租客遷籍權的保障。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-4-1房客系列（2-4-1-1至2-4-1-5）、1-2-2設籍人數——「租屋人口被統計低估多少」有了首見的量化底稿。
+      </div>
+      <div class="src">串接資料：租補／包管／社宅契約地址 × 承租人戶籍地址（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-1-5">
+      <div class="eyebrow">3-1-5｜戶籍與生活的距離 <span class="flag lv">人別層級</span><span class="flag ext">可輔SEGIS</span></div>
+      <div class="pull formula"><span class="num">設籍地 × 就業地</span><span class="label">戶籍所在縣市串接勞保（或健保）投保單位所在縣市，量化籍居分離</span></div>
+      <h3>北漂有多少人？戶籍知道一半，勞保知道另一半</h3>
+      <p>「北漂」講了幾十年，規模始終是估的。把每個人的設籍縣市對上勞保投保單位所在縣市，「<strong>籍在中南部、業在北部</strong>」的人口規模、年齡與流向，第一次可以直接計算；疊上SEGIS的日間活動人口與通勤統計，還能互相驗證。</p>
+      <p>這個落差的政策後果很具體：統籌分配款、社宅需求推估、公共設施配置都按戶籍人口算，實住人口多的城市長期被短編；它也解釋了本章其他數字——租客戶籍留在老家（3-1-4）、年輕戶籍掛在空屋（補充分析）、基隆高換手（2-3-3-10），都是同一場「戶籍與生活分離」的不同切面。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        1-4城鄉系列、2-4-1-2青年租客、3-1-1四象限的地理版——「實住人口」可望成為資源分配的第二本帳。
+      </div>
+      <div class="src">串接資料：戶籍設籍地 × 勞保／健保投保單位地（去識別化平台執行）；輔以SEGIS通勤與日間活動人口</div>
+      <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 3-2 空屋的真相 ══════════ -->
+  <section class="ax-section" style="--ax:#6B5B8E;--ax-tint:#E9E5F0;--ax-deep:#4A3E66">
+    <div class="section-head" id="s3-2">
+      <span class="band">3-2</span>
+      <h2>空屋的真相——用電資料是照妖鏡</h2>
+      <p>2-2-1告訴我們空屋有98萬間、一半在沉睡；但空屋是誰的、換手後亮不亮燈、補貼有沒有把它引進市場、金門與桃園的空屋是不是同一種病——要靠用電資料與交易、地籍、SEGIS交叉才有答案。</p>
+    </div>
+
+    <article class="story" id="c3-2-1">
+      <div class="eyebrow">3-2-1｜交易活化率 <span class="flag">優先</span><span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">實價登錄 × 稅籍用電</span><span class="label">以門牌／建號串接，觀察每筆成交前後各12個月的用電狀態變化</span></div>
+      <h3>買掉的房子，有人住進去嗎？</h3>
+      <p>52萬筆成屋交易與低度用電註記放在同一張表上，可以回答三個現在只能推測的問題：成交前是空屋的房子，換手後多久「點亮」？<strong>新成屋空置的27.28%（2-2-1-3），是交屋過渡還是投資閒置</strong>——追蹤12個月自然分曉；以及，交易熱區的空屋消化速度，是否真的快過冷區。</p>
+      <p>由此可產出一個全新指標「交易活化率」：每百筆空屋交易中，一年內轉為正常用電的比率。它是評估囤房稅2.0「促使釋出」宣稱、以及空屋政策成效的核心證據，也是交易面政策槓桿最大的一張表。若同步觀察交易後的設籍變化，即與3-1-1的四象限接軌。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-3-3-1「動存量」、2-2-1-1空屋總量、2-2-1-3新成屋空置——「市場能否消化空屋」從敘事變成可逐年追蹤的KPI。
+      </div>
+      <div class="src">串接資料：實價登錄買賣案件 × 稅籍住宅用電資料（前後各12個月）；可輔以設籍異動</div>
+      <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-2-2">
+      <div class="eyebrow">3-2-2｜政策房源的前世 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">租約 × 空置史</span><span class="label">租補／包管物件地址回溯串接稅籍用電歷史，檢視進入政策前的使用狀態</span></div>
+      <h3>租金補貼，是活化了空屋，還是只在租屋市場裡搬家？</h3>
+      <p>「公益出租活化空屋」是常被宣稱、卻從未驗證的政策論點。把57.4萬筆租補與9.8萬筆包管物件的地址，回頭對上稅籍用電歷史，就能知道：這些政策房源在進入政策前，有多少原本是<strong>連續空置2年以上的沉睡空屋（2-2-1-2的51.88%）</strong>，又有多少本來就在出租、只是從檯面下轉到檯面上。</p>
+      <p>兩種來源的政策意義完全不同：前者是淨增供給，後者是既有市場的納管。比例一旦算出，租賃政策的KPI就該從「租約筆數」升級為「淨增房源數」。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-4-3-1「補貼進得去的地方就是老房子密集的地方」、2-2-1-2沉睡空屋——並為「公益出租能否成為空屋出口」提供首見實證。
+      </div>
+      <div class="src">串接資料：租金補貼／包租代管有效契約地址 × 稅籍住宅用電歷史</div>
+      <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-2-3">
+      <div class="eyebrow">3-2-3｜空屋的臉孔 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">用電 × 所有權人</span><span class="label">低度用電住宅串接地籍所有權人年齡、持有宅數、戶籍所在地</span></div>
+      <h3>空屋是誰的？高齡的、多屋的，還是外地的？</h3>
+      <p>98萬空屋現在只有「屋」的描述（屋齡、面積、縣市），沒有「人」的描述。把低度用電住宅接上地籍所有權人屬性，空屋就會分成幾張截然不同的臉：<strong>高齡者「捨不得處分」的老宅、多屋者「養著」的資產、外地人「放著」的置產</strong>，以及繼承後懸置的共有屋——各占多少，目前無人知道。注意「外地人」的判別本身就用到設籍：所有權人設籍地與房屋所在地的距離，是重要的分類軸。</p>
+      <p>主題式架構本就設定了「低度使用×所有權人屬性」維度，這張表正是補上它。空屋對策必須對象化：高齡導向留房養老與代管、多屋導向稅制、外地導向在地媒合——藥方配比，由這張表決定。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-2-1-1空屋總量、補充分析「年輕戶長空屋」——空屋政策從「一包工具」進到「對症下藥」的對象分流。
+      </div>
+      <div class="src">串接資料：稅籍低度用電住宅 × 地籍所有權人（年齡、歸戶宅數、設籍地）</div>
+      <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-2-4">
+      <div class="eyebrow">3-2-4｜空屋類型學 <span class="flag ext">SEGIS外部資料</span><span class="flag lv">統計區層級</span></div>
+      <div class="pull formula"><span class="num">空屋 × 人口經濟</span><span class="label">最小統計區空屋率串接SEGIS人口消長、勞動就業、產業指標</span></div>
+      <h3>金門的空屋與桃園的空屋，是兩種病</h3>
+      <p>同樣是高空屋率，成因可能完全相反。把稅籍低度用電資料落到最小統計區，對上SEGIS國土資訊系統的社會經濟資料——人口成長率、遷入遷出、就業與產業結構——空屋就能分型：<strong>人口流失＋高空屋＝「衰退型」</strong>，需求消失、房子被留下（金門悖論、部分農業縣）；<strong>人口成長＋高空屋＝「去化型／投資型」</strong>，新案交屋潮與置產需求並存（桃竹熱區）。</p>
+      <p>兩型的處方相反：衰退型的重點是減量、公共化與地方創生，硬要「活化出租」是緣木求魚；投資型才適用稅制與出租誘因。SEGIS為公開統計資料，本案免個資程序，可最快啟動。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-2-1-1、1-4-2金門悖論、1-4-3桃竹熱區、2-3-3-10冷熱地圖——空屋政策的「因地制宜」第一次有分型依據。
+      </div>
+      <div class="src">串接資料：稅籍低度用電（統計區彙總）× SEGIS社會經濟資料庫（人口、勞動、產業）</div>
+      <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 3-3 人與世代 ══════════ -->
+  <section class="ax-section" style="--ax:#3D5A80;--ax-tint:#E1E8F1;--ax-deep:#2A3F5C">
+    <div class="section-head" id="s3-3">
+      <span class="band">3-3</span>
+      <h2>人與世代——把「誰」放回統計裡</h2>
+      <p>前兩篇的50則故事裡最有力的段落，都是「屋」與「人」相遇的地方。這一章的六案，把買方、租客、長者與孩子放回交易與持有的統計裡，並用SEGIS所得資料把「負擔」落到地圖上。</p>
+    </div>
+
+    <article class="story" id="c3-3-1">
+      <div class="eyebrow">3-3-1｜買而不住 <span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">交易 × 設籍行為</span><span class="label">追蹤買方於交易後6／12／24個月是否遷入設籍（輔以用電驗證）</span></div>
+      <h3>買房的人，自己住進去了嗎？</h3>
+      <p>自住與置產的真實比例，是房市政策最基本卻最缺乏的數字。把52萬筆交易的買方，追蹤其後6至24個月的設籍與該宅用電，就能把每筆交易分類：<strong>自住遷入、出租他人、空置持有</strong>。搭配買方原持有宅數，更能區分首購自住、換屋與多屋加碼。注意設籍單獨看會低估自住（部分自住者不遷籍），所以要用「設籍＋用電」雙證據互補——正是本篇3-1章的方法論在交易面的應用。</p>
+      <p>這也是「自住認定」機制的稽核底稿——優惠貸款與稅率給了自住者，多少比例事後並未自住？答案會直接影響新青安等政策的設計與查核強度。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-3-3-6「市場跟著買得起的人走」從推論變實證；2-3-3-4千萬中線可加上「自住／置產」的分層。
+      </div>
+      <div class="src">串接資料：實價登錄買方 × 戶籍遷徙 × 稅籍用電（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-3-2">
+      <div class="eyebrow">3-3-2｜租補畢業率 <span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">租補戶 × 購屋紀錄</span><span class="label">承租人串接地籍買賣移轉，追蹤2至3年內的購屋與退出</span></div>
+      <h3>租金補貼是跳板，還是長期安置？</h3>
+      <p>300億租補57.4萬戶的政策定位，取決於一個沒人算過的數字：<strong>畢業率</strong>——領取者幾年內購屋離開？把租補承租人接上地籍買賣移轉登記追蹤2至3年，可以畫出畢業曲線：誰畢業得快（年齡、地區、租金水準）、誰長期停留、誰在租補與包管、社宅之間流轉。</p>
+      <p>若青年高畢業率，租補是通往購屋的跳板，續辦重點在銜接首購；若普遍長期停留，它實質上是準社會住宅，財源與資格設計就該按長期給付來規劃。兩種答案，兩種政策。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-4-1-2青年最大客群、2-4-3-5世代之牆——「租屋是不是人生階段」第一次有了縱貫證據。
+      </div>
+      <div class="src">串接資料：租金補貼承租人 × 地籍買賣移轉登記（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-3-3">
+      <div class="eyebrow">3-3-3｜三重風險名單 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">高齡×獨居×無梯×老屋</span><span class="label">戶籍高齡獨居戶串接稅籍建物屬性（屋齡、樓層、電梯）之四重交叉</span></div>
+      <h3>孤老、老宅、無電梯：三重風險疊在一起的，有多少人？</h3>
+      <p>現在的數字各說各的：36.90%家戶有長者（1-2-3）、75歲以上戶長63.38%住40年以上老宅（補充分析）、四成交易無電梯（2-3-3-7）。四重交叉之後才會出現政策真正需要的數字：<strong>獨居長者＋40年老宅＋無電梯＋三樓以上</strong>的精確規模與縣市熱點——那是跌倒風險、就醫困難與孤立死風險最高的一群門牌。名單的準確性可再用3-1-2的雙指標過濾：排除「假設籍」的幽靈獨居，留下真正需要敲門的那些家。</p>
+      <p>這是本篇18案中最直接可落地為服務的一張表：它產出的不是論述，而是居家安全改善、電梯補助與長照訪視的優先名單邏輯。若再疊上SEGIS的醫療資源分布，熱點的優先序會更精準。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        1-2-3家有一老、1-4-1基隆、補充分析「雙老」、2-3-3-7無梯宅——四則故事收斂成一張可派工的風險地圖。
+      </div>
+      <div class="src">串接資料：戶籍（年齡、獨居）× 稅籍建物屬性（屋齡、總樓層、電梯）；可輔以SEGIS醫療資源圖層</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-3-4">
+      <div class="eyebrow">3-3-4｜誰在買千萬宅 <span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">買方年齡 × 價格×屋齡</span><span class="label">地籍買賣移轉登記人屬性串接實價登錄總價、屋齡、電梯</span></div>
+      <h3>千萬中線的兩側，站著哪個世代？</h3>
+      <p>2-3-3-4畫出了台灣購屋的「千萬中線」，但線的兩側是誰，還是空白。把買賣移轉登記的買方年齡接上實價登錄，可以拆出世代別的購屋圖像：<strong>30歲世代買的是什麼總價、什麼屋齡</strong>？他們是被擠向老公寓，還是靠親屬奧援直上新案？高齡買方是否仍在買無梯宅，替自己的80歲埋下伏筆？</p>
+      <p>搭配貸款成數與1-3-4「世代依賴」的親屬持有資料，「青年購屋難」可以第一次被拆解成價格、屋齡、區位、奧援四個可各自施策的變數。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-3-3-4千萬門檻、2-3-3-7無梯宅、1-3-4世代依賴——貸款額度與青年購屋政策的世代實證基礎。
+      </div>
+      <div class="src">串接資料：地籍買賣移轉登記人（年齡）× 實價登錄（總價、屋齡、電梯）（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-3-5">
+      <div class="eyebrow">3-3-5｜未成年屋主的房子 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">未成年持有 × 使用狀態</span><span class="label">未成年所有權人住宅串接稅籍用電與設籍組成</span></div>
+      <h3>贈與給孩子的房子，是家、是租金，還是節稅的殼？</h3>
+      <p>未成年所有權人的住宅，過半來自贈與（56.45%）、僅四分之一來自買賣——這批「兒童名下的房產」實際怎麼用，是檢驗資產移轉性格的試紙。串接用電與設籍後可分類：<strong>全家自住（移轉但續住）、出租收益、或低度用電的空置殼</strong>——若空置與出租占比偏高，「贈與宅」的節稅工具性格就得到證據。</p>
+      <p>這張表的規模不大，但它連著兩個大制度：遺贈稅的免稅額設計，以及囤房稅歸戶是否應把未成年子女與父母合併計算。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        補充分析「中壯年執政」、1-3-5世代移轉——「提前移轉」的動機從推測進到用途實證。
+      </div>
+      <div class="src">串接資料：地籍未成年所有權人住宅 × 稅籍用電、戶籍設籍組成</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-3-6">
+      <div class="eyebrow">3-3-6｜負擔地圖 <span class="flag ext">SEGIS外部資料</span><span class="flag lv">統計區層級</span></div>
+      <div class="pull formula"><span class="num">交易價格 × 所得</span><span class="label">實價登錄中位價格串接SEGIS綜稅所得中位數，產製在地房價所得比</span></div>
+      <h3>一坪25萬的城鎮，負擔可能比一坪85萬的更重</h3>
+      <p>2-3-3-5證明台灣一半的買賣發生在每坪30萬以下，並呼籲「地理解析度」。這一案就是把解析度做出來：以統計區或鄉鎮為單位，用實價登錄的中位總價除以SEGIS的綜稅所得中位數，畫出<strong>在地房價所得比地圖</strong>。結果很可能翻案——低單價縣市因所得更低，負擔比未必輸給雙北；而基隆買房、台北上班的通勤生活圈，負擔要跨縣市合併計算才真實——這裡可與3-1-5的籍居分離資料互相對照。</p>
+      <p>SEGIS為公開資料，本案與3-2-4同屬免個資程序、可最快啟動的外部串接。產出後，補貼強度、社宅區位、囤房稅豪宅線，都有了在地校準的座標。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-3-3-4千萬門檻、2-3-3-5一坪之價、1-4城鄉系列——「可負擔性」從全國平均進到統計區解析度。
+      </div>
+      <div class="src">串接資料：實價登錄（中位總價／單價）× SEGIS綜稅所得、家戶統計（統計區／鄉鎮層級）</div>
+      <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+  <!-- ══════════ 3-4 房東與產權 ══════════ -->
+  <section class="ax-section" style="--ax:#1E6E51;--ax-tint:#DDEDE6;--ax-deep:#134A36">
+    <div class="section-head" id="s3-4">
+      <span class="band">3-4</span>
+      <h2>房東與產權——釋出誘因的證據</h2>
+      <p>要讓房子從「持有」走向「出租」與「更新」，得先知道誰握著房子、為什麼不動。這一章的三案，把政策房東、多屋者與繼承共有屋放上手術台。</p>
+    </div>
+
+    <article class="story" id="c3-4-1">
+      <div class="eyebrow">3-4-1｜多屋者滲透率 <span class="flag">優先</span><span class="flag lv">人別層級</span></div>
+      <div class="pull formula"><span class="num">政策房東 × 全國歸戶</span><span class="label">租補／包管房東串接地籍歸戶持有宅數，對照全國多屋者母體</span></div>
+      <h3>三宅以上的多屋者，有幾個願意當公益房東？</h3>
+      <p>2-4-2-3說「一半的政策房東只有一間房」，但那是政策內的口徑。真正的政策問題要反過來問：<strong>放眼全國持有3宅以上的族群（1-3-3），參與公益出租的滲透率是多少</strong>？把政策房東身分對上地籍歸戶，就能算出各持有宅數級距的參與率——大概率會發現：房子最多的人，參與最少。</p>
+      <p>這個滲透率，是評估囤房稅差別稅率、公益出租稅賦優惠「邊際誘因」的直接證據：稅率梯度要拉到多陡、優惠要加到多深，多屋者才會動？答案就在這條參與率曲線的斜率裡。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-4-2-3一屋房東、1-3-3擁屋的兩個台灣——囤房稅與公益出租誘因檢討的核心對照表。
+      </div>
+      <div class="src">串接資料：租補／包管房東 × 地籍全國歸戶宅數（去識別化平台執行）</div>
+      <div class="story-foot"><a href="#s3-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-4-2">
+      <div class="eyebrow">3-4-2｜政策房源生命週期 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">房東物件 × 移轉紀錄</span><span class="label">包管／租補物件串接實價登錄與地籍移轉，觀察進場、續留與流失</span></div>
+      <h3>交給政策的房子，後來怎麼了？</h3>
+      <p>2-4-2-5發現「取得產權頭幾年的新手房東最願意交給政策」，並建議在買賣移轉時點精準招募。這張表做兩件事：一是回頭驗證——<strong>包管物件有多少確實於進場前3年內購入</strong>；二是往前追蹤——約滿之後，物件是續留政策、轉回一般租市，還是被出售獲利了結。</p>
+      <p>由此可畫出政策房源的生命週期曲線（進場—續留—流失），並找出流失的高風險時點與屋主樣態。留房的誘因（修繕補助、稅賦優惠、續約獎勵）該加在哪個環節，曲線會給答案。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        2-4-2-5新手房東——「甜蜜點招募」補上進退場實證，包管量能從「衝新約」轉向「顧留存」。
+      </div>
+      <div class="src">串接資料：包管／租補物件 × 實價登錄、地籍移轉登記（前後追蹤）</div>
+      <div class="story-foot"><a href="#s3-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+
+    <article class="story" id="c3-4-3">
+      <div class="eyebrow">3-4-3｜繼承宅的懸置 <span class="flag lv">建物層級</span></div>
+      <div class="pull formula"><span class="num">繼承 × 用電 × 共有</span><span class="label">繼承登記住宅串接用電狀態與共有人數，觀察懸置與人數的關係</span></div>
+      <h3>共有人越多的繼承老屋，是不是空得越久？</h3>
+      <p>議題補充分析證明「繼承潮就是老屋潮」（繼承宅83.03%屋齡逾31年），但繼承之後呢？把繼承登記的住宅接上用電狀態與共有人數，可以驗證一條關鍵曲線：<strong>共有人數越多，空置比率越高、空置時間越長</strong>——手足共同繼承、無人能單獨決定，於是房子在爭議與擱置中一年年老去。若再看繼承人是否有人設籍於該宅，「留守型」與「全員離散型」的繼承屋還能進一步分開。</p>
+      <p>若曲線成立，它就是共有產權整合工具（多數決門檻、公部門協調平台、預先分割輔導）的立法依據；也能推估未來十年繼承潮將「自動生成」多少空屋，提前布局。</p>
+      <div class="policy"><span class="tag">預期升級</span>
+        1-3-5世代移轉、補充分析「繼承老屋」、2-2-1-2沉睡空屋——「繼承潮＝空屋潮」從敘事變成量化曲線。
+      </div>
+      <div class="src">串接資料：地籍繼承登記住宅 × 稅籍用電 × 共有人數、繼承人設籍</div>
+      <div class="story-foot"><a href="#s3-4">回本章</a><a href="#top">回首頁</a></div>
+    </article>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="spectrum bottom" aria-hidden="true">
+      <span style="background:var(--p1)"></span><span style="background:var(--p2)"></span><span style="background:var(--p3)"></span>
+    </div>
+    <p>
+      《住在台灣》住宅狀況調查數據故事總站——第壹篇「數字俯瞰台灣住宅」20則、第貳篇「主題解析台灣住宅」30則、
+      第參篇「未來深探台灣住宅」18案，合計68則。編號體例：第一段為篇（1俯瞰、2解析、3深探），其後為章／面向、主題與則序；
+      主題式各則採四段式編號（如2-3-3-4）。
+    </p>
+    <p>
+      統計數據分別取自《住宅狀況調查—常態性住宅狀況分析》期中報告書（基準日2025年6月30日）、《主題分析3—近三年交易住宅屬性》
+      與《主題分析4—政策參與者分群》（2026/08/26）。各則故事之解讀以報告原文為據；低度使用住宅與未來屋齡分布等為依報告方法之推估值，
+      實際情形可能隨統計方式與市場變動而異；交易統計不含預售屋。
+    </p>
+    <p>
+      第參篇串接層級：建物層級——3-1-1、3-2-1、3-2-2、3-2-3、3-3-3、3-3-5、3-4-2、3-4-3（及3-1-2之統計階段）；
+      人別層級——3-1-3、3-1-4、3-1-5、3-3-1、3-3-2、3-3-4、3-4-1（及3-1-2之名單階段），需於去識別化平台
+      （如主計總處或內政部資料合作環境）執行；統計區層級——3-2-4、3-3-6，結合SEGIS等外部公開統計，免個資程序、可最快啟動
+      （3-1-5、3-3-3可輔以SEGIS圖層）。各案表格產出後，對應故事可改寫升級版，使政策意涵自方向性建議進到可操作的認定機制。
+    </p>
+  </div>
+</footer>
+
+<script>
+  const progress = document.getElementById('progress');
+  const backtop = document.getElementById('backtop');
+  function onScroll(){
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    backtop.classList.toggle('show', h.scrollTop > 600);
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+
+</body>
+</html>
