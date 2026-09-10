@@ -31,7 +31,7 @@
     background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3));
     z-index:200;transition:width .1s linear;}
 
-  #topnav{position:sticky;top:0;z-index:100;
+  #topnav{position:fixed;top:0;left:0;right:0;z-index:100;
     background:rgba(245,244,240,.92);backdrop-filter:blur(8px);
     border-bottom:1px solid var(--hairline);}
   #topnav .bar{max-width:960px;margin:0 auto;padding:10px 20px;
@@ -49,6 +49,26 @@
   .navchip.n1{color:var(--p1-deep);border-color:var(--p1);background:var(--p1-tint);}
   .navchip.n2{color:var(--p2-deep);border-color:var(--p2);background:var(--p2-tint);}
   .navchip.n3{color:var(--p3-deep);border-color:var(--p3);background:var(--p3-tint);}
+  .navchip.on{box-shadow:inset 0 0 0 2px currentColor;}
+  body{padding-top:var(--navh,60px);}
+  .subnav{display:none;border-top:1px solid var(--hairline);background:rgba(253,253,251,.94);}
+  .subnav.show{display:block;}
+  .subnav .row{max-width:960px;margin:0 auto;padding:6px 20px;display:flex;gap:8px;
+    overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .subnav .row::-webkit-scrollbar{display:none;}
+  .subchip{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.04em;
+    text-decoration:none;padding:4px 11px;border-radius:16px;
+    border:1px solid var(--hairline);background:#fff;color:var(--ink-soft);
+    white-space:nowrap;transition:border-color .15s ease,color .15s ease,background .15s ease;}
+  .subchip:hover{border-color:var(--ink);color:var(--ink);}
+  .subchip:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .subchip.active{background:var(--ink);border-color:var(--ink);color:#F5F4F0;}
+  .subchip .sno{font-family:'Noto Serif TC',serif;font-weight:700;letter-spacing:.04em;}
+  .subchip .st{margin-left:6px;font-weight:400;letter-spacing:.02em;}
+  .subchip .cnt{margin-left:5px;font-weight:400;opacity:.72;}
+  .navchip .cnt{margin-left:5px;font-weight:700;opacity:.7;}
+  .subchip.active .st{color:#EDEAE0;}
+  .subnav.lv3 .row{padding-top:5px;padding-bottom:5px;}
 
   #backtop{position:fixed;right:22px;bottom:26px;z-index:150;
     width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
@@ -97,11 +117,11 @@
   .toc-row.xref .toc-ct{color:var(--ink-soft);}
 
   /* ── 篇章大標 ── */
-  .part-head{margin:120px 0 0;scroll-margin-top:80px;border-top:2px solid var(--ink);padding-top:34px;}
+  .part-head{margin:120px 0 0;scroll-margin-top:calc(var(--navh,60px) + 14px);border-top:2px solid var(--ink);padding-top:34px;}
   .part-head .pc-no{background:var(--pc);}
   .part-head h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(28px,5vw,40px);color:var(--pc-deep);line-height:1.4;margin-top:14px;}
   .part-head p{margin-top:10px;color:var(--ink-soft);font-size:15.5px;max-width:36em;}
-  .facet-head{margin:72px 0 0;scroll-margin-top:80px;}
+  .facet-head{margin:72px 0 0;scroll-margin-top:calc(var(--navh,60px) + 14px);}
   .facet-head .fno{display:inline-block;color:var(--pc-deep);border:1.5px solid var(--pc);background:var(--pc-tint);
     font-size:12.5px;font-weight:700;letter-spacing:.22em;padding:4px 12px 4px 15px;border-radius:20px;margin-bottom:12px;}
   .facet-head h3{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(22px,4vw,30px);line-height:1.4;color:var(--ink);}
@@ -115,7 +135,7 @@
   .xref-card a:hover{opacity:.7;}
 
   /* ── 章節標 ── */
-  .section-head{margin:96px 0 8px;scroll-margin-top:80px;}
+  .section-head{margin:96px 0 8px;scroll-margin-top:calc(var(--navh,60px) + 14px);}
   .section-head .band{display:inline-block;color:#fff;
     font-size:13px;font-weight:700;letter-spacing:.3em;
     padding:6px 16px 6px 19px;border-radius:4px;margin-bottom:18px;background:var(--ax);}
@@ -131,7 +151,7 @@
     border:1px solid var(--hairline);border-left:6px solid var(--ax);
     border-radius:14px;padding:clamp(28px,5vw,48px);
     box-shadow:0 2px 14px rgba(35,40,31,.05);
-    scroll-margin-top:80px;}
+    scroll-margin-top:calc(var(--navh,60px) + 14px);}
   .story .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.28em;color:var(--ax);margin-bottom:20px;}
   .flag{display:inline-block;letter-spacing:.1em;font-size:11px;color:#fff;background:var(--ax);
     border-radius:3px;padding:1px 8px;margin-left:8px;vertical-align:1px;}
@@ -175,10 +195,13 @@
 <nav id="topnav" aria-label="主導覽">
   <div class="bar">
     <a class="home" href="#top">住在台灣</a>
-    <a class="navchip n1" href="#part1">壹・數字俯瞰</a>
-    <a class="navchip n2" href="#part2">貳・主題解析</a>
-    <a class="navchip n3" href="#part3">參・未來深探</a>
+    <a class="navchip n1" href="#part1">壹・數字俯瞰<span class="cnt">(20)</span></a>
+    <a class="navchip n2" href="#part2">貳・主題解析<span class="cnt">(30)</span></a>
+    <a class="navchip n3" href="#part3">參・未來深探<span class="cnt">(18)</span></a>
   </div>
+  <div class="subnav" id="nav2"><div class="row" id="row2" role="navigation" aria-label="第二層導覽"></div></div>
+  <div class="subnav lv3" id="nav3"><div class="row" id="row3" role="navigation" aria-label="第三層導覽"></div></div>
+  <div class="subnav lv3" id="nav4"><div class="row" id="row4" role="navigation" aria-label="第四層導覽"></div></div>
 </nav>
 
 <button id="backtop" aria-label="回到首頁頂端" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲<small>TOP</small></button>
@@ -217,20 +240,21 @@
 
     <!-- 第貳篇卡 -->
     <div class="part-card" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
-      <div class="pc-head"><span class="pc-no">第貳篇</span><h2>主題解析台灣住宅</h2><span class="pc-ct">4面向・30則</span></div>
-      <p class="pc-sub">對應〈主題式住宅議題分析〉四大面向——低度使用、近三年交易與政策參與者的深度解析；年齡分群與售購屋者主題待資料產出後擴充。</p>
+      <div class="pc-head"><span class="pc-no">第貳篇</span><h2>主題解析台灣住宅</h2><span class="pc-ct">4主題・30則</span></div>
+      <p class="pc-sub">對應〈主題式住宅議題分析〉——空著的房子、買賣的房子與出租的房子三大主題的深度解析；年齡分群及最近一年售屋者、購屋者主題待資料產出後擴充。</p>
       <div class="pc-list">
-        <div class="toc-group">2-1　年齡分群面向</div>
+        <div class="toc-group">2-1　年齡分群（待擴充）</div>
         <div class="toc-row pending"><span class="toc-no">2-1</span><span class="toc-name">青壯年・中壯年・高齡者族群主題</span><span class="toc-ct">待擴充</span></div>
-        <div class="toc-group">2-2　當前住宅議題面向</div>
-        <a class="toc-row" href="#s2-2-1"><span class="toc-no">2-2-1</span><span class="toc-name">空著的房子——低度使用住宅</span><span class="toc-ct">5則 ↓</span></a>
-        <a class="toc-row xref" href="#s1-1"><span class="toc-no">2-2-2</span><span class="toc-name">老舊住宅狀況</span><span class="toc-ct">互見 1-1 →</span></a>
-        <a class="toc-row xref" href="#s1-3"><span class="toc-no">2-2-3</span><span class="toc-name">住宅擁有狀況</span><span class="toc-ct">互見 1-3 →</span></a>
-        <div class="toc-group">2-3　購屋與售屋面向</div>
-        <div class="toc-row pending"><span class="toc-no">2-3-1</span><span class="toc-name">最近一年售屋者主題</span><span class="toc-ct">待擴充</span></div>
-        <div class="toc-row pending"><span class="toc-no">2-3-2</span><span class="toc-name">最近一年購屋者主題</span><span class="toc-ct">待擴充</span></div>
-        <a class="toc-row" href="#s2-3-3"><span class="toc-no">2-3-3</span><span class="toc-name">成交的台灣——近三年交易住宅屬性</span><span class="toc-ct">10則 ↓</span></a>
-        <div class="toc-group">2-4　政策參與者面向（租約上的台灣）</div>
+        <div class="toc-group">2-2　空著的房子</div>
+        <a class="toc-row" href="#s2-2"><span class="toc-no">2-2</span><span class="toc-name">空著的房子——低度使用住宅</span><span class="toc-ct">5則 ↓</span></a>
+        <a class="toc-row xref" href="#s1-1"><span class="toc-no">互見</span><span class="toc-name">老舊住宅狀況</span><span class="toc-ct">見 1-1 →</span></a>
+        <a class="toc-row xref" href="#s1-3"><span class="toc-no">互見</span><span class="toc-name">住宅擁有狀況</span><span class="toc-ct">見 1-3 →</span></a>
+        <div class="toc-group">2-3　買賣的房子</div>
+        <a class="toc-row" href="#s2-3-1"><span class="toc-no">2-3-1</span><span class="toc-name">規模與胃口——誰在動、買多新</span><span class="toc-ct">3則 ↓</span></a>
+        <a class="toc-row" href="#s2-3-2"><span class="toc-no">2-3-2</span><span class="toc-name">價格與格局——付多少錢、買什麼樣</span><span class="toc-ct">3則 ↓</span></a>
+        <a class="toc-row" href="#s2-3-3"><span class="toc-no">2-3-3</span><span class="toc-name">品質與地圖——電梯、老公寓與冷熱縣市</span><span class="toc-ct">4則 ↓</span></a>
+        <div class="toc-row pending"><span class="toc-no">2-3</span><span class="toc-name">最近一年售屋者・購屋者主題</span><span class="toc-ct">待擴充</span></div>
+        <div class="toc-group">2-4　出租的房子</div>
         <a class="toc-row" href="#s2-4-1"><span class="toc-no">2-4-1</span><span class="toc-name">誰在租？——房客的臉孔</span><span class="toc-ct">5則 ↓</span></a>
         <a class="toc-row" href="#s2-4-2"><span class="toc-no">2-4-2</span><span class="toc-name">誰在出租？——房東的臉孔</span><span class="toc-ct">5則 ↓</span></a>
         <a class="toc-row" href="#s2-4-3"><span class="toc-no">2-4-3</span><span class="toc-name">租到什麼房？——政策物件的品質</span><span class="toc-ct">5則 ↓</span></a>
@@ -565,43 +589,37 @@
   <div class="part-head" id="part2" style="--pc:var(--p2);--pc-deep:var(--p2-deep)">
     <span class="pc-no">第貳篇</span>
     <h2>主題解析台灣住宅</h2>
-    <p>從全貌走進議題：空著的房子、成交的房子、租約上的房子。四大面向、30則故事，逐題解析台灣住宅最受關注的現場。</p>
+    <p>從全貌走進議題：空著的房子、買賣的房子、出租的房子。四大主題、30則故事，逐題解析台灣住宅最受關注的現場。</p>
     <div class="meta-note">
-      本篇對應《住宅狀況調查—主題式住宅議題分析》四大面向。各主題資料口徑於章節開頭載明；
-      「老舊住宅狀況」與「住宅擁有狀況」兩主題與第壹篇1-1、1-3互見；
-      年齡分群面向（2-1）及售屋者、購屋者主題（2-3-1、2-3-2）待資料產出後擴充。
+      本篇對應《住宅狀況調查—主題式住宅議題分析》。各主題資料口徑於主題開頭載明；
+      「老舊住宅狀況」與「住宅擁有狀況」兩議題與第壹篇1-1、1-3互見；
+      年齡分群（2-1）及最近一年售屋者、購屋者主題待資料產出後擴充。
     </div>
   </div>
 
   <!-- ── 面向 2-1 ── -->
   <div class="facet-head" id="s2-1" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
-    <span class="fno">面向 2-1</span>
-    <h3>年齡分群面向</h3>
+    <span class="fno">2-1</span>
+    <h3>年齡分群（待擴充）</h3>
     <p>青壯年、中壯年與高齡者三個族群的住宅圖像。</p>
   </div>
   <div class="pending-box">
-    <b>待擴充。</b>本面向之「青壯年族群」「中壯年族群」「高齡者族群」三個主題，將於主題分析資料產出後納入；
+    <b>待擴充。</b>本主題之「青壯年族群」「中壯年族群」「高齡者族群」三個子題，將於主題分析資料產出後納入；
     屆時各則編號採 2-1-1-□ 至 2-1-3-□。年齡視角目前可先參見 1-2-3（家有一老）、1-3-4（世代依賴）、2-4-1-2（青年租客）等則。
   </div>
 
   <!-- ── 面向 2-2 ── -->
-  <div class="facet-head" id="s2-2" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
-    <span class="fno">面向 2-2</span>
-    <h3>當前住宅議題面向</h3>
-    <p>低度使用、老舊住宅與住宅擁有——三個最常被問起的住宅議題。</p>
+  <div class="facet-head" id="s2-2" style="--pc:#6B5B8E;--pc-deep:#4C3F6B;--pc-tint:#E8E3F0">
+    <span class="fno">2-2</span>
+    <h3>空著的房子——低度使用住宅</h3>
+    <p>電表不會說謊。當一間房子連續數月幾乎不用電，它大概沒有在「住」。全台推估近百萬間這樣的房子，正安靜地等待被看見。</p>
+    <div class="meta-note">資料來源同第壹篇（常態性期中報告）；低度使用住宅為依報告方法（特定月份平均每月用電低於60度）之推估值。</div>
   </div>
 
-  <!-- ══════════ 2-2-1 空著的房子 ══════════ -->
   <section class="ax-section" style="--ax:#6B5B8E;--ax-tint:#E8E3F0;--ax-deep:#4C3F6B">
-    <div class="section-head" id="s2-2-1">
-      <span class="band">2-2-1</span>
-      <h2>空著的房子——低度使用住宅</h2>
-      <p>電表不會說謊。當一間房子連續數月幾乎不用電，它大概沒有在「住」。全台推估近百萬間這樣的房子，正安靜地等待被看見。</p>
-      <div class="meta-note">資料來源同第壹篇（常態性期中報告）；低度使用住宅為依報告方法（特定月份平均每月用電低於60度）之推估值。</div>
-    </div>
 
-    <article class="story" id="c2-2-1-1">
-      <div class="eyebrow">2-2-1-1｜空屋總量</div>
+    <article class="story" id="c2-2-1">
+      <div class="eyebrow">2-2-1｜空屋總量</div>
       <div class="pull"><span class="num">10.42<small>%</small></span><span class="label">推估全國低度使用（用電）住宅占比——約97萬6,796宅</span></div>
       <h3>10.42%：全台推估近百萬間房子，幾乎沒在用電</h3>
       <p>房子有沒有人住，電表最誠實。依內政部定義，特定月份平均每月用電不到60度的住宅，即為「低度使用」。2025年，透過773萬宅的稅籍與台電資料勾稽，推估全國低度使用住宅達97萬6,796宅、占比10.42%——<strong>全台每10間房，就有1間幾乎沒在用電。</strong></p>
@@ -610,11 +628,11 @@
         近百萬宅的閒置量能，是住宅政策的隱藏籌碼：空屋稅制誘因、包租代管媒合、結合地方創生的閒置屋活化，能讓「沒人用的房子」重新接上「需要房子的人」。惟低度用電屬推估指標，制度設計須保留判斷彈性。
       </div>
       <div class="src">資料依據：期中報告 表51、表52（低度使用住宅數及占比—全國、區域及縣市）</div>
-      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-2-1-2">
-      <div class="eyebrow">2-2-1-2｜沉睡的空屋</div>
+    <article class="story" id="c2-2-2">
+      <div class="eyebrow">2-2-2｜沉睡的空屋</div>
       <div class="pull"><span class="num">51.88<small>%</small></span><span class="label">低度使用住宅中，連續空置達4期（兩年）以上的比率</span></div>
       <h3>51.88%的空屋，已經連續空了兩年以上</h3>
       <p>空屋不可怕，可怕的是一直空著。追蹤低度使用住宅的連續期間（每期半年）發現：只空1期的占26.84%——這類多屬待售、換屋之間的正常過渡。但<strong>連續空置4期、也就是兩年以上的，高達51.88%</strong>；連續1年以上者合計約占四分之三（74.28%）。台灣的空屋，大多不是「市場流通中」，而是長期沉睡。</p>
@@ -623,11 +641,11 @@
         政策應區分「過渡型空屋」與「沉睡型空屋」：前者交給市場自然消化；後者才是空屋稅、修繕活化與公益出租的目標。以連續空置期數精準鎖定對象，比一刀切更有效，也更公平。
       </div>
       <div class="src">資料依據：期中報告 表53、表54（住宅連續低度使用期數占比—全國、區域及縣市）</div>
-      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-2-1-3">
-      <div class="eyebrow">2-2-1-3｜新屋悖論</div>
+    <article class="story" id="c2-2-3">
+      <div class="eyebrow">2-2-3｜新屋悖論</div>
       <div class="pull"><span class="num">27.28<small>%</small></span><span class="label">屋齡1年以下新成屋的低度使用率——全屋齡最高</span></div>
       <h3>27.28%：最新的房子，反而最常空著</h3>
       <p>直覺上，老房子才會空。數據卻指向另一端：屋齡1年以下的新成屋，低度使用率高達27.28%，全屋齡最高；設籍率更只有33.1%，全屋齡最低。市場最搶手的反而是11至20年的中古屋，低度使用率僅6.91%。面積也有同樣的分界：15坪以下小宅低度使用率17.98%，且<strong>將近一半（47.28%）沒有任何人設籍</strong>——小宅常被作為投資、學區設籍等居住以外的用途。</p>
@@ -636,11 +654,11 @@
         「最新的房子最常空著」暗示部分新屋首先是資產、其次才是住所。針對新成屋的持有成本設計、交屋後的空置追蹤，是讓新屋回到居住本業的關鍵。
       </div>
       <div class="src">資料依據：期中報告 表57、表58（屋齡、面積×低度使用交叉表）、表59、表60（屋齡、面積×設籍狀況交叉表）</div>
-      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-2-1-4">
-      <div class="eyebrow">2-2-1-4｜空屋的臉孔</div>
+    <article class="story" id="c2-2-4">
+      <div class="eyebrow">2-2-4｜空屋的臉孔</div>
       <div class="pull"><span class="num">60.25<small>%</small></span><span class="label">低度使用住宅中，宅內僅設籍1人的比率</span></div>
       <h3>60.25%：空屋的戶口簿上，常常只有一個名字</h3>
       <p>空屋長什麼樣子？交叉分析給了一張臉孔素描。在低度用電的住宅中，設籍1人的占60.25%，加上設籍2人的18.08%，合計78.33%——<strong>每五間空屋，將近四間的戶口簿上只有一、兩個名字。</strong>反過來看，設籍1人的住宅，低度使用率13.91%，是各人數組別中最高；設籍4人以上的住宅，低度使用率則不到3%。</p>
@@ -649,11 +667,11 @@
         設籍與居住的脫鉤，會讓以戶籍為基礎的人口與需求統計失真。空屋認定若結合「用電＋設籍」雙指標，就能把「真獨居」與「假設籍」分開——讓獨居關懷與空屋活化，各自找對對象。
       </div>
       <div class="src">資料依據：期中報告 表76（宅內人口數與低度使用狀況交叉表）</div>
-      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-2-1-5">
-      <div class="eyebrow">2-2-1-5｜退場前奏</div>
+    <article class="story" id="c2-2-5">
+      <div class="eyebrow">2-2-5｜退場前奏</div>
       <div class="pull"><span class="num">67.86<small>%</small></span><span class="label">屋齡51年以上住宅的設籍比率——約三分之一已無人設籍</span></div>
       <h3>67.86%：年過半百的老屋，三成已無人設籍</h3>
       <p>房子的一生，也有謝幕的段落。統計顯示，屋齡6至50年的住宅，設籍率都在八成以上——這是住宅「服役中」的常態。但跨過51年門檻，設籍率驟降至67.86%：<strong>大約每三間半百老屋，就有一間已無人設籍。</strong>報告的解讀很直白：這些住宅「逐漸邁入不堪使用或產權複雜的狀態」——屋況差到住不了，或繼承共有喬不攏，房子就這樣被留在原地。</p>
@@ -662,45 +680,42 @@
         台灣有完整的住宅「出生」制度（建照、使照），卻缺乏「退場」機制。老屋安全查核、強制修繕或拆除的法制、共有產權的整合工具，是住宅政策必須補上的最後一哩。
       </div>
       <div class="src">資料依據：期中報告 表59（屋齡與設籍狀況交叉表）、表15（2035年屋齡推估）</div>
-      <div class="story-foot"><a href="#s2-2-1">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <div class="xref-card" id="s2-2-2" style="--pc:#A65A2E;--pc-deep:#7A3E1C;--pc-tint:#F2E3D6">
-      <b>2-2-2　老舊住宅狀況</b>——本主題之數據故事已完整收錄於第壹篇 <a href="#s1-1">1-1「房子變老了——住宅老化危機」（1-1-1～1-1-5）</a>，兩處互見、不另重複。
+    <div class="xref-card" id="s2-xref-age" style="--pc:#A65A2E;--pc-deep:#7A3E1C;--pc-tint:#F2E3D6">
+      <b>互見　老舊住宅狀況</b>——本議題之數據故事已完整收錄於第壹篇 <a href="#s1-1">1-1「房子變老了——住宅老化危機」（1-1-1～1-1-5）</a>，兩處互見、不另重複。
     </div>
-    <div class="xref-card" id="s2-2-3" style="--pc:#1E6E51;--pc-deep:#134A36;--pc-tint:#DEEDE4">
-      <b>2-2-3　住宅擁有狀況</b>——本主題之數據故事已完整收錄於第壹篇 <a href="#s1-3">1-3「房子夠不夠？在誰手上？」（1-3-1～1-3-5）</a>，兩處互見、不另重複。
+    <div class="xref-card" id="s2-xref-own" style="--pc:#1E6E51;--pc-deep:#134A36;--pc-tint:#DEEDE4">
+      <b>互見　住宅擁有狀況</b>——本議題之數據故事已完整收錄於第壹篇 <a href="#s1-3">1-3「房子夠不夠？在誰手上？」（1-3-1～1-3-5）</a>，兩處互見、不另重複。
     </div>
   </section>
 
   <!-- ── 面向 2-3 ── -->
-  <div class="facet-head" id="s2-3" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
-    <span class="fno">面向 2-3</span>
-    <h3>購屋與售屋面向</h3>
-    <p>誰在賣、誰在買、成交的是什麼房。</p>
+  <div class="facet-head" id="s2-3" style="--pc:#9A6420;--pc-deep:#6E4614;--pc-tint:#F0E4D0">
+    <span class="fno">2-3</span>
+    <h3>買賣的房子——近三年交易住宅屬性</h3>
+    <p>三年、十二季、52萬筆成屋買賣——實價登錄第一次以本案口徑攤開：台灣人買什麼屋齡、付多少錢、選什麼格局、買在哪裡。10則故事，分三組說給你聽。</p>
+    <div class="meta-note">
+      資料來源：《主題分析3—近三年交易住宅屬性》(2026/08/26)。實價登錄不動產買賣案件2023年第1季至2025年第4季共12季、22縣市，
+      經排除非住宅與預售屋（270,042筆，占住宅交易33.0%）後，統計母體為522,531筆成屋交易，一宅一筆。
+      本主題所有統計均不含預售屋；屋齡採B分組（配合房地合一稅2.0，未滿2年合併計）；格局房數極端值已依原報告驗算處理；
+      「存量」對照值取自常態性報告。引用時請併註資料時點與「不含預售屋」之口徑。
+    </div>
   </div>
   <div class="pending-box">
-    <b>2-3-1 最近一年售屋者主題、2-3-2 最近一年購屋者主題：待擴充。</b>兩主題將於資料產出後納入；屆時各則編號採 2-3-1-□、2-3-2-□。
+    <b>最近一年售屋者主題、最近一年購屋者主題：待擴充。</b>兩主題將於資料產出後納入本主題之下，與下列三組交易屬性分析並列。
   </div>
 
-  <!-- ══════════ 2-3-3 成交的台灣 ══════════ -->
   <section class="ax-section" style="--ax:#9A6420;--ax-tint:#F0E4D0;--ax-deep:#6E4614">
-    <div class="section-head" id="s2-3-3">
-      <span class="band">2-3-3</span>
-      <h2>成交的台灣——近三年交易住宅屬性</h2>
-      <p>三年、十二季、52萬筆成屋買賣——實價登錄第一次以本案口徑攤開：台灣人買什麼屋齡、付多少錢、選什麼格局、買在哪裡。10則故事，分三小節說給你聽。</p>
-      <div class="meta-note">
-        資料來源：《主題分析3—近三年交易住宅屬性》(2026/08/26)。實價登錄不動產買賣案件2023年第1季至2025年第4季共12季、22縣市，
-        經排除非住宅與預售屋（270,042筆，占住宅交易33.0%）後，統計母體為522,531筆成屋交易，一宅一筆。
-        本主題所有統計均不含預售屋；屋齡採B分組（配合房地合一稅2.0，未滿2年合併計）；格局房數極端值已依原報告驗算處理；
-        「存量」對照值取自常態性報告。引用時請併註資料時點與「不含預售屋」之口徑。
-      </div>
+    <div class="section-head" id="s2-3-1">
+      <span class="band">2-3-1</span>
+      <h2>規模與胃口——誰在動、買多新</h2>
+      <p>市場有多少房子真的在動、預售屋撐起多大一塊，以及買方偏新的胃口。</p>
     </div>
 
-    <div class="sub-divider">市場的規模與胃口——誰在動、買多新（2-3-3-1～3）</div>
-
-    <article class="story" id="c2-3-3-1">
-      <div class="eyebrow">2-3-3-1｜市場的體溫</div>
+    <article class="story" id="c2-3-1-1">
+      <div class="eyebrow">2-3-1-1｜市場的體溫</div>
       <div class="pull"><span class="num">5.57<small>%</small></span><span class="label">近三年成屋交易量占稅籍住宅存量之比——六都6.03%、其他縣市4.46%</span></div>
       <h3>5.57%：近三年，每一百間房子只有五、六間換過手</h3>
       <p>台灣的房市新聞天天喧騰，但把鏡頭拉遠，市場其實很安靜。近三年（2023–2025）全國成屋買賣52.3萬筆，除以938萬間稅籍住宅，<strong>只有5.57%的房子換過手</strong>——粗估年均不到2%，若以此速度，一間房子平均要五十多年才輪到一次買賣。</p>
@@ -709,11 +724,11 @@
         流動性這麼低的市場，「管交易」的政策（稅制、信用管制）只能碰到冰山一角；老屋更新、空屋活化、高齡居住等課題，終究要靠「動存量」的工具。住宅政策的主戰場在那95%沒有換手的房子裡。
       </div>
       <div class="src">資料依據：主題分析3 表5（縣市別交易量及交易/稅籍住宅數比）</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-1">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-2">
-      <div class="eyebrow">2-3-3-2｜看不見的三分之一</div>
+    <article class="story" id="c2-3-1-2">
+      <div class="eyebrow">2-3-1-2｜看不見的三分之一</div>
       <div class="pull"><span class="num">33.0<small>%</small></span><span class="label">近三年住宅交易中預售屋之占比（270,042筆，已自本統計排除）</span></div>
       <h3>33.0%：每三筆住宅交易，就有一筆買的是還沒蓋好的房子</h3>
       <p>在進入這份統計之前，先看一眼被排除的部分——它本身就是一則故事。近三年81.9萬筆住宅買賣中，有27萬筆是預售屋，占33.0%：<strong>每三個買房的台灣人，就有一個買的是圖紙上的房子</strong>，交屋要等二到四年。</p>
@@ -722,11 +737,11 @@
         三分之一的交易建立在「先付錢、後交屋」的信任上，預售履約保證、建商財務監理與逾期交屋救濟，重要性不亞於成屋市場管理；交易統計與政策評估也應成屋、預售兩本帳並讀。
       </div>
       <div class="src">資料依據：主題分析3 篩選流程表（預售屋270,042筆，占住宅交易33.0%）</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-1">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-3">
-      <div class="eyebrow">2-3-3-3｜市場的胃口</div>
+    <article class="story" id="c2-3-1-3">
+      <div class="eyebrow">2-3-1-3｜市場的胃口</div>
       <div class="pull"><span class="num">29.48<small>%</small></span><span class="label">成交住宅屋齡10年以下之占比——40年以上老屋僅占20.88%，約為其存量占比之半</span></div>
       <h3>29.48%：成交的房子，近三成不到十歲</h3>
       <p>存量與流量，是兩個不同的台灣。存量端，全國住宅近四成（38.10%）屋齡超過41年；但在交易端，近三年成交的房子有29.48%屋齡不到10年——其中15.38%甚至未滿2年，等於每六、七筆交易就有一筆是剛落成的新屋。反過來看，<strong>40年以上老屋只占成交的20.88%，約為它在存量中占比的一半</strong>。</p>
@@ -735,15 +750,19 @@
         老屋流動性低，意味著「以市場換手帶動更新」這條路先天狹窄。都更危老政策應把「難以出售的老屋」視為政策對象而非市場問題，搭配整合平台與誘因，替不動的老屋開一條退場的路。
       </div>
       <div class="src">資料依據：主題分析3 表1（屋齡別）；存量對照取自常態性報告表9</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-1">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <div class="sub-divider" style="--ax-deep:#1F4A50">價格與格局——付多少錢、買什麼樣（2-3-3-4～6）</div>
   </section>
 
   <section class="ax-section" style="--ax:#2F6B72;--ax-tint:#DFEBEC;--ax-deep:#1F4A50">
-    <article class="story" id="c2-3-3-4">
-      <div class="eyebrow">2-3-3-4｜千萬門檻</div>
+    <div class="section-head" id="s2-3-2">
+      <span class="band">2-3-2</span>
+      <h2>價格與格局——付多少錢、買什麼樣</h2>
+      <p>千萬中線、一坪之價，以及家越變越小卻始終不變的三房兩廳兩衛。</p>
+    </div>
+    <article class="story" id="c2-3-2-1">
+      <div class="eyebrow">2-3-2-1｜千萬門檻</div>
       <div class="pull"><span class="num">22.37<small>%</small></span><span class="label">成交總價落在1,000–1,500萬之占比，各分組之最——48.37%在千萬以下成交</span></div>
       <h3>22.37%：台灣人買房的主戰場，是一千到一千五百萬</h3>
       <p>台灣的「一間房子多少錢」，答案藏在分布裡。近三年成交總價最大宗落在1,000–1,500萬，占22.37%；累計來看，48.37%的交易在1,000萬以下成交，70.74%在1,500萬以下——<strong>中位數那間房子，就是一間千萬出頭的房子</strong>。至於新聞版面上的豪宅，3,000萬以上其實只占7.38%。</p>
@@ -752,11 +771,11 @@
         金融支持與稅制設計應貼著市場中位數走：額度畫得太低，主戰場的買方用不到；畫得太高，補貼會外溢到分布右尾。這條「千萬中線」值得成為各項購屋協助定期校準的基準。
       </div>
       <div class="src">資料依據：主題分析3 表12（總價別）</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-5">
-      <div class="eyebrow">2-3-3-5｜一坪之價</div>
+    <article class="story" id="c2-3-2-2">
+      <div class="eyebrow">2-3-2-2｜一坪之價</div>
       <div class="pull"><span class="num">29.32<small>%</small></span><span class="label">成交單價落在每坪20–30萬之占比，各分組之最——每坪50萬以上合計僅16.78%</span></div>
       <h3>29.32%：最多人成交的單價，是一坪20到30萬</h3>
       <p>「一坪百萬」的新聞看多了，容易忘記全國市場的真實刻度。近三年成交單價最大宗是每坪20–30萬，占29.32%；有四分之一（25.06%）的交易甚至在20萬以下成交。往高處看，每坪50萬以上的交易合計16.78%，80萬以上只有4.67%。</p>
@@ -765,11 +784,11 @@
         居住負擔政策需要地理解析度。同一套補貼或信用管制，落在一坪25萬與一坪85萬的市場，效果天差地遠；負擔能力指標與政策強度，應以縣市甚至生活圈為單位分別校準。
       </div>
       <div class="src">資料依據：主題分析3 表13（單價別）</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-6">
-      <div class="eyebrow">2-3-3-6｜三房仍是王</div>
+    <article class="story" id="c2-3-2-3">
+      <div class="eyebrow">2-3-2-3｜三房仍是王</div>
       <div class="pull"><span class="num">64.26<small>%</small></span><span class="label">成交住宅為3房以上之占比——2廳65.20%、2衛42.68%，「三房兩廳兩衛」仍是標準答案</span></div>
       <h3>64.26%：家越變越小，市場仍是三房的天下</h3>
       <p>存量端我們看過：一人戶已破四成、每宅設籍只剩2.91人。但交易端呈現的是另一個台灣——近三年成交的住宅，64.26%是3房以上，配上2廳（65.20%）與2衛（42.68%），「三房兩廳兩衛」依然是市場的標準答案；1房以下的交易合計僅16.10%。</p>
@@ -778,15 +797,19 @@
         當市場自然供給以三房家庭宅為主，小家戶的居住選項——小宅、社宅、合宜租屋——難以靠市場補足，需要政策供給補位；同時應留意三房產品在家戶持續縮小下的長期去化風險。
       </div>
       <div class="src">資料依據：主題分析3 表6、7、8（格局房廳衛數）</div>
-      <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
+      <div class="story-foot"><a href="#s2-3-2">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <div class="sub-divider" style="--ax-deep:#572E43">品質與地圖——電梯、老公寓與冷熱縣市（2-3-3-7～10）</div>
   </section>
 
   <section class="ax-section" style="--ax:#7C4460;--ax-tint:#EEDFE7;--ax-deep:#572E43">
-    <article class="story" id="c2-3-3-7">
-      <div class="eyebrow">2-3-3-7｜無電梯的四成</div>
+    <div class="section-head" id="s2-3-3">
+      <span class="band">2-3-3</span>
+      <h2>品質與地圖——電梯、老公寓與冷熱縣市</h2>
+      <p>四成無梯宅、近乎絕版的新公寓，與冷熱相差逾一倍的縣市換手地圖。</p>
+    </div>
+    <article class="story" id="c2-3-3-1">
+      <div class="eyebrow">2-3-3-1｜無電梯的四成</div>
       <div class="pull"><span class="num">39.73<small>%</small></span><span class="label">成交住宅無電梯之占比（207,593筆）——每五筆交易有兩筆買的是無梯宅</span></div>
       <h3>39.73%：今天買下的無電梯住宅，是二十年後的高齡困境</h3>
       <p>電梯，是住宅統計裡最貼近老後生活的一個欄位。近三年成交的52.3萬筆住宅中，39.73%沒有電梯——包括幾乎全數的公寓（占交易15.01%）與九成以上的透天厝。值得一提的是，透天已有7.32%配了電梯，「透天等於爬樓梯」的印象正在鬆動，但整體而言，每五筆交易仍有兩筆買的是無梯宅。</p>
@@ -798,8 +821,8 @@
       <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-8">
-      <div class="eyebrow">2-3-3-8｜絕版品</div>
+    <article class="story" id="c2-3-3-2">
+      <div class="eyebrow">2-3-3-2｜絕版品</div>
       <div class="pull"><span class="num">0.29<small>%</small></span><span class="label">屋齡未滿2年成交中公寓之占比——公寓交易集中於屋齡40–49年（占該組48.01%）</span></div>
       <h3>0.29%：新公寓近乎停產——每一筆公寓交易都是在買老屋</h3>
       <p>在近三年的交易裡，有一種產品正在絕版：無電梯公寓。屋齡未滿2年的成交中，公寓只占0.29%；2–4年占0.36%、5–9年占0.54%——換句話說，<strong>市場上幾乎買不到「新的公寓」</strong>，這個產品在1990年代後就近乎停產了。今天成交的公寓集中在哪？屋齡40–49年的交易中，公寓占48.01%，正是1970到80年代那批公寓的黃金世代；至於50年以上的交易，61.01%是透天老厝。</p>
@@ -811,8 +834,8 @@
       <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-9">
-      <div class="eyebrow">2-3-3-9｜愈新愈大、愈老愈小</div>
+    <article class="story" id="c2-3-3-3">
+      <div class="eyebrow">2-3-3-3｜愈新愈大、愈老愈小</div>
       <div class="pull"><span class="num">78.25<small>%</small></span><span class="label">屋齡40–49年成交中35坪以下之合計占比——未滿2年新屋15坪以下僅0.80%</span></div>
       <h3>78.25%：40年老屋的成交，近八成是35坪以下</h3>
       <p>屋齡與坪數交叉，浮現一條清楚的斜線：房子愈老，成交坪數愈小。屋齡40–49年的交易中，35坪以下合計占78.25%（其中26–35坪就占40.30%）；50年以上老屋更有36.85%落在16–25坪。反觀屋齡未滿2年的新成屋：15坪以下只占0.80%，56坪以上卻占27.32%；5–9年組的大坪數比例更高達33.23%。</p>
@@ -824,8 +847,8 @@
       <div class="story-foot"><a href="#s2-3-3">回本章</a><a href="#top">回首頁</a></div>
     </article>
 
-    <article class="story" id="c2-3-3-10">
-      <div class="eyebrow">2-3-3-10｜冷熱地圖</div>
+    <article class="story" id="c2-3-3-4">
+      <div class="eyebrow">2-3-3-4｜冷熱地圖</div>
       <div class="pull"><span class="num">6.77<small>%</small></span><span class="label">桃園近三年換手率，全國之冠——最冷的雲林僅2.95%，冷熱相差逾一倍</span></div>
       <h3>6.77%：桃園的房子最會換手，雲林的最不動</h3>
       <p>把換手率攤到22個縣市，市場的冷熱地圖一目了然。最熱的是桃園：近三年6.77%的住宅換過手，全國之冠；基隆6.67%緊追在後，高雄（6.54%）、台中（6.15%）居次。最冷的在中南部農業縣：雲林2.95%、嘉義縣3.10%、彰化3.15%、澎湖3.02%——房子幾乎不進市場；連江更只有0.69%。</p>
@@ -840,8 +863,8 @@
 
   <!-- ── 面向 2-4 ── -->
   <div class="facet-head" id="s2-4" style="--pc:var(--p2);--pc-deep:var(--p2-deep);--pc-tint:var(--p2-tint)">
-    <span class="fno">面向 2-4</span>
-    <h3>政策參與者面向——租約上的台灣</h3>
+    <span class="fno">2-4</span>
+    <h3>出租的房子——租約上的台灣</h3>
     <p>300億租金補貼、社宅包租代管、六都直接興辦社宅——超過67萬筆租約大數據，第一次讓我們同時看清三張臉：誰在租屋、誰在出租、他們租的是什麼房。</p>
     <div class="meta-note">
       資料來源：《主題分析4—政策參與者分群》(2026/08/26)。租金補貼與包租代管為2025年第2季有效契約，六都直接興辦社宅為2026年2月28日有效契約。
@@ -1082,7 +1105,7 @@
       本篇為第壹、貳篇50則數據故事之後續深化提案。每案標示串接資料、串接層級與可升級之故事編號。層級三類：
       建物層級（門牌／建號歸戶即可）；人別層級（涉個資，需於去識別化平台執行）；統計區層級（結合SEGIS等外部公開資料，免個資程序）。
       建議優先順位：<strong>3-1-1 → 3-1-2 → 3-2-1 → 3-4-1</strong>；3-1-3、3-3-4為第二梯次。
-      文中「補充分析」指年齡分群與當前議題面向之補充故事，尚未收錄於本站，將於2-1及2-2擴充時一併納入。
+      文中「補充分析」指年齡分群與當前住宅議題之補充故事，尚未收錄於本站，將於2-1等主題擴充時一併納入。
     </div>
   </div>
 
@@ -1107,7 +1130,7 @@
       </div>
       <p>這張表讓空屋率第一次有了區間：<strong>低度用電的10.42%是上界，「無籍低電」的深度空屋是下界</strong>；也讓每個縣市有了「實住宅數」的校正基礎。它是本篇所有設籍相關提案的母表。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-2-1-1空屋總量、2-2-1-4空屋的臉孔、1-2-2每宅2.91人（設籍失真的校正）、1-4-2金門悖論——空屋統計從單指標點估計，升級為雙指標的區間與分型。
+        2-2-1空屋總量、2-2-4空屋的臉孔、1-2-2每宅2.91人（設籍失真的校正）、1-4-2金門悖論——空屋統計從單指標點估計，升級為雙指標的區間與分型。
       </div>
       <div class="src">串接資料：稅籍住宅用電 × 戶籍設籍有無及人數（全國建物層級盤點）</div>
       <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
@@ -1115,12 +1138,12 @@
 
     <article class="story" id="c3-1-2">
       <div class="eyebrow">3-1-2｜雙指標認定 <span class="flag">優先</span><span class="flag lv">建物→人別兩階段</span></div>
-      <div class="pull formula"><span class="num">用電 × 設籍組成</span><span class="label">承3-1-1「掛籍宅」象限：串接設籍者屬性（人數、年齡、遷入時間），實作2-2-1-4「用電＋設籍」雙指標</span></div>
+      <div class="pull formula"><span class="num">用電 × 設籍組成</span><span class="label">承3-1-1「掛籍宅」象限：串接設籍者屬性（人數、年齡、遷入時間），實作2-2-4「用電＋設籍」雙指標</span></div>
       <h3>一盞不亮的燈、一個掛著的戶籍：真獨居，還是假設籍？</h3>
-      <p>2-2-1-4發現六成空屋裡設籍1人，並提出解方：「用電＋設籍」雙指標。這一案就是把它做出來——聚焦3-1-1的「掛籍宅」象限，攤開設籍者屬性後，兩張臉會自動分開：設籍者是<strong>高齡長者、久居未遷</strong>——那可能是「真獨居但用電極低」的長者，被空屋統計誤收，該轉給關懷訪視；設籍者<strong>年輕、近期遷入、他處另有實居跡象</strong>——那是為學區、福利或稅制而來的「假設籍」，該回到空屋活化與稅籍稽核的名單。</p>
+      <p>2-2-4發現六成空屋裡設籍1人，並提出解方：「用電＋設籍」雙指標。這一案就是把它做出來——聚焦3-1-1的「掛籍宅」象限，攤開設籍者屬性後，兩張臉會自動分開：設籍者是<strong>高齡長者、久居未遷</strong>——那可能是「真獨居但用電極低」的長者，被空屋統計誤收，該轉給關懷訪視；設籍者<strong>年輕、近期遷入、他處另有實居跡象</strong>——那是為學區、福利或稅制而來的「假設籍」，該回到空屋活化與稅籍稽核的名單。</p>
       <p>分類統計可先在建物層級完成（免個資程序，即可同時校正空屋率與獨居統計）；產出訪視與稽核名單時再進入人別層級。一張表，讓獨居關懷與空屋活化各自找對對象。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-2-1-4空屋的臉孔、1-2-1一人戶（內含多少幽靈戶）、補充分析「年輕戶長空屋」——雙指標從政策建議變成可操作的認定機制原型。
+        2-2-4空屋的臉孔、1-2-1一人戶（內含多少幽靈戶）、補充分析「年輕戶長空屋」——雙指標從政策建議變成可操作的認定機制原型。
       </div>
       <div class="src">串接資料：稅籍低度用電住宅 × 戶籍設籍組成（人數、年齡、遷入時間）；名單階段於去識別化平台執行</div>
       <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
@@ -1133,7 +1156,7 @@
       <p>最近一年家戶數暴增45.9萬戶（年增5.48%）、年輕戶長占比跳升、每宅設籍戶數達1.22戶——這些訊號都指向同一個假說：<strong>囤房稅2.0催生了一波「稅制性分戶」</strong>。驗證方法很直接：把分戶的時點與地點，對上該住宅的用電狀態——若大量新設戶籍落在低度用電宅，且時間集中在稅制上路前後，證據就齊了。</p>
       <p>這張表一石三鳥：校正家戶統計的失真（1-2-5、1-3-1供給率的分母）、量化稅制的行為效應、並為稅籍稽核提供風險名單邏輯。它與3-1-2互為表裡：3-1-2看「存量」的設籍組成，本案看「流量」的分戶行為。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        1-2-5一宅多戶、2-2-1-4空屋設籍1人、補充分析「戶長年輕化」——「假設籍」從合理懷疑變成可估規模的現象。
+        1-2-5一宅多戶、2-2-4空屋設籍1人、補充分析「戶長年輕化」——「假設籍」從合理懷疑變成可估規模的現象。
       </div>
       <div class="src">串接資料：戶籍分戶異動紀錄 × 稅籍住宅用電（去識別化平台執行）</div>
       <div class="story-foot"><a href="#s3-1">回本章</a><a href="#top">回首頁</a></div>
@@ -1157,7 +1180,7 @@
       <div class="pull formula"><span class="num">設籍地 × 就業地</span><span class="label">戶籍所在縣市串接勞保（或健保）投保單位所在縣市，量化籍居分離</span></div>
       <h3>北漂有多少人？戶籍知道一半，勞保知道另一半</h3>
       <p>「北漂」講了幾十年，規模始終是估的。把每個人的設籍縣市對上勞保投保單位所在縣市，「<strong>籍在中南部、業在北部</strong>」的人口規模、年齡與流向，第一次可以直接計算；疊上SEGIS的日間活動人口與通勤統計，還能互相驗證。</p>
-      <p>這個落差的政策後果很具體：統籌分配款、社宅需求推估、公共設施配置都按戶籍人口算，實住人口多的城市長期被短編；它也解釋了本章其他數字——租客戶籍留在老家（3-1-4）、年輕戶籍掛在空屋（補充分析）、基隆高換手（2-3-3-10），都是同一場「戶籍與生活分離」的不同切面。</p>
+      <p>這個落差的政策後果很具體：統籌分配款、社宅需求推估、公共設施配置都按戶籍人口算，實住人口多的城市長期被短編；它也解釋了本章其他數字——租客戶籍留在老家（3-1-4）、年輕戶籍掛在空屋（補充分析）、基隆高換手（2-3-3-4），都是同一場「戶籍與生活分離」的不同切面。</p>
       <div class="policy"><span class="tag">預期升級</span>
         1-4城鄉系列、2-4-1-2青年租客、3-1-1四象限的地理版——「實住人口」可望成為資源分配的第二本帳。
       </div>
@@ -1178,10 +1201,10 @@
       <div class="eyebrow">3-2-1｜交易活化率 <span class="flag">優先</span><span class="flag lv">建物層級</span></div>
       <div class="pull formula"><span class="num">實價登錄 × 稅籍用電</span><span class="label">以門牌／建號串接，觀察每筆成交前後各12個月的用電狀態變化</span></div>
       <h3>買掉的房子，有人住進去嗎？</h3>
-      <p>52萬筆成屋交易與低度用電註記放在同一張表上，可以回答三個現在只能推測的問題：成交前是空屋的房子，換手後多久「點亮」？<strong>新成屋空置的27.28%（2-2-1-3），是交屋過渡還是投資閒置</strong>——追蹤12個月自然分曉；以及，交易熱區的空屋消化速度，是否真的快過冷區。</p>
+      <p>52萬筆成屋交易與低度用電註記放在同一張表上，可以回答三個現在只能推測的問題：成交前是空屋的房子，換手後多久「點亮」？<strong>新成屋空置的27.28%（2-2-3），是交屋過渡還是投資閒置</strong>——追蹤12個月自然分曉；以及，交易熱區的空屋消化速度，是否真的快過冷區。</p>
       <p>由此可產出一個全新指標「交易活化率」：每百筆空屋交易中，一年內轉為正常用電的比率。它是評估囤房稅2.0「促使釋出」宣稱、以及空屋政策成效的核心證據，也是交易面政策槓桿最大的一張表。若同步觀察交易後的設籍變化，即與3-1-1的四象限接軌。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-3-3-1「動存量」、2-2-1-1空屋總量、2-2-1-3新成屋空置——「市場能否消化空屋」從敘事變成可逐年追蹤的KPI。
+        2-3-1-1「動存量」、2-2-1空屋總量、2-2-3新成屋空置——「市場能否消化空屋」從敘事變成可逐年追蹤的KPI。
       </div>
       <div class="src">串接資料：實價登錄買賣案件 × 稅籍住宅用電資料（前後各12個月）；可輔以設籍異動</div>
       <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
@@ -1191,10 +1214,10 @@
       <div class="eyebrow">3-2-2｜政策房源的前世 <span class="flag lv">建物層級</span></div>
       <div class="pull formula"><span class="num">租約 × 空置史</span><span class="label">租補／包管物件地址回溯串接稅籍用電歷史，檢視進入政策前的使用狀態</span></div>
       <h3>租金補貼，是活化了空屋，還是只在租屋市場裡搬家？</h3>
-      <p>「公益出租活化空屋」是常被宣稱、卻從未驗證的政策論點。把57.4萬筆租補與9.8萬筆包管物件的地址，回頭對上稅籍用電歷史，就能知道：這些政策房源在進入政策前，有多少原本是<strong>連續空置2年以上的沉睡空屋（2-2-1-2的51.88%）</strong>，又有多少本來就在出租、只是從檯面下轉到檯面上。</p>
+      <p>「公益出租活化空屋」是常被宣稱、卻從未驗證的政策論點。把57.4萬筆租補與9.8萬筆包管物件的地址，回頭對上稅籍用電歷史，就能知道：這些政策房源在進入政策前，有多少原本是<strong>連續空置2年以上的沉睡空屋（2-2-2的51.88%）</strong>，又有多少本來就在出租、只是從檯面下轉到檯面上。</p>
       <p>兩種來源的政策意義完全不同：前者是淨增供給，後者是既有市場的納管。比例一旦算出，租賃政策的KPI就該從「租約筆數」升級為「淨增房源數」。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-4-3-1「補貼進得去的地方就是老房子密集的地方」、2-2-1-2沉睡空屋——並為「公益出租能否成為空屋出口」提供首見實證。
+        2-4-3-1「補貼進得去的地方就是老房子密集的地方」、2-2-2沉睡空屋——並為「公益出租能否成為空屋出口」提供首見實證。
       </div>
       <div class="src">串接資料：租金補貼／包租代管有效契約地址 × 稅籍住宅用電歷史</div>
       <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
@@ -1207,7 +1230,7 @@
       <p>98萬空屋現在只有「屋」的描述（屋齡、面積、縣市），沒有「人」的描述。把低度用電住宅接上地籍所有權人屬性，空屋就會分成幾張截然不同的臉：<strong>高齡者「捨不得處分」的老宅、多屋者「養著」的資產、外地人「放著」的置產</strong>，以及繼承後懸置的共有屋——各占多少，目前無人知道。注意「外地人」的判別本身就用到設籍：所有權人設籍地與房屋所在地的距離，是重要的分類軸。</p>
       <p>主題式架構本就設定了「低度使用×所有權人屬性」維度，這張表正是補上它。空屋對策必須對象化：高齡導向留房養老與代管、多屋導向稅制、外地導向在地媒合——藥方配比，由這張表決定。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-2-1-1空屋總量、補充分析「年輕戶長空屋」——空屋政策從「一包工具」進到「對症下藥」的對象分流。
+        2-2-1空屋總量、補充分析「年輕戶長空屋」——空屋政策從「一包工具」進到「對症下藥」的對象分流。
       </div>
       <div class="src">串接資料：稅籍低度用電住宅 × 地籍所有權人（年齡、歸戶宅數、設籍地）</div>
       <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
@@ -1220,7 +1243,7 @@
       <p>同樣是高空屋率，成因可能完全相反。把稅籍低度用電資料落到最小統計區，對上SEGIS國土資訊系統的社會經濟資料——人口成長率、遷入遷出、就業與產業結構——空屋就能分型：<strong>人口流失＋高空屋＝「衰退型」</strong>，需求消失、房子被留下（金門悖論、部分農業縣）；<strong>人口成長＋高空屋＝「去化型／投資型」</strong>，新案交屋潮與置產需求並存（桃竹熱區）。</p>
       <p>兩型的處方相反：衰退型的重點是減量、公共化與地方創生，硬要「活化出租」是緣木求魚；投資型才適用稅制與出租誘因。SEGIS為公開統計資料，本案免個資程序，可最快啟動。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-2-1-1、1-4-2金門悖論、1-4-3桃竹熱區、2-3-3-10冷熱地圖——空屋政策的「因地制宜」第一次有分型依據。
+        2-2-1、1-4-2金門悖論、1-4-3桃竹熱區、2-3-3-4冷熱地圖——空屋政策的「因地制宜」第一次有分型依據。
       </div>
       <div class="src">串接資料：稅籍低度用電（統計區彙總）× SEGIS社會經濟資料庫（人口、勞動、產業）</div>
       <div class="story-foot"><a href="#s3-2">回本章</a><a href="#top">回首頁</a></div>
@@ -1242,7 +1265,7 @@
       <p>自住與置產的真實比例，是房市政策最基本卻最缺乏的數字。把52萬筆交易的買方，追蹤其後6至24個月的設籍與該宅用電，就能把每筆交易分類：<strong>自住遷入、出租他人、空置持有</strong>。搭配買方原持有宅數，更能區分首購自住、換屋與多屋加碼。注意設籍單獨看會低估自住（部分自住者不遷籍），所以要用「設籍＋用電」雙證據互補——正是本篇3-1章的方法論在交易面的應用。</p>
       <p>這也是「自住認定」機制的稽核底稿——優惠貸款與稅率給了自住者，多少比例事後並未自住？答案會直接影響新青安等政策的設計與查核強度。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-3-3-6「市場跟著買得起的人走」從推論變實證；2-3-3-4千萬中線可加上「自住／置產」的分層。
+        2-3-2-3「市場跟著買得起的人走」從推論變實證；2-3-2-1千萬中線可加上「自住／置產」的分層。
       </div>
       <div class="src">串接資料：實價登錄買方 × 戶籍遷徙 × 稅籍用電（去識別化平台執行）</div>
       <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
@@ -1265,10 +1288,10 @@
       <div class="eyebrow">3-3-3｜三重風險名單 <span class="flag lv">建物層級</span></div>
       <div class="pull formula"><span class="num">高齡×獨居×無梯×老屋</span><span class="label">戶籍高齡獨居戶串接稅籍建物屬性（屋齡、樓層、電梯）之四重交叉</span></div>
       <h3>孤老、老宅、無電梯：三重風險疊在一起的，有多少人？</h3>
-      <p>現在的數字各說各的：36.90%家戶有長者（1-2-3）、75歲以上戶長63.38%住40年以上老宅（補充分析）、四成交易無電梯（2-3-3-7）。四重交叉之後才會出現政策真正需要的數字：<strong>獨居長者＋40年老宅＋無電梯＋三樓以上</strong>的精確規模與縣市熱點——那是跌倒風險、就醫困難與孤立死風險最高的一群門牌。名單的準確性可再用3-1-2的雙指標過濾：排除「假設籍」的幽靈獨居，留下真正需要敲門的那些家。</p>
+      <p>現在的數字各說各的：36.90%家戶有長者（1-2-3）、75歲以上戶長63.38%住40年以上老宅（補充分析）、四成交易無電梯（2-3-3-1）。四重交叉之後才會出現政策真正需要的數字：<strong>獨居長者＋40年老宅＋無電梯＋三樓以上</strong>的精確規模與縣市熱點——那是跌倒風險、就醫困難與孤立死風險最高的一群門牌。名單的準確性可再用3-1-2的雙指標過濾：排除「假設籍」的幽靈獨居，留下真正需要敲門的那些家。</p>
       <p>這是本篇18案中最直接可落地為服務的一張表：它產出的不是論述，而是居家安全改善、電梯補助與長照訪視的優先名單邏輯。若再疊上SEGIS的醫療資源分布，熱點的優先序會更精準。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        1-2-3家有一老、1-4-1基隆、補充分析「雙老」、2-3-3-7無梯宅——四則故事收斂成一張可派工的風險地圖。
+        1-2-3家有一老、1-4-1基隆、補充分析「雙老」、2-3-3-1無梯宅——四則故事收斂成一張可派工的風險地圖。
       </div>
       <div class="src">串接資料：戶籍（年齡、獨居）× 稅籍建物屬性（屋齡、總樓層、電梯）；可輔以SEGIS醫療資源圖層</div>
       <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
@@ -1278,10 +1301,10 @@
       <div class="eyebrow">3-3-4｜誰在買千萬宅 <span class="flag lv">人別層級</span></div>
       <div class="pull formula"><span class="num">買方年齡 × 價格×屋齡</span><span class="label">地籍買賣移轉登記人屬性串接實價登錄總價、屋齡、電梯</span></div>
       <h3>千萬中線的兩側，站著哪個世代？</h3>
-      <p>2-3-3-4畫出了台灣購屋的「千萬中線」，但線的兩側是誰，還是空白。把買賣移轉登記的買方年齡接上實價登錄，可以拆出世代別的購屋圖像：<strong>30歲世代買的是什麼總價、什麼屋齡</strong>？他們是被擠向老公寓，還是靠親屬奧援直上新案？高齡買方是否仍在買無梯宅，替自己的80歲埋下伏筆？</p>
+      <p>2-3-2-1畫出了台灣購屋的「千萬中線」，但線的兩側是誰，還是空白。把買賣移轉登記的買方年齡接上實價登錄，可以拆出世代別的購屋圖像：<strong>30歲世代買的是什麼總價、什麼屋齡</strong>？他們是被擠向老公寓，還是靠親屬奧援直上新案？高齡買方是否仍在買無梯宅，替自己的80歲埋下伏筆？</p>
       <p>搭配貸款成數與1-3-4「世代依賴」的親屬持有資料，「青年購屋難」可以第一次被拆解成價格、屋齡、區位、奧援四個可各自施策的變數。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-3-3-4千萬門檻、2-3-3-7無梯宅、1-3-4世代依賴——貸款額度與青年購屋政策的世代實證基礎。
+        2-3-2-1千萬門檻、2-3-3-1無梯宅、1-3-4世代依賴——貸款額度與青年購屋政策的世代實證基礎。
       </div>
       <div class="src">串接資料：地籍買賣移轉登記人（年齡）× 實價登錄（總價、屋齡、電梯）（去識別化平台執行）</div>
       <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
@@ -1304,10 +1327,10 @@
       <div class="eyebrow">3-3-6｜負擔地圖 <span class="flag ext">SEGIS外部資料</span><span class="flag lv">統計區層級</span></div>
       <div class="pull formula"><span class="num">交易價格 × 所得</span><span class="label">實價登錄中位價格串接SEGIS綜稅所得中位數，產製在地房價所得比</span></div>
       <h3>一坪25萬的城鎮，負擔可能比一坪85萬的更重</h3>
-      <p>2-3-3-5證明台灣一半的買賣發生在每坪30萬以下，並呼籲「地理解析度」。這一案就是把解析度做出來：以統計區或鄉鎮為單位，用實價登錄的中位總價除以SEGIS的綜稅所得中位數，畫出<strong>在地房價所得比地圖</strong>。結果很可能翻案——低單價縣市因所得更低，負擔比未必輸給雙北；而基隆買房、台北上班的通勤生活圈，負擔要跨縣市合併計算才真實——這裡可與3-1-5的籍居分離資料互相對照。</p>
+      <p>2-3-2-2證明台灣一半的買賣發生在每坪30萬以下，並呼籲「地理解析度」。這一案就是把解析度做出來：以統計區或鄉鎮為單位，用實價登錄的中位總價除以SEGIS的綜稅所得中位數，畫出<strong>在地房價所得比地圖</strong>。結果很可能翻案——低單價縣市因所得更低，負擔比未必輸給雙北；而基隆買房、台北上班的通勤生活圈，負擔要跨縣市合併計算才真實——這裡可與3-1-5的籍居分離資料互相對照。</p>
       <p>SEGIS為公開資料，本案與3-2-4同屬免個資程序、可最快啟動的外部串接。產出後，補貼強度、社宅區位、囤房稅豪宅線，都有了在地校準的座標。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        2-3-3-4千萬門檻、2-3-3-5一坪之價、1-4城鄉系列——「可負擔性」從全國平均進到統計區解析度。
+        2-3-2-1千萬門檻、2-3-2-2一坪之價、1-4城鄉系列——「可負擔性」從全國平均進到統計區解析度。
       </div>
       <div class="src">串接資料：實價登錄（中位總價／單價）× SEGIS綜稅所得、家戶統計（統計區／鄉鎮層級）</div>
       <div class="story-foot"><a href="#s3-3">回本章</a><a href="#top">回首頁</a></div>
@@ -1355,7 +1378,7 @@
       <p>議題補充分析證明「繼承潮就是老屋潮」（繼承宅83.03%屋齡逾31年），但繼承之後呢？把繼承登記的住宅接上用電狀態與共有人數，可以驗證一條關鍵曲線：<strong>共有人數越多，空置比率越高、空置時間越長</strong>——手足共同繼承、無人能單獨決定，於是房子在爭議與擱置中一年年老去。若再看繼承人是否有人設籍於該宅，「留守型」與「全員離散型」的繼承屋還能進一步分開。</p>
       <p>若曲線成立，它就是共有產權整合工具（多數決門檻、公部門協調平台、預先分割輔導）的立法依據；也能推估未來十年繼承潮將「自動生成」多少空屋，提前布局。</p>
       <div class="policy"><span class="tag">預期升級</span>
-        1-3-5世代移轉、補充分析「繼承老屋」、2-2-1-2沉睡空屋——「繼承潮＝空屋潮」從敘事變成量化曲線。
+        1-3-5世代移轉、補充分析「繼承老屋」、2-2-2沉睡空屋——「繼承潮＝空屋潮」從敘事變成量化曲線。
       </div>
       <div class="src">串接資料：地籍繼承登記住宅 × 稅籍用電 × 共有人數、繼承人設籍</div>
       <div class="story-foot"><a href="#s3-4">回本章</a><a href="#top">回首頁</a></div>
@@ -1371,8 +1394,8 @@
     </div>
     <p>
       《住在台灣》住宅狀況調查數據故事總站——第壹篇「數字俯瞰台灣住宅」20則、第貳篇「主題解析台灣住宅」30則、
-      第參篇「未來深探台灣住宅」18案，合計68則。編號體例：第一段為篇（1俯瞰、2解析、3深探），其後為章／面向、主題與則序；
-      主題式各則採四段式編號（如2-3-3-4）。
+      第參篇「未來深探台灣住宅」18案，合計68則。編號體例：第一段為篇（1俯瞰、2解析、3深探），其後依主題層級逐段展開；
+      第貳篇之「買賣的房子」與「出租的房子」各分三組，採四段式編號（如2-3-1-1、2-4-2-3），「空著的房子」各則直屬主題，採三段式（如2-2-4）。
     </p>
     <p>
       統計數據分別取自《住宅狀況調查—常態性住宅狀況分析》期中報告書（基準日2025年6月30日）、《主題分析3—近三年交易住宅屬性》
@@ -1389,16 +1412,145 @@
 </footer>
 
 <script>
-  const progress = document.getElementById('progress');
-  const backtop = document.getElementById('backtop');
-  function onScroll(){
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-    backtop.classList.toggle('show', h.scrollTop > 600);
+(function(){
+  var NAV = [{"id": "part1", "children": [{"id": "s1-1", "label": "1-1 房子變老了", "children": [{"id": "c1-1-1", "no": "1-1-1", "t": "總體診斷"}, {"id": "c1-1-2", "no": "1-1-2", "t": "替代率警報"}, {"id": "c1-1-3", "no": "1-1-3", "t": "十年推估"}, {"id": "c1-1-4", "no": "1-1-4", "t": "城鄉反差"}, {"id": "c1-1-5", "no": "1-1-5", "t": "東部切片"}]}, {"id": "s1-2", "label": "1-2 家變小了", "children": [{"id": "c1-2-1", "no": "1-2-1", "t": "獨戶時代"}, {"id": "c1-2-2", "no": "1-2-2", "t": "屋裡的人變少了"}, {"id": "c1-2-3", "no": "1-2-3", "t": "家有一老"}, {"id": "c1-2-4", "no": "1-2-4", "t": "孩子去哪了"}, {"id": "c1-2-5", "no": "1-2-5", "t": "一宅多戶"}]}, {"id": "s1-3", "label": "1-3 供需與分配", "children": [{"id": "c1-3-1", "no": "1-3-1", "t": "供給總量"}, {"id": "c1-3-2", "no": "1-3-2", "t": "首都缺口"}, {"id": "c1-3-3", "no": "1-3-3", "t": "擁屋的兩個台灣"}, {"id": "c1-3-4", "no": "1-3-4", "t": "世代依賴"}, {"id": "c1-3-5", "no": "1-3-5", "t": "世代移轉"}]}, {"id": "s1-4", "label": "1-4 城鄉與縣市", "children": [{"id": "c1-4-1", "no": "1-4-1", "t": "港都獨居"}, {"id": "c1-4-2", "no": "1-4-2", "t": "外島悖論"}, {"id": "c1-4-3", "no": "1-4-3", "t": "新建熱區"}, {"id": "c1-4-4", "no": "1-4-4", "t": "大家庭堡壘"}, {"id": "c1-4-5", "no": "1-4-5", "t": "小宅之都"}]}]}, {"id": "part2", "children": [{"id": "s2-1", "label": "2-1 年齡分群（待擴充）", "children": []}, {"id": "s2-2", "label": "2-2 空著的房子", "children": [{"id": "c2-2-1", "no": "2-2-1", "t": "空屋總量"}, {"id": "c2-2-2", "no": "2-2-2", "t": "沉睡的空屋"}, {"id": "c2-2-3", "no": "2-2-3", "t": "新屋悖論"}, {"id": "c2-2-4", "no": "2-2-4", "t": "空屋的臉孔"}, {"id": "c2-2-5", "no": "2-2-5", "t": "退場前奏"}]}, {"id": "s2-3", "label": "2-3 買賣的房子", "children": [{"id": "s2-3-1", "label": "2-3-1 規模與胃口", "children": [{"id": "c2-3-1-1", "no": "2-3-1-1", "t": "市場的體溫"}, {"id": "c2-3-1-2", "no": "2-3-1-2", "t": "看不見的三分之一"}, {"id": "c2-3-1-3", "no": "2-3-1-3", "t": "市場的胃口"}]}, {"id": "s2-3-2", "label": "2-3-2 價格與格局", "children": [{"id": "c2-3-2-1", "no": "2-3-2-1", "t": "千萬門檻"}, {"id": "c2-3-2-2", "no": "2-3-2-2", "t": "一坪之價"}, {"id": "c2-3-2-3", "no": "2-3-2-3", "t": "三房仍是王"}]}, {"id": "s2-3-3", "label": "2-3-3 品質與地圖", "children": [{"id": "c2-3-3-1", "no": "2-3-3-1", "t": "無電梯的四成"}, {"id": "c2-3-3-2", "no": "2-3-3-2", "t": "絕版品"}, {"id": "c2-3-3-3", "no": "2-3-3-3", "t": "愈新愈大、愈老愈小"}, {"id": "c2-3-3-4", "no": "2-3-3-4", "t": "冷熱地圖"}]}]}, {"id": "s2-4", "label": "2-4 出租的房子", "children": [{"id": "s2-4-1", "label": "2-4-1 誰在租？", "children": [{"id": "c2-4-1-1", "no": "2-4-1-1", "t": "規模總覽"}, {"id": "c2-4-1-2", "no": "2-4-1-2", "t": "青春前傾"}, {"id": "c2-4-1-3", "no": "2-4-1-3", "t": "三張臉譜"}, {"id": "c2-4-1-4", "no": "2-4-1-4", "t": "消失的族群"}, {"id": "c2-4-1-5", "no": "2-4-1-5", "t": "合租世代"}]}, {"id": "s2-4-2", "label": "2-4-2 誰在出租？", "children": [{"id": "c2-4-2-1", "no": "2-4-2-1", "t": "散戶天下"}, {"id": "c2-4-2-2", "no": "2-4-2-2", "t": "世代對租"}, {"id": "c2-4-2-3", "no": "2-4-2-3", "t": "小房東主體"}, {"id": "c2-4-2-4", "no": "2-4-2-4", "t": "投資性格"}, {"id": "c2-4-2-5", "no": "2-4-2-5", "t": "招募甜蜜點"}]}, {"id": "s2-4-3", "label": "2-4-3 租到什麼房？", "children": [{"id": "c2-4-3-1", "no": "2-4-3-1", "t": "租進老屋"}, {"id": "c2-4-3-2", "no": "2-4-3-2", "t": "看得見的篩選"}, {"id": "c2-4-3-3", "no": "2-4-3-3", "t": "坪數界線"}, {"id": "c2-4-3-4", "no": "2-4-3-4", "t": "雙重風險"}, {"id": "c2-4-3-5", "no": "2-4-3-5", "t": "世代之牆"}]}]}]}, {"id": "part3", "children": [{"id": "s3-1", "label": "3-1 設籍", "children": [{"id": "c3-1-1", "no": "3-1-1", "t": "四象限盤點"}, {"id": "c3-1-2", "no": "3-1-2", "t": "雙指標認定"}, {"id": "c3-1-3", "no": "3-1-3", "t": "稅制性分戶"}, {"id": "c3-1-4", "no": "3-1-4", "t": "租客的戶籍在哪裡"}, {"id": "c3-1-5", "no": "3-1-5", "t": "戶籍與生活的距離"}]}, {"id": "s3-2", "label": "3-2 空屋的真相", "children": [{"id": "c3-2-1", "no": "3-2-1", "t": "交易活化率"}, {"id": "c3-2-2", "no": "3-2-2", "t": "政策房源的前世"}, {"id": "c3-2-3", "no": "3-2-3", "t": "空屋的臉孔"}, {"id": "c3-2-4", "no": "3-2-4", "t": "空屋類型學"}]}, {"id": "s3-3", "label": "3-3 人與世代", "children": [{"id": "c3-3-1", "no": "3-3-1", "t": "買而不住"}, {"id": "c3-3-2", "no": "3-3-2", "t": "租補畢業率"}, {"id": "c3-3-3", "no": "3-3-3", "t": "三重風險名單"}, {"id": "c3-3-4", "no": "3-3-4", "t": "誰在買千萬宅"}, {"id": "c3-3-5", "no": "3-3-5", "t": "未成年屋主的房子"}, {"id": "c3-3-6", "no": "3-3-6", "t": "負擔地圖"}]}, {"id": "s3-4", "label": "3-4 房東與產權", "children": [{"id": "c3-4-1", "no": "3-4-1", "t": "多屋者滲透率"}, {"id": "c3-4-2", "no": "3-4-2", "t": "政策房源生命週期"}, {"id": "c3-4-3", "no": "3-4-3", "t": "繼承宅的懸置"}]}]}];
+  var progress = document.getElementById('progress');
+  var backtop  = document.getElementById('backtop');
+  var topnav   = document.getElementById('topnav');
+  var partChips= Array.prototype.slice.call(document.querySelectorAll('#topnav .navchip'));
+  var NAVS = [document.getElementById('nav2'),document.getElementById('nav3'),document.getElementById('nav4')];
+  var ROWS = [document.getElementById('row2'),document.getElementById('row3'),document.getElementById('row4')];
+  var path = [];                       // 目前選取路徑（各層索引）
+
+  function setNavH(){ document.documentElement.style.setProperty('--navh', topnav.offsetHeight+'px'); }
+  function navH(){ return topnav.offsetHeight; }
+  function goto(id){
+    var e=document.getElementById(id); if(!e) return;
+    var y=e.getBoundingClientRect().top+window.scrollY-navH()-14;
+    window.scrollTo({top:Math.max(0,y), behavior:'smooth'});
   }
-  document.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+  function hideFrom(level){                       // 收合第 level 列（0=第二列）以下
+    for(var i=level;i<ROWS.length;i++){ ROWS[i].innerHTML=''; NAVS[i].classList.remove('show'); }
+  }
+  function clearActive(row){
+    Array.prototype.forEach.call(row.children,function(a){a.classList.remove('active');});
+  }
+  function centerChip(row,a){ if(a) row.scrollLeft = a.offsetLeft - row.clientWidth/2 + a.clientWidth/2; }
+  function countLeaves(nd){
+    if(!nd.children || !nd.children.length) return nd.no?1:0;
+    var s=0; nd.children.forEach(function(c){ s+=countLeaves(c); }); return s;
+  }
+  function nodesAt(level){                        // 取得第 level 列應顯示的節點集合
+    var ns = NAV[path[0]] ? NAV[path[0]].children : null;
+    for(var i=1;i<=level;i++){
+      if(!ns || path[i]===undefined || !ns[path[i]]) return null;
+      ns = ns[path[i]].children;
+    }
+    return ns;
+  }
+  function buildRow(level){
+    var ns=nodesAt(level), row=ROWS[level];
+    row.innerHTML='';
+    if(!ns || !ns.length){ NAVS[level].classList.remove('show'); return false; }
+    ns.forEach(function(nd,idx){
+      var a=document.createElement('a');
+      a.className='subchip'; a.href='#'+nd.id; a.dataset.id=nd.id;
+      if(nd.no){ a.innerHTML='<span class="sno">'+nd.no+'</span><span class="st">'+nd.t+'</span>'; a.dataset.leaf='1'; }
+      else {
+        var c=countLeaves(nd);
+        a.innerHTML='<span class="lb"></span>'+(c?'<span class="cnt">('+c+')</span>':'');
+        a.querySelector('.lb').textContent=nd.label;
+      }
+      a.addEventListener('click',function(ev){ ev.preventDefault(); select(level,idx,true); });
+      row.appendChild(a);
+    });
+    NAVS[level].classList.add('show');
+    row.scrollLeft=0;
+    return true;
+  }
+  function select(level,idx,doScroll){            // 點選第 level 列第 idx 項
+    path=path.slice(0,level+1); path[level+1]=idx;
+    var ns=nodesAt(level), nd=ns[idx];
+    clearActive(ROWS[level]);
+    var chip=ROWS[level].children[idx];
+    if(chip){ chip.classList.add('active'); centerChip(ROWS[level],chip); }
+    hideFrom(level+1);
+    if(!nd.no) buildRow(level+1);                 // 葉節點（各則）不再展開下一層
+    setNavH();
+    if(doScroll) goto(nd.id);
+  }
+  function selectPart(i,doScroll){
+    path=[i];
+    partChips.forEach(function(a,k){ a.classList.toggle('on',k===i); });
+    hideFrom(0); buildRow(0); setNavH();
+    if(doScroll) goto(NAV[i].id);
+  }
+  function reset(){
+    path=[]; partChips.forEach(function(a){a.classList.remove('on');});
+    hideFrom(0); setNavH();
+  }
+  function openTo(id){                            // 依錨點展開對應層級
+    for(var i=0;i<NAV.length;i++){
+      var st=[{ns:NAV[i].children,idx:[]}];
+      while(st.length){
+        var cur=st.pop();
+        if(!cur.ns) continue;
+        for(var j=0;j<cur.ns.length;j++){
+          var nd=cur.ns[j], idx=cur.idx.concat([j]);
+          if(nd.id===id){
+            selectPart(i,false);
+            for(var k=0;k<idx.length;k++) select(k,idx[k],false);
+            return true;
+          }
+          if(nd.children && nd.children.length) st.push({ns:nd.children,idx:idx});
+        }
+      }
+    }
+    return false;
+  }
+
+  partChips.forEach(function(a,i){
+    a.addEventListener('click',function(ev){ ev.preventDefault(); selectPart(i,true); });
+  });
+  document.querySelector('#topnav .home').addEventListener('click',function(ev){
+    ev.preventDefault(); reset(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.querySelectorAll('main a[href^="#"], header a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(ev){
+      var id=a.getAttribute('href').slice(1);
+      if(id==='top'){ ev.preventDefault(); reset(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+      if(openTo(id)){ ev.preventDefault(); goto(id); }
+    });
+  });
+
+  var ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){
+      ticking=false;
+      var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+      progress.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
+      backtop.classList.toggle('show',h.scrollTop>600);
+      for(var i=ROWS.length-1;i>=0;i--){        // 僅標示目前所在的一則，不展開任何層級
+        if(!NAVS[i].classList.contains('show')) continue;
+        var row=ROWS[i];
+        if(!row.children.length || !row.children[0].dataset.leaf) break;
+        var y=window.scrollY+navH()+20, act=null;
+        Array.prototype.forEach.call(row.children,function(a){
+          var e=document.getElementById(a.dataset.id);
+          if(e && e.getBoundingClientRect().top+window.scrollY<=y) act=a;
+        });
+        clearActive(row);
+        if(act){ act.classList.add('active'); centerChip(row,act); }
+        break;
+      }
+    });
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',setNavH);
+  window.addEventListener('load',setNavH);
+  setNavH(); onScroll();
+})();
 </script>
 
 </body>
