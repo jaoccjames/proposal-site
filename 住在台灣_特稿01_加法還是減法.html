@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>該加法還是減法？｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article>
+
+  <div class="kicker">住宅與人口</div>
+
+  <h1>該加法還是減法？</h1>
+
+  <p class="standfirst">台灣有近百萬間空屋，人口開始減少，還需要蓋新房子嗎？</p>
+
+  <div class="byline-rule"></div>
+
+  <p><span class="lede">台灣有九百五十一萬間房子</span>，八百八十四萬個家庭。算術上，每個家庭都分得到一間，還多出六十七萬間。這個國家的人口已經開始減少，去年少了三萬多人，國發會推估到二○七○年會再少掉八百四十四萬。照這個邏輯，關於還要不要蓋房子的辯論，應該早就結束了。</p>
+
+  <p>它沒有結束。而且辯論的雙方都握有真實的數據，這正是它難解的地方。</p>
+
+  <h2>一座蓋滿了的島</h2>
+
+  <p>先聽聽認為不必再蓋的那一方。他們的證據幾乎不需要修辭。</p>
+
+  <p>全國住宅供給率一○七‧六％。二十二個縣市裡，有二十一個的房子數量超過家戶數量，南部、東部與外島全部落在「過剩」級距。唯一的例外是臺北市，而它的數字是九九‧九七％，離一○○％只差一根頭髮。</p>
+
+  <p>更難反駁的是那些空著的房子。截至二○二五年六月底，全國有九十七萬六千七百九十六間住宅處於低度用電狀態，占總量的一○‧四二％。這不是短期的換手空窗：其中五二‧八％已經連續兩年以上維持這個狀態，換算下來大約五十一萬六千間。以台灣目前一年約十萬戶的住宅完工量計算，光是長期空著的房子，就等於五年份的新建量。在庫存還有五年的情況下繼續擴產，聽起來不像產業，比較像囤積。</p>
+
+  <p>如果這還不夠，那就看新房子自己的表現。屋齡一年以下的住宅，低度用電比率高達二七‧二八％，是所有屋齡級距裡最高的一級；同一批房子的設籍率只有三三‧一％，也是最低的一級。剛落成的新屋，四分之一是暗的，三分之二沒有人把戶籍遷進去。與此同時，全台待售新成屋從二○二一年第四季的六萬九千多間，一路增加到二○二五年第四季的十一萬二千五百間，五年之間多了六成。這些都不是供給不足的市場該有的樣子。</p>
+
+  <p>反方還有一記更精準的拳，打的是對手的地基。</p>
+
+  <p>主張繼續蓋的人最愛用的數字是「家戶數還在增加」。過去五年，全國住宅存量成長五‧四七％，普通家戶數成長九‧六七％，看起來需求確實跑在供給前面。問題是，這個家戶數有多少是真的。</p>
+
+  <p>二○二四年七月，房屋稅差別稅率二‧○上路，非自住住宅稅率最高四‧八％，自住只要一‧二％。隔年，全國設有戶籍的住宅暴增三十三萬一千多間，年增四‧三％。同一時期，二十五歲以下的戶長人數十年間增加超過九成，到二○二五年第四季達到二十一萬三千八百人。很少有人相信這是台灣年輕人集體發跡的證據。比較合理的解釋是，多屋族把配偶、子女、父母的戶籍分散遷入名下房產，好讓每一間都適用自住稅率。</p>
+
+  <div class="pull">如果家戶數的增量有相當比例來自報稅行為而非真實的分家，那麼「需求成長快於供給」這個論點，地基就鬆了。</div>
+
+  <p>至於長期趨勢，反方認為時間站在他們這一邊。台灣的平均戶內人數已經降到二‧三八人，但這個數字有物理下限，不可能低於一人。戶量下降是一次性的緩衝，不是永久的抵銷。當緩衝用盡，人口減少就會直接轉成家戶減少。何況存量本來就會自己流動：二○二六年第一季，繼承與贈與移轉合計三萬四千餘棟，繼承占全年所有權移轉的比重已從一四‧○％升到一七‧四％；在臺北市，每二‧六件買賣登記裡，就有一件來自繼承。戰後嬰兒潮世代持有的房子，正在無聲地換手給下一代。</p>
+
+  <p>最後，反方端出日本。日本人口自二○○八年起持續下降，但二○二四年新設住宅着工仍有八十一萬六千戶；總住宅數在二○二三年達到六千五百零二萬戶，五年之間增加二百六十一萬戶，創下歷史新高。代價是空屋數同步衝上九百萬戶、空屋率一三‧八％，兩者也都是歷史新高。日本官方與民間對病因的診斷高度一致：低利率推升新建，人口向都心集中導致郊區衰退，於是一邊瘋狂蓋、一邊瘋狂空。反方的問題很簡單：我們是不是正走在同一條路上，只是晚了十五年？</p>
+
+  <h2>一座正在變老的島</h2>
+
+  <p>現在換另一方。他們不否認上面每一個數字，他們只是認為那些數字回答的是錯的問題。</p>
+
+  <p>第一件事是關於算術單位。住宅需求從來不是用「人」計算的，而是用「戶」。五口之家住一間房子，獨居的人也住一間房子。台灣人口確實在減少，但家戶數仍在增加，即使把囤房稅造成的虛胖打個折扣，平均戶內人數已降至二‧三八人，方向是明確的。</p>
+
+  <p>這一點日本自己提供了最好的反證。野村總合研究所曾預測日本二○二三年的空屋率將達一六‧九％，實際結果是一三‧八％，遠低於預期；該機構對二○三三年的預測值，也從三○‧二％大幅下修到一八‧三％。下修的主因，正是世帶數的增加超出了原本的推算。人口減少對住宅需求的衝擊，比直覺想像的來得慢，也來得小。</p>
+
+  <p>第二件事，是台灣的住宅存量其實沒有那麼多。九百五十一萬間房子除以二千三百三十四萬人口，每千人約四百零七間。以國際標準看，台灣不是一個房子特別多的地方。</p>
+
+  <figure>
+    <div class="chart">
+      <div class="chart-tab"></div>
+      <div class="chart-title">房子不算多</div>
+      <div class="chart-sub">每千人住宅數，宅／千人</div>
+      <svg viewBox="0 0 560 226" role="img" aria-label="每千人住宅數國際對照長條圖">
+        <!-- gridlines -->
+        <line class="gridline" x1="150" y1="6"  x2="150" y2="206"/>
+        <line class="gridline" x1="252" y1="6"  x2="252" y2="206"/>
+        <line class="gridline" x1="354" y1="6"  x2="354" y2="206"/>
+        <line class="gridline" x1="456" y1="6"  x2="456" y2="206"/>
+        <line class="gridline" x1="558" y1="6"  x2="558" y2="206"/>
+
+        <!-- bars: x0=150, scale 102px per 200 units -->
+        <text class="bar-lbl" x="142" y="26"  text-anchor="end">法國／義大利</text>
+        <rect x="150" y="12" width="306" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="448" y="28" text-anchor="end">600</text>
+
+        <text class="bar-lbl" x="142" y="62"  text-anchor="end">日本</text>
+        <rect x="150" y="48" width="267" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="409" y="64" text-anchor="end">523</text>
+
+        <text class="bar-lbl" x="142" y="98"  text-anchor="end">德國</text>
+        <rect x="150" y="84" width="255" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="397" y="100" text-anchor="end">500</text>
+
+        <text class="bar-lbl" x="142" y="134" text-anchor="end">OECD 平均</text>
+        <rect x="150" y="120" width="240" height="22" fill="#3EBCD2"/>
+        <text class="bar-val" x="382" y="136" text-anchor="end">470</text>
+
+        <text class="bar-lbl" x="142" y="170" text-anchor="end">美國</text>
+        <rect x="150" y="156" width="217" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="359" y="172" text-anchor="end">425</text>
+
+        <text class="bar-lbl" x="142" y="206" text-anchor="end">台灣</text>
+        <rect x="150" y="192" width="208" height="22" fill="#E3120B"/>
+        <text class="bar-val" x="350" y="208" text-anchor="end">407</text>
+
+        <line class="axis" x1="150" y1="6" x2="150" y2="220"/>
+        <text class="tick" x="150" y="222">0</text>
+        <text class="tick" x="252" y="222" text-anchor="middle">200</text>
+        <text class="tick" x="354" y="222" text-anchor="middle">400</text>
+        <text class="tick" x="456" y="222" text-anchor="middle">600</text>
+      </svg>
+      <div class="chart-src">資料來源：OECD；內政部。各國住宅定義不盡相同，僅供量級參考。</div>
+    </div>
+  </figure>
+
+  <p>各國對「住宅」的定義不盡相同，戶量差異也會影響這個指標，因此它只能當作量級參考。但方向很清楚。</p>
+
+  <p>第三件事，也是正方最硬的一塊，是房子會老。</p>
+
+  <p>台灣住宅的平均屋齡是三三‧九二年。屋齡四十一年以上的房子占三八‧一○％，二十年以下的只占二三‧六八％。把這兩個數字相除，得到一個叫住宅替代率的指標：六二‧一四％。意思是每有一百間老屋即將退場，只有六十二間年輕住宅可以接手。</p>
+
+  <p>依本案推估，二○三五年屋齡超過五十一年的住宅將占三三‧九三％，二○四五年達四七‧四九％。而這份推估最值得注意的地方不在結論，在假設。它已經假定未來十年維持與過去十年相同的新建量，住宅總數從九百三十七萬增加到一千零四十二萬間，年均約十萬五千戶。<strong>在照現在的速度繼續蓋的前提下，老屋比率仍然會惡化到這個程度。</strong></p>
+
+  <p>房子變老不只是美觀問題。台灣位於地震帶，一九九九年九二一之後耐震設計規範大幅修訂，而屋齡四十一年以上的那三百五十七萬間住宅，絕大多數建於舊規範年代。行政院已在二○二六年七月通過都更與危老條例修正草案，刪除危老落日條款，把它從限時政策改成常態制度。這個動作本身就是一種承認。而且值得指出的是：老屋重建的本質，就是蓋新房子。反對新建與支持都更危老，在物理上是同一件事的兩面。</p>
+
+  <p>老化還會落在最不能承受的人身上。全國三六‧九○％的家戶裡有六十六歲以上的成員；而在七十五歲以上的戶長中，有六三‧三八％住在屋齡四十年以上的房子裡，遠高於全國平均的三六‧二六％。這些房子多半沒有電梯，沒有無障礙設施。對一位住在五樓老公寓的八十歲長者來說，全國有多少空屋跟他毫無關係。</p>
+
+  <div class="pull">嘉義縣的空屋，解決不了新北市的居住需求。空屋不會搬家。</div>
+
+  <p>低度用電比率最高的是金門縣與臺東縣，最低的是臺北市與新北市。在人口與就業持續向都會集中的結構下，都會區的短缺與偏鄉的過剩會長期並存，而且會同時惡化。</p>
+
+  <figure>
+    <div class="chart">
+      <div class="chart-tab"></div>
+      <div class="chart-title">空的地方，不是缺的地方</div>
+      <div class="chart-sub">低度用電住宅比率，％，2025年6月</div>
+      <svg viewBox="0 0 560 196" role="img" aria-label="各縣市低度用電住宅比率長條圖">
+        <line class="gridline" x1="250" y1="6"  x2="250" y2="176"/>
+        <line class="gridline" x1="350" y1="6"  x2="350" y2="176"/>
+        <line class="gridline" x1="450" y1="6"  x2="450" y2="176"/>
+        <line class="gridline" x1="550" y1="6"  x2="550" y2="176"/>
+
+        <!-- x0=150, scale 20px per 1% -->
+        <text class="bar-lbl" x="142" y="26"  text-anchor="end">金門縣</text>
+        <rect x="150" y="12" width="347" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="489" y="28" text-anchor="end">17.35</text>
+
+        <text class="bar-lbl" x="142" y="62"  text-anchor="end">臺東縣</text>
+        <rect x="150" y="48" width="322" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="464" y="64" text-anchor="end">16.12</text>
+
+        <text class="bar-lbl" x="142" y="98"  text-anchor="end">全國</text>
+        <rect x="150" y="84" width="208" height="22" fill="#E3120B"/>
+        <text class="bar-val" x="350" y="100" text-anchor="end">10.42</text>
+
+        <text class="bar-lbl" x="142" y="134" text-anchor="end">新北市</text>
+        <rect x="150" y="120" width="156" height="22" fill="#3EBCD2"/>
+        <text class="bar-val" x="298" y="136" text-anchor="end">7.79</text>
+
+        <text class="bar-lbl" x="142" y="170" text-anchor="end">臺北市</text>
+        <rect x="150" y="156" width="144" height="22" fill="#3EBCD2"/>
+        <text class="bar-val" x="286" y="172" text-anchor="end">7.20</text>
+
+        <line class="axis" x1="150" y1="6" x2="150" y2="190"/>
+        <text class="tick" x="150" y="192">0</text>
+        <text class="tick" x="250" y="192" text-anchor="middle">5</text>
+        <text class="tick" x="350" y="192" text-anchor="middle">10</text>
+        <text class="tick" x="450" y="192" text-anchor="middle">15</text>
+        <text class="tick" x="548" y="192" text-anchor="middle">20</text>
+      </svg>
+      <div class="chart-src">資料來源：住宅狀況調查，基準日2025年6月30日。</div>
+    </div>
+  </figure>
+
+  <p>臺北市的四項指標尤其值得一看，因為它們互相獨立，卻指向同一個結論：全國唯一供給率未達一○○％、全國最低的空屋率、全國最老的屋齡（四十一年以上占五七‧四五％）、全國最低的替代率（二六‧八八％）。四個不同來源的數字說著同一件事。</p>
+
+  <p>最後一點帶著反諷意味。眼前真正的風險，可能不是蓋太多，而是即將蓋太少。台灣住宅類建照核發戶數在二○二二年達到十八萬零六百七十四戶的高峰，二○二五年降到十三萬八千七百九十二戶，二○二六年上半年只剩五萬零七百二十三戶，年減二八‧二％。目前使照量仍在高檔，但那是二○二○到二○二二年推案的落後反映。以三到五年工期推算，二○二九年前後，完工量將明顯下滑。在老屋以每年數十萬間的速度變老的同時，新建量正在腰斬。</p>
+
+  <h2>加法與減法</h2>
+
+  <p>把兩邊的論點攤開，會發現他們同意的部分遠比表面上多。雙方都承認全國總量不缺，都承認真正的病灶是錯配：空屋在偏鄉、需求在都會；新蓋的小宅有近半沒有人設籍，缺的是有電梯的高齡友善住宅與可負擔租賃。雙方也都同意，新屋空置率二七‧二八％、待售量創歷史新高，這樣的供給並不健康。</p>
+
+  <p>真正的分歧只有三點：家戶數還能撐多久；老屋能不能靠整建維護延壽而不必重建；以及繼承潮釋出的存量，能不能替代新建。</p>
+
+  <p>但這三個爭點，都繞開了問題的核心。</p>
+
+  <p>台灣每年新增大約十萬五千戶住宅。這個數字本身不算高。真正的問題是這十萬五千戶幾乎全部是淨增加，而不是汰換。老的沒有退場，新的一直往上加。過去四十年，這座島只做加法，從來沒有認真做過減法。這才是為什麼總量過剩與品質短缺能夠同時為真，也是為什麼多蓋房子從來沒有讓房子變得更好住。</p>
+
+  <p>所以答案不是「還要不要蓋」，而是「該蓋多少、蓋在哪裡、蓋什麼樣的」。</p>
+
+  <p>以淨增加為目的的新建，確實不必再有了。在供給率一○七‧六％、近百萬間空屋、其中五十一萬間長期閒置、待售新成屋創歷史新高的基礎上追求總量擴張，只會複製日本的錯誤。</p>
+
+  <p>但以汰換為目的的新建，不但需要，而且量能明顯不足。替代率六二‧一四％，二○四五年近半住宅超過五十年，而現行建量已經被證明擋不住這個趨勢。</p>
+
+  <p>區位上，需求集中在極少數地方，尤其是雙北；中南部與東部已經接近飽和。型態上，市場自發蓋出來的是高單價小宅，新屋六成以上在二十五坪以下，而這類小宅的閒置率恰好是最高的。缺口卻在有電梯的高齡友善住宅，以及長期穩定的可負擔租賃。這個缺口，市場不會自己補上。</p>
+
+  <p>一句話：台灣不需要更多房子，但需要更新的房子；不需要在全國各地蓋，但需要在都會區蓋；不需要鼓勵市場多蓋，但需要蓋出市場不願意蓋的那一種。</p>
+
+  <p>少子化不會替台灣拆房子。它只會讓這座島上的房子，和住在裡面的人，一起變老。<span class="sq"></span></p>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>本文住宅存量、屋齡、替代率、低度用電、設籍與家戶結構數據，均引自住宅狀況調查，基準日二○二五年六月三十日。</p>
+    <p>建照使照、待售新成屋、設籍住宅年增、繼承贈與移轉引自內政部統計；人口推估引自國家發展委員會；日本住宅與空屋數據引自總務省住宅・土地統計調查、國土交通省住宅着工統計與野村總合研究所推估。</p>
+    <p>每千人住宅數之國際對照引自OECD資料，各國定義不盡相同，僅供量級參考，引用前建議向OECD Affordable Housing Database核對原始表。</p>
+  </div>
+
+</article>
+
+</body>
+</html>
