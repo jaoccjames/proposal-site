@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>等來的房子｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+</style>
+</head>
+<body>
+<div class="masthead hairline"><div class="masthead-inner"><span class="brand">住都觀察</span><span class="issue">住宅狀況調查特稿　│　2026</span></div></div>
+<article>
+<div class="kicker">住宅與世代</div>
+<h1>等來的房子</h1>
+<p class="standfirst">愈來愈多台灣人不再指望買房，而是等著繼承。但等到的，是什麼樣的房子？</p>
+<div class="byline-rule"></div>
+<p><span class="lede">二○二五年，台灣有七萬八千三百二十四棟房子</span>因為有人過世而換了主人，創下歷史新高。同一年，因為買賣而換手的房子只剩二十六萬一千三百零八棟，是九年來最少的一年。把贈與也算進來，全台每十棟換了名字的建物，就有將近三棟沒有經過市場，沒有人為它付過一毛錢。</p>
+<p>「買不起，就等吧。」這句話在網路上已經從自嘲變成一種策略。它引出一個更認真的問題：如果房子終究會一代傳一代，政府還需要替年輕人解決住的問題嗎？</p>
+<h2>等得到的那一方</h2>
+<p>先聽聽認為「等就好」的那一方。他們的證據相當扎實。</p>
+<p>第一，房子確實在那裡，而且集中在即將交棒的世代手上。全國住宅的自然人所有權人中，四十六到七十五歲的人占了將近七成；屋齡三十一年以上的房子，超過六成五握在五十六歲以上的人手裡。全國約七成的住戶，至少單獨擁有一間住宅。這些房子不會消失，只會往下傳。</p>
+<p>第二，傳的速度正在加快。在自然人單獨持有的七百七十二萬間住宅裡，經由繼承與贈與取得的已經占一一‧一五％，而且兩者都逐年上升。二○二六年第一季，全台繼承移轉一萬七千八百七十九棟、贈與移轉一萬六千一百八十二棟，合計三萬四千棟，連續第四年的首季站上這個水準。在臺北市，繼承與贈與占住宅取得原因的比重達一二‧五五％，是六都最高。</p>
+<p>第三，家庭其實已經在做政府想做的事。三十五歲以下的年輕戶長，他們住的房子有四成到四成四的產權，集中在四十六到五十五歲的人手上，也就是父母那一輩。十八到二十五歲的戶長，六二‧七七％住在非同戶親屬名下的房子裡。長輩也不一定等到過世才給：十八歲以下的所有權人，名下住宅有五六‧四五％是受贈而來；經由贈與取得住宅的人，二十六到四十五歲占了三成一。房子早已在家族內部提前流動。</p>
+<p>第四，少子化反而站在他們這一邊。上一代的兄弟姊妹通常比這一代多。同樣一間房子，分到的人變少，每個人拿到的份額就變大。英國智庫Resolution Foundation估計，英國未來二十年的遺產總額將增加一倍以上，在二○三五年前後達到高峰；二十到三十五歲的英國年輕人，將近三分之二的父母擁有房產。</p>
+<p>照這個邏輯，台灣的居住問題某種程度上會「自己解決」。年輕人只要撐過這一段，房子自然會來。</p>
+<h2>等不到的那一方</h2>
+<p>另一方不否認房子會傳下來。他們質疑的是，傳下來的是什麼、什麼時候到、到了誰手上。</p>
+<p><strong>第一個問題是時間。</strong> 台灣人的平均壽命是八十一‧二七歲，二○二五年的死亡人口中，六十五歲以上占了七六‧一％。以兩代相差約三十歲粗估，多數子女繼承父母房產時，自己已經五十歲上下。英國的估算更具體：千禧世代最常見的繼承年齡是六十一歲；美國聯準會的研究也顯示，繼承的高峰落在六十歲左右。</p>
+<p>而人需要房子的時候，是三十歲——結婚、生小孩、找一個離工作近一點的地方。Resolution Foundation的研究員說得很直接：繼承來得太晚，大多被拿去提早退休或還清房貸，而不是買第一間房。</p>
+<p><strong>第二個問題是品質。</strong> 這是本案資料最清楚的一點。經由繼承取得的住宅，八三‧○三％屋齡超過三十一年，六○‧九三％超過四十一年。經由贈與取得的，六九‧一一％超過三十一年。相比之下，買來的房子只有四六‧九二％超過三十一年。</p>
+<figure><div class="chart"><div class="chart-tab"></div><div class="chart-title">等來的多半是老房子</div><div class="chart-sub">住宅屋齡31年以上之占比，依取得原因，％</div><svg viewBox="0 0 560 174" role="img"><line class="gridline" x1="250" y1="6" x2="250" y2="150"/><line class="gridline" x1="350" y1="6" x2="350" y2="150"/><line class="gridline" x1="450" y1="6" x2="450" y2="150"/><line class="gridline" x1="550" y1="6" x2="550" y2="150"/><text class="bar-lbl" x="142" y="28" text-anchor="end">繼承</text><rect x="150" y="12" width="332" height="22" fill="#E3120B"/><text class="bar-val" x="474" y="28" text-anchor="end">83.0</text><text class="bar-lbl" x="142" y="64" text-anchor="end">拍賣</text><rect x="150" y="48" width="281" height="22" fill="#006BA2"/><text class="bar-val" x="423" y="64" text-anchor="end">70.4</text><text class="bar-lbl" x="142" y="100" text-anchor="end">贈與</text><rect x="150" y="84" width="276" height="22" fill="#006BA2"/><text class="bar-val" x="418" y="100" text-anchor="end">69.1</text><text class="bar-lbl" x="142" y="136" text-anchor="end">買賣</text><rect x="150" y="120" width="188" height="22" fill="#3EBCD2"/><text class="bar-val" x="330" y="136" text-anchor="end">46.9</text><line class="axis" x1="150" y1="6" x2="150" y2="154"/><text class="tick" x="150" y="168" text-anchor="middle">0</text><text class="tick" x="250" y="168" text-anchor="middle">25</text><text class="tick" x="350" y="168" text-anchor="middle">50</text><text class="tick" x="450" y="168" text-anchor="middle">75</text><text class="tick" x="550" y="168" text-anchor="middle">100</text></svg><div class="chart-src">資料來源：住宅狀況調查（地籍資料，自然人單獨所有），基準日2025年6月30日。</div></div></figure>
+<p>換個方向看更明顯：屋齡十年以下的新屋，只有○‧三八％是繼承來的；到了屋齡五十一年以上的老屋，繼承占一五‧二九％、贈與占七‧六六％，合計將近四分之一。房子的一生，是從第一次登記、買賣，一路走到繼承。等得最久的人，拿到的是生命週期最後一段的房子。</p>
+<div class="pull">等得最久的人，拿到的是生命週期最後一段的房子。</div>
+<p><strong>第三個問題是產權。</strong> 一個人的房子，死後常常變成好幾個人的房子。屋齡五十一年以上的住宅，設籍在裡面的住戶有四二‧九二％未單獨持有任何一間住宅（包含共有），而屋齡十年以下的新屋，住戶單獨持有一宅的比例高達六二‧四六％。全國已登記的住宅中，有七十七萬間屬於多人共有。</p>
+<p>共有的房子很難賣、很難租、很難拆，也很難參加都更。有些乾脆沒人去辦登記。內政部二○二五年度公告的逾期未辦繼承登記，土地有七萬二千餘筆、約三千四百公頃，建物近五千戶。這些房子的主人已經過世超過一年，名字卻還掛在權狀上。</p>
+<p>日本已經走完這條路。當地所有者不明的土地估計超過四百一十萬公頃，比九州還大，主因正是繼承後沒有人去辦登記。日本國土交通省的調查顯示，空屋約有六成是繼承而來，其中七成以上建於一九八○年以前。二○二四年四月起，日本把繼承登記從自願改成義務，三年內未辦者可處十萬日圓以下罰款。</p>
+<p><strong>第四個問題是地點。</strong> 繼承與贈與占住宅取得比重最高的，是澎湖（一九‧二八％）、臺東（一七‧三三％）、屏東（一六‧五○％）、南投（一六‧二一％）；本島最低的，是新竹縣（七‧二六％）與桃園（八‧○八％）。房子留在人口外流的地方，工作卻在人口湧入的地方。一個在竹科上班的三十五歲工程師，繼承到的可能是南投一間四十五年的透天厝，對他眼前的通勤與房租毫無幫助。</p>
+<figure><div class="chart"><div class="chart-tab"></div><div class="chart-title">房子留在人走掉的地方</div><div class="chart-sub">繼承與贈與占住宅取得原因之比重，％，2025年6月</div><svg viewBox="0 0 560 318" role="img"><line class="gridline" x1="250" y1="6" x2="250" y2="294"/><line class="gridline" x1="350" y1="6" x2="350" y2="294"/><line class="gridline" x1="450" y1="6" x2="450" y2="294"/><line class="gridline" x1="550" y1="6" x2="550" y2="294"/><text class="bar-lbl" x="142" y="28" text-anchor="end">澎湖縣</text><rect x="150" y="12" width="386" height="22" fill="#006BA2"/><text class="bar-val" x="528" y="28" text-anchor="end">19.3</text><text class="bar-lbl" x="142" y="64" text-anchor="end">臺東縣</text><rect x="150" y="48" width="347" height="22" fill="#006BA2"/><text class="bar-val" x="489" y="64" text-anchor="end">17.3</text><text class="bar-lbl" x="142" y="100" text-anchor="end">屏東縣</text><rect x="150" y="84" width="330" height="22" fill="#006BA2"/><text class="bar-val" x="472" y="100" text-anchor="end">16.5</text><text class="bar-lbl" x="142" y="136" text-anchor="end">南投縣</text><rect x="150" y="120" width="324" height="22" fill="#006BA2"/><text class="bar-val" x="466" y="136" text-anchor="end">16.2</text><text class="bar-lbl" x="142" y="172" text-anchor="end">臺北市</text><rect x="150" y="156" width="251" height="22" fill="#006BA2"/><text class="bar-val" x="393" y="172" text-anchor="end">12.6</text><text class="bar-lbl" x="142" y="208" text-anchor="end">全國</text><rect x="150" y="192" width="223" height="22" fill="#E3120B"/><text class="bar-val" x="365" y="208" text-anchor="end">11.2</text><text class="bar-lbl" x="142" y="244" text-anchor="end">桃園市</text><rect x="150" y="228" width="162" height="22" fill="#3EBCD2"/><text class="bar-val" x="304" y="244" text-anchor="end">8.1</text><text class="bar-lbl" x="142" y="280" text-anchor="end">新竹縣</text><rect x="150" y="264" width="145" height="22" fill="#3EBCD2"/><text class="bar-val" x="287" y="280" text-anchor="end">7.3</text><line class="axis" x1="150" y1="6" x2="150" y2="298"/><text class="tick" x="150" y="312" text-anchor="middle">0</text><text class="tick" x="250" y="312" text-anchor="middle">5</text><text class="tick" x="350" y="312" text-anchor="middle">10</text><text class="tick" x="450" y="312" text-anchor="middle">15</text><text class="tick" x="550" y="312" text-anchor="middle">20</text></svg><div class="chart-src">資料來源：住宅狀況調查，基準日2025年6月30日。</div></div></figure>
+<p><strong>第五個問題是公平。</strong> 繼承只會發生在父母有房子的人身上。英國的研究發現，所得最高的五分之一人口，拿到大額遺產或贈與的機率是最低五分之一的兩倍（五○％對二五％）。「等繼承」對有些人是策略，對另一些人連選項都不是。全國有二百四十一萬個住戶沒有單獨持有任何住宅；他們之中有多少人等得到，沒有人知道。</p>
+<h2>傳承不是住宅政策</h2>
+<p>把兩邊的論點攤開，他們其實同意一件事：房子一定會傳下去，而且規模會愈來愈大。分歧只在於，這股傳承潮能不能替代政策。</p>
+<p>數據給的答案相當一致：不能，至少不能照現在的樣子。</p>
+<p>繼承改善的是五、六十歲的人的資產負債表，不是三十歲的人的居住狀況。它送來的多半是老屋、是持分、是一個不在工作所在地的地址。它讓有房的家庭更穩，對沒房的家庭毫無作用。把它當成住宅問題的解方，等於把政策交給死亡率與家族關係。</p>
+<div class="pull">把傳承潮當成住宅問題的解方，等於把政策交給死亡率與家族關係。</div>
+<p>但這並不代表傳承潮沒有用。真正的問題是，這些房子傳下來以後，常常卡住了：共有的談不攏，老的修不起，遠的用不上，最後空著。如果能讓它們流動起來，這股傳承潮反而可以成為住宅市場最大的一筆存量供給。</p>
+<p>方向因此相當清楚。</p>
+<p>第一，讓繼承的房子「辦得下來」。繼承登記要更容易、更即時，共有物的處分與分割要有更務實的機制，別等到十五年列冊期滿才由國家接手。日本的義務化是一個參考。</p>
+<p>第二，讓繼承的老屋「接得上」都更與危老。繼承宅是老屋最集中的一群，也是產權最複雜的一群。都更整合如果不處理繼承與共有，永遠會卡在同一個關口。</p>
+<p>第三，讓繼承的房子「動得了」。人在新竹、房在南投的繼承人，最理性的選擇是把房子賣掉或租出去，而不是讓它空著。稅制與包租代管若能把這類房子接住，它們就能回到市場。</p>
+<p>第四，年輕人的居住保障，不能以「反正會繼承」為由退場。三十歲的人需要的是可負擔的租屋與住得起的第一間房。這件事，等不來。</p>
+<p>台灣人正在經歷有史以來最大規模的房產傳承。問題不在於等不等得到，而在於等到的時候，那間房子還能不能住、還住不住得進去。<span class="sq"></span></p>
+<div class="endnote"><h3>資料說明</h3><p>資料說明：本文住宅取得原因、屋齡、所有權人年齡、戶長年齡、共有與擁屋數據，均引自住宅狀況調查，基準日二○二五年六月三十日。建物移轉棟數引自內政部建物所有權登記統計；逾期未辦繼承登記引自內政部二○二五年度公告；平均壽命與死亡人數引自內政部二○二五年簡易生命表；日本所有者不明土地、空屋取得原因與繼承登記義務化引自日本國土交通省與法務省資料；英國繼承年齡與分配引自Resolution Foundation；美國繼承高峰年齡引自聯準會相關研究。「多數子女約五十歲繼承」為以平均壽命與兩代年齡差所作之粗估，非本案統計結果。</p></div>
+</article>
+</body>
+</html>
