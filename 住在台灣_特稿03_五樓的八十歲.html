@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>五樓的八十歲｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+</style>
+</head>
+<body>
+<div class="masthead hairline"><div class="masthead-inner"><span class="brand">住都觀察</span><span class="issue">住宅狀況調查特稿　│　2026</span></div></div>
+<article>
+<div class="kicker">住宅與高齡</div>
+<h1>五樓的八十歲</h1>
+<p class="standfirst">七十五歲以上的戶長，有六成三住在四十年以上的老屋裡。該把房子修好，還是把人搬出來？</p>
+<div class="byline-rule"></div>
+<p><span class="lede">設想一位住在台北市老公寓五樓的八十歲長者。</span>四十年前他買下這間房子的時候，爬五層樓不算什麼，那是年輕人的樓梯。如今同一道樓梯有七十幾階，每一階都沒有變，變的是他的膝蓋。出門看一次醫生，要先盤算上下樓的力氣；颱風天停電，冰箱裡的菜比他更容易撐過去。</p>
+<p>這樣的人並不少見。截至二○二五年六月底，台灣六十五歲以上的長者有四百五十七萬人，占總人口二○‧○六％，正式進入超高齡社會。內政部的統計顯示，其中一一‧五％住在沒有電梯的公寓裡，換算大約五十二萬人。四分之一的長者獨自一人成戶，一二‧五％是老人照顧老人。</p>
+<p>住宅狀況調查把這幅圖像補得更完整。在全國的設籍住宅裡，戶長年齡愈大，住的房子就愈老：六十六到七十五歲的戶長，四七‧八六％住在屋齡四十年以上的房子；到了七十五歲以上，這個比例升到六三‧三八％，而全國平均只有三六‧二六％。人和房子，一起變老。</p>
+<figure><div class="chart"><div class="chart-tab"></div><div class="chart-title">人和房子一起變老</div><div class="chart-sub">住在屋齡40年以上住宅之比例，依宅內代表戶長年齡，％</div><svg viewBox="0 0 560 138" role="img"><line class="gridline" x1="250" y1="6" x2="250" y2="114"/><line class="gridline" x1="350" y1="6" x2="350" y2="114"/><line class="gridline" x1="450" y1="6" x2="450" y2="114"/><line class="gridline" x1="550" y1="6" x2="550" y2="114"/><text class="bar-lbl" x="142" y="28" text-anchor="end">全國平均</text><rect x="150" y="12" width="181" height="22" fill="#3EBCD2"/><text class="bar-val" x="323" y="28" text-anchor="end">36.3</text><text class="bar-lbl" x="142" y="64" text-anchor="end">66–75歲戶長</text><rect x="150" y="48" width="239" height="22" fill="#006BA2"/><text class="bar-val" x="381" y="64" text-anchor="end">47.9</text><text class="bar-lbl" x="142" y="100" text-anchor="end">75歲以上戶長</text><rect x="150" y="84" width="317" height="22" fill="#E3120B"/><text class="bar-val" x="459" y="100" text-anchor="end">63.4</text><line class="axis" x1="150" y1="6" x2="150" y2="118"/><text class="tick" x="150" y="132" text-anchor="middle">0</text><text class="tick" x="250" y="132" text-anchor="middle">20</text><text class="tick" x="350" y="132" text-anchor="middle">40</text><text class="tick" x="450" y="132" text-anchor="middle">60</text><text class="tick" x="550" y="132" text-anchor="middle">80</text></svg><div class="chart-src">資料來源：住宅狀況調查（設籍住宅），基準日2025年6月30日。</div></div></figure>
+<p>這些沒有電梯的公寓，是一個特定時代的產物。依照當時的建築技術規則，六層以上的建築才必須設置昇降設備，於是一九七○、八○年代的都市擴張，大量蓋出了四、五層樓、剛好不必裝電梯的公寓。那一代買下它們的人，正是今天的八十歲。全國四到五層樓的住宅占二一‧八五％，而在臺北市，這個比例高達四二‧八○％，是全台唯一三層以下住宅不到一成的城市。整座城市的骨架，是為年輕的雙腿設計的。</p>
+<figure><div class="chart"><div class="chart-tab"></div><div class="chart-title">為年輕雙腿設計的城市</div><div class="chart-sub">四到五層樓住宅占全部住宅之比例，％</div><svg viewBox="0 0 560 390" role="img"><line class="gridline" x1="230" y1="6" x2="230" y2="366"/><line class="gridline" x1="310" y1="6" x2="310" y2="366"/><line class="gridline" x1="390" y1="6" x2="390" y2="366"/><line class="gridline" x1="470" y1="6" x2="470" y2="366"/><line class="gridline" x1="550" y1="6" x2="550" y2="366"/><text class="bar-lbl" x="142" y="28" text-anchor="end">臺北市</text><rect x="150" y="12" width="342" height="22" fill="#E3120B"/><text class="bar-val" x="484" y="28" text-anchor="end">42.8</text><text class="bar-lbl" x="142" y="64" text-anchor="end">基隆市</text><rect x="150" y="48" width="217" height="22" fill="#006BA2"/><text class="bar-val" x="359" y="64" text-anchor="end">27.1</text><text class="bar-lbl" x="142" y="100" text-anchor="end">新竹市</text><rect x="150" y="84" width="197" height="22" fill="#006BA2"/><text class="bar-val" x="339" y="100" text-anchor="end">24.7</text><text class="bar-lbl" x="142" y="136" text-anchor="end">新竹縣</text><rect x="150" y="120" width="188" height="22" fill="#006BA2"/><text class="bar-val" x="330" y="136" text-anchor="end">23.4</text><text class="bar-lbl" x="142" y="172" text-anchor="end">高雄市</text><rect x="150" y="156" width="183" height="22" fill="#006BA2"/><text class="bar-val" x="325" y="172" text-anchor="end">22.9</text><text class="bar-lbl" x="142" y="208" text-anchor="end">臺南市</text><rect x="150" y="192" width="177" height="22" fill="#006BA2"/><text class="bar-val" x="319" y="208" text-anchor="end">22.1</text><text class="bar-lbl" x="142" y="244" text-anchor="end">桃園市</text><rect x="150" y="228" width="175" height="22" fill="#006BA2"/><text class="bar-val" x="317" y="244" text-anchor="end">21.9</text><text class="bar-lbl" x="142" y="280" text-anchor="end">全國</text><rect x="150" y="264" width="175" height="22" fill="#3EBCD2"/><text class="bar-val" x="317" y="280" text-anchor="end">21.9</text><text class="bar-lbl" x="142" y="316" text-anchor="end">新北市</text><rect x="150" y="300" width="158" height="22" fill="#006BA2"/><text class="bar-val" x="300" y="316" text-anchor="end">19.7</text><text class="bar-lbl" x="142" y="352" text-anchor="end">臺中市</text><rect x="150" y="336" width="156" height="22" fill="#006BA2"/><text class="bar-val" x="298" y="352" text-anchor="end">19.5</text><line class="axis" x1="150" y1="6" x2="150" y2="370"/><text class="tick" x="150" y="384" text-anchor="middle">0</text><text class="tick" x="230" y="384" text-anchor="middle">10</text><text class="tick" x="310" y="384" text-anchor="middle">20</text><text class="tick" x="390" y="384" text-anchor="middle">30</text><text class="tick" x="470" y="384" text-anchor="middle">40</text><text class="tick" x="550" y="384" text-anchor="middle">50</text></svg><div class="chart-src">資料來源：住宅狀況調查（房屋稅籍資料），基準日2025年6月30日。</div></div></figure>
+<p>問題是：該把錢花在修房子，讓長輩留在原地？還是該協助長輩搬到更適合的地方？</p>
+<h2>修好就能住的那一方</h2>
+<p>先聽聽主張「修」的一方。他們的第一個理由不是數據，而是人心：幾乎沒有長輩想搬家。在地老化是國際高齡政策的共識，熟悉的鄰里、走慣的菜市場、認識的診所，都是長輩維持獨立生活的支撐。把一位八十歲的人連根拔起，代價常常不在帳面上。</p>
+<p>第二個理由是，長輩多半是自己房子的主人。住宅狀況調查顯示，六十六到七十五歲的戶長，只有二五‧七八％沒有單獨持有任何住宅，也就是說大約四分之三擁有自己的房子。他們一輩子的資產，大部分就鎖在這間老公寓裡。要他們搬，等於要他們先賣屋、再找屋，在房價高、交易冷的時候，這是一道很難跨過去的坎。</p>
+<p>第三個理由是規模。全國屋齡四十一年以上的住宅有三百五十七萬宅，占全部住宅的三八‧一○％。危老條例自二○一七年上路以來，截至二○二六年四月累計核准四千九百一十六案。以每年核准數百案的速度，要重建三百多萬宅老屋，是好幾代人的時間。換句話說，重建不可能是多數長輩的答案，他們這輩子大概就住在現在這間房子裡。既然如此，把它修到能住，是最務實的選擇。</p>
+<p>政府也已經往這個方向走。內政部推出的「老宅延壽機能復新計畫」編列五十億元，針對屋齡三十年以上的四到六樓公寓與六樓以下透天住宅，補助耐震評估、公共管線、外牆與屋頂防水、增設電梯與無障礙設施，最高可補助工程費的六成五。截至二○二六年九月初，全國已受理六百零三案，涵蓋十七個縣市。二○二六年七月行政院通過的危老條例修正草案，更把老宅延壽機制正式納入法條。</p>
+<p>第四個理由是，很多危險其實很便宜就能解決。國民健康署的資料顯示，六十五歲以上的長者每六人就有一人曾經跌倒，其中五成二發生在室內；跌倒是長者事故傷害死亡的第二大原因，也是長者因傷住院與急診最主要的原因。一支浴室扶手、一片防滑地墊、一盞夜燈、一個拿掉門檻的斜坡，花費不過數千到數萬元，卻能直接減少長者最常見的傷害。這些事情，不需要等到房子重建。</p>
+<p>最後，他們端出新加坡。新加坡建屋發展局在二○○一年啟動「電梯翻新計畫」，當時全國有五千三百多棟組屋沒有每層都停的電梯。到了二○二三年初，只剩一百四十棟，不到兩千戶。政府與市鎮理事會負擔絕大部分費用，新加坡公民戶自付的上限只有三千新元，只要棟內七成五的公民戶同意就能動工。在他們看來，這證明了老房子是可以大規模改造的，關鍵在於政府願不願意把它當成一件大事來做。</p>
+<p>修，還有一個常被忽略的好處：它讓長輩的資產繼續為他工作。以房養老的銀行核貸件數，截至二○二六年第二季累計一萬一千零一十一件、金額六百五十六億元，上半年的增額創下同期新高。長輩把房子抵押給銀行、按月領錢，人仍然住在原來的家。對一位資產都鎖在老公寓裡、現金卻不多的長者來說，「留在原地」加上「以房養老」，可能比任何搬家方案都更可行。</p>
+<p>照這個邏輯，五樓的八十歲不必搬。把電梯裝上去、把浴室改好、把管線換掉，他就能在自己的家裡繼續老下去。</p>
+<h2>修不動的那一方</h2>
+<p>另一方不反對修。他們只是認為，很多房子修不動，很多人等不到。</p>
+<p><strong>第一個問題是骨架。</strong> 老宅延壽修的是管線、防水、外牆、電梯，這些都是讓房子「好住」的東西，但不一定能讓房子「安全」。全國住宅中，加強磚造與磚造占一八‧二六％，約一百七十一萬宅；嘉義縣、臺東縣、雲林縣、澎湖縣、南投縣、花蓮縣的非鋼筋混凝土住宅都超過五成。屋齡四十一年以上的住宅，建於一九八四年以前，比九二一地震後的耐震規範大修早了十五年以上。一棟耐震不足的房子，換了新水管、裝了新電梯，地震來的時候依然是一棟耐震不足的房子。對這類住宅，修繕只是延後問題，不是解決問題。</p>
+<p>延壽計畫本身也承認這一點：它把耐震評估列為補助項目，但評估之後若發現結構不足，補強的成本往往遠高於換水管、做防水。修繕計畫能做的，是讓一棟還算健康的房子多活十年；它救不了一棟骨架已經不行的房子。</p>
+<p><strong>第二個問題是電梯。</strong> 老公寓加裝電梯，在台灣是一條極難走完的路。臺北市從二○一五年到二○二四年，十一年間取得增設電梯雜項執照的有一百九十一件，獲得補助的只有一百四十九件；依市議員的估算，台北市屋齡二十年以上的建築約十萬棟，其中空間上可能裝得了電梯的約一萬棟，也就是說真正完成補助的不到一‧五％。高雄市更慢，二○一九到二○二五年總共只核定十案。</p>
+<p>卡住的原因不是錢，而是人。增設電梯要過半住戶同意，一樓住戶用不到電梯卻要讓出空地、承擔施工，常常是第一個反對的人；還要拆除既有違建、處理法定停車空間的代金，從申請到撥款至少兩年。五樓以下的老公寓大多沒有管委會，連開一次會都難。</p>
+<p>這也是新加坡經驗不容易移植的原因。新加坡組屋的土地與公共空間由政府統一管理，住戶是承租九十九年的屋主，建屋發展局可以一棟一棟、一區一區地排程施工。台灣的老公寓是十幾到二十幾個所有權人共有一塊地、一道樓梯，沒有一個「建屋發展局」能替他們做決定。同樣是加裝電梯，在新加坡是工程問題，在台灣是政治問題。</p>
+<div class="pull">同樣是加裝電梯，在新加坡是工程問題，在台灣是政治問題。</div>
+<p><strong>第三個問題是產權。</strong> 老房子的產權，往往比房子本身更老化。屋齡五十一年以上的住宅，設籍在裡面的住戶有四二‧九二％未單獨持有任何一間住宅，也就是住在共有或別人名下的房子裡；而屋齡十年以下的新屋，住戶單獨持有一宅的比例是六二‧四六％。房子經過一兩次繼承，一個門牌背後可能有好幾位分散各地的持分人。要修繕、要同意裝電梯、要參加都更，每一個決定都要找齊這些人。對五樓的長者來說，房子是他住的，決定權卻不一定在他手上。</p>
+<p><strong>第四個問題是人。</strong> 修好一間房子，不等於有人照顧。四分之一的長者是一人戶，一二‧五％是老人照顧老人。即使裝了電梯，一位獨居的八十歲長者跌倒在浴室裡，仍然可能好幾天沒有人發現。內政部的調查顯示，住家兩百公尺內有醫療院所的長者只有五成四。修繕解決的是房子的問題；長者需要的，往往是房子旁邊的東西：鄰里的照看、就近的醫療、一個能呼救的人。</p>
+<p><strong>第五個問題是時間。</strong> 本案推估，全國屋齡五十一年以上的住宅比例，將從二○二五年的一四‧五一％，升到二○三五年的三三‧九三％、二○四五年的四七‧四九％。臺北市更快：二○三五年就會超過五成。延壽計畫的五十億元，面對的是一個每年都在變大的分母。而那位八十歲的長者，沒有二十年可以等。</p>
+<p>老房子其實已經在悄悄地「清空」。屋齡五十一年以上的住宅，設籍率只剩六七‧八六％，比屋齡六到五十年的住宅低了一成以上；這類老屋的低度用電比例，也明顯高於中間屋齡的房子。這意味著，搬家其實一直在發生，只是不是以政策的方式發生，而是以住院、入住機構、搬去子女家、或過世的方式發生。與其讓長輩在跌倒之後被迫離開，不如在他還能選擇的時候，讓離開成為一個選項。</p>
+<p><strong>第六個問題最尖銳：想搬，也沒有地方搬。</strong> 主張「搬」的一方必須誠實面對這一點。七十五歲以上的戶長，沒有單獨持有住宅的比例回升到三四‧四九％，比六十六到七十五歲的二五‧七八％高出將近九個百分點。高齡以後，有一群人是住在子女名下、共有房屋裡，或在租屋市場上。而高齡者在租屋市場上被婉拒，是房東與社工都熟悉的日常。新建住宅雖然大多有電梯，但以小坪數、高總價為主，一位靠退休金過日子的長者未必買得起，也未必有銀行願意貸款給他。</p>
+<p>其他國家早已意識到這個缺口。日本推出「附服務的高齡者住宅」，截至二○二六年八月底登錄約二十九萬戶，提供有電梯、無障礙、附安全確認與生活諮詢的出租住宅，作為「自己家」與「養護機構」之間的中間選項。新加坡在翻新電梯之外，另設「電梯通達住房補助」，提供最高三萬新元，協助行動不便的居民購買有直達電梯的組屋。兩個國家的共同點是：他們不只幫忙修房子，也幫忙搬家。</p>
+<h2>讓他有得選</h2>
+<p>把兩邊的論點攤開，他們其實同意兩件事：老屋的數量太大，重建不可能是多數人的答案；而長輩的時間太短，任何方案都要快。分歧只在於，資源應該先放在房子，還是先放在人。</p>
+<p>數據給的方向是：這不是二選一，而是分流。</p>
+<p>五樓的八十歲不是一種人，而是好幾種處境的疊加。他住的房子是鋼筋混凝土還是加強磚造？是三樓以下，還是沒有電梯的四、五樓？產權是自己一個人的，還是好幾個人共有？他身邊有沒有人？把這四個條件交叉起來，答案會很不一樣。</p>
+<p>第一，結構安全、低樓層、產權單純的老屋，應該修。這是延壽計畫最能發揮的地方，而室內的防跌改善，甚至應該做得比外牆防水更優先、更普及。修一個浴室，比修一整棟樓便宜得多，救命的機率卻未必較低。</p>
+<p>第二，結構安全、但卡在四、五樓的老公寓，應該裝電梯，而政策要處理的不只是補助金額。以宅數計，全國四到五層樓的住宅約二百零五萬宅，臺北市約三十九萬宅，而臺北市六十六歲以上的戶長占三四‧五一％、七十五歲以上占一三‧一三％，是六都最高。臺北市的老公寓問題，本質上就是高齡問題。一樓住戶的補償機制、法定停車代金的減免、沒有管委會的公寓如何代為整合，這些才是電梯裝不上去的真正原因，也是政府能夠著力的地方。新加坡的七成五同意門檻與三千新元自付上限，至少證明了一件事：門檻與費用是可以被政策設計出來的。</p>
+<p>第三，結構不安全的房子，不應該再用修繕去延長。那三百五十七萬宅四十一年以上的老屋裡，耐震不足的那一部分應該優先列入重建或加速危老，而住在裡面的長者，需要的是一個過渡的地方。都更中繼住宅不該只是為了拆除工期而設計，也應該是高齡住戶的安置選項。</p>
+<p>第四，對於裝不了電梯、又獨居或老老照顧的長者，政策應該幫他「搬得動」。這包括社會住宅保留足夠的無障礙單元給高齡住戶、讓長者賣掉五樓換一樓或換有電梯的房子時能減輕稅費與交易成本、讓以房養老與換屋能夠搭配使用。以房養老的核貸件數已經累計超過一萬一千件、金額六百五十六億元，而且北北基就占了將近一半，代表長輩願意用房子換生活，只是目前還換不到一個更合適的住所。</p>
+<p>最後，這一切需要先知道他們在哪裡。住宅狀況調查已經具備戶長年齡、住宅屋齡、樓層、結構與產權的資料，只要把這幾個欄位交叉起來，就能算出全國有多少高齡長者住在耐震不足、沒有電梯、產權複雜的房子裡，以及他們集中在哪些鄉鎮市區。這不是一份點名的名單，而是一張讓資源找得到方向的地圖。</p>
+<p>這張地圖也能回答一個更實際的問題：錢該先花在哪裡。新加坡花了二十多年，把五千三百多棟沒有直達電梯的組屋降到一百四十棟；臺北市花了十一年，補助了一百四十九棟。差距不只在預算，更在於新加坡從一開始就知道要處理的是哪五千三百棟。台灣如果不知道那五十二萬名住在無電梯公寓的長者分別住在哪裡、住的是什麼結構的房子、產權卡在誰手上，再多的補助也只能等人上門申請，而最需要幫忙的人，往往最沒有力氣上門。</p>
+<div class="pull">最需要幫忙的人，往往最沒有力氣上門。</div>
+<p>五樓的八十歲，問題從來不只是那七十幾階樓梯。人老了，房子也老了，而兩者變老的速度都比政策快。答案不在於修還是搬，而在於：在他還走得動的時候，讓他有得選。<span class="sq"></span></p>
+<div class="endnote"><h3>資料說明</h3><p>資料說明：本文戶長年齡與住宅屋齡、住宅樓層、建築構造、擁屋狀況、老屋推估等數據，均引自住宅狀況調查，基準日二○二五年六月三十日。六十五歲以上人口、一人戶、老老照顧、居住無電梯公寓及生活機能數據引自內政部統計通報（二○二五年六月底）；長者跌倒數據引自衛生福利部國民健康署；危老重建核准件數引自內政部統計（截至二○二六年四月）；老宅延壽計畫受理件數引自內政部（截至二○二六年九月二日）；臺北市與高雄市增設電梯件數引自市議會與媒體報導；以房養老核貸數據引自金融監督管理委員會（二○二六年第二季）；新加坡電梯翻新計畫與電梯通達住房補助引自新加坡建屋發展局相關報導；日本附服務高齡者住宅登錄戶數引自日本國土交通省（二○二六年八月底）。「約五十二萬人住在無電梯公寓」係以四百五十七萬長者乘以一一‧五％換算；四到五層住宅宅數係以住宅總數乘以樓層占比換算，均為估算值。</p></div>
+</article>
+</body>
+</html>
