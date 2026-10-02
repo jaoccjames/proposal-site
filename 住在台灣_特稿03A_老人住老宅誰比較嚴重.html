@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老人住老宅，誰比較嚴重？｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article>
+
+  <div class="kicker">住宅與高齡</div>
+
+  <h1>老人住老宅，誰比較嚴重？</h1>
+
+  <p class="standfirst">台灣七十五歲以上的戶長，六成三住在四十年以上的老房子。拿美國來比，台灣輸的不在比率，在落差。</p>
+
+  <div class="byline-rule"></div>
+
+  <p><span class="lede">在台灣，七十五歲以上的戶長</span>，有六三‧三八％住在屋齡四十年以上的房子裡。這個數字單獨看已經夠刺眼，但它到底算高還是算低，需要一個參照。最自然的參照是美國：一個比台灣早五十年完成大規模郊區化、房子普遍比台灣老的國家。</p>
+
+  <p>比較的結果有兩層。第一層讓台灣鬆一口氣，第二層會讓人再把那口氣吸回去。</p>
+
+  <h2>第一層：美國的房子更老</h2>
+
+  <p>美國能源資訊署每隔幾年做一次「住宅能源消費調查」，二○二四年版在今年三月釋出初步結果，其中一張表把全美一億三千二百五十萬戶有人常住的住宅，依興建年代和戶長年齡交叉列出。</p>
+
+  <p>這張表的興建年代以十年為一格，沒有剛好切在「四十年」的位置。一九八○年以前蓋的房子，到二○二四年至少四十五歲；一九九○年以前蓋的，至少三十五歲。真正的「四十年以上」落在兩者之間。若假設八○年代的房子平均分布在十年之中，可以估出一個中間值；本文以此為準，同時保留上下限。</p>
+
+  <p>照這個算法，美國全體住宅有大約五二‧七％屋齡在四十年以上，上下限是四七‧七％到六○‧二％。台灣全體設籍住宅的同一比率是三六‧二六％。換句話說，<strong>就整體而言，美國人住老房子的普遍程度，比台灣高出一大截。</strong></p>
+
+  <p>再看老人。美國六十五到七十四歲戶長住在四十年以上老宅的比率約五六‧三％，七十五歲以上約五七‧一％，上下限分別是五○‧八％到六四‧六％、五一‧七％到六五‧二％。台灣對應的數字是四七‧八六％與六三‧三八％。</p>
+
+  <p>七十五歲以上這一組，台灣略高於美國的中間估計，但仍在美國的區間之內。如果比賽只比這一個數字，結論是兩國大致平手。</p>
+
+  <figure>
+    <div class="chart">
+      <div class="chart-tab"></div>
+      <div class="chart-title">美國人人住老宅，台灣老人住老宅</div>
+      <div class="chart-sub">戶長住在屋齡四十年以上住宅的比率，依戶長年齡，％　<span style="display:inline-block;width:10px;height:10px;background:#E3120B;margin:0 3px 0 6px;"></span>台灣　<span style="display:inline-block;width:10px;height:10px;background:#006BA2;margin:0 3px 0 6px;"></span>美國（中間估計）</div>
+      <svg viewBox="0 0 560 176" role="img" aria-label="台灣與美國各年齡層戶長住在四十年以上老宅比率之對照長條圖">
+        <line class="gridline" x1="260" y1="6" x2="260" y2="158"/>
+        <line class="gridline" x1="370" y1="6" x2="370" y2="158"/>
+        <line class="gridline" x1="480" y1="6" x2="480" y2="158"/>
+
+        <!-- x0=150, scale 5.5px per 1% -->
+        <text class="bar-lbl" x="142" y="34" text-anchor="end">全體戶長</text>
+        <rect x="150" y="10" width="199" height="18" fill="#E3120B"/>
+        <text class="bar-val" x="342" y="24" text-anchor="end">36.26</text>
+        <rect x="150" y="30" width="290" height="18" fill="#006BA2"/>
+        <text class="bar-val" x="433" y="44" text-anchor="end">52.7</text>
+
+        <text class="bar-lbl" x="142" y="86" text-anchor="end">66–75歲＊</text>
+        <rect x="150" y="62" width="263" height="18" fill="#E3120B"/>
+        <text class="bar-val" x="406" y="76" text-anchor="end">47.86</text>
+        <rect x="150" y="82" width="310" height="18" fill="#006BA2"/>
+        <text class="bar-val" x="453" y="96" text-anchor="end">56.3</text>
+
+        <text class="bar-lbl" x="142" y="138" text-anchor="end">75歲以上</text>
+        <rect x="150" y="114" width="349" height="18" fill="#E3120B"/>
+        <text class="bar-val" x="492" y="128" text-anchor="end">63.38</text>
+        <rect x="150" y="134" width="314" height="18" fill="#006BA2"/>
+        <text class="bar-val" x="457" y="148" text-anchor="end">57.1</text>
+
+        <line class="axis" x1="150" y1="6" x2="150" y2="160"/>
+        <text class="tick" x="150" y="172">0</text>
+        <text class="tick" x="260" y="172" text-anchor="middle">20</text>
+        <text class="tick" x="370" y="172" text-anchor="middle">40</text>
+        <text class="tick" x="480" y="172" text-anchor="middle">60</text>
+      </svg>
+      <div class="chart-src">＊美國為65–74歲。資料來源：住宅狀況調查（台灣，基準日2025年6月30日）；U.S. EIA, 2024 RECS Table HC9.3（初步資料）。美國以1980年代住宅平均分布推估四十年以上比率，兩國定義不盡相同，僅供量級參考。</div>
+    </div>
+  </figure>
+
+  <h2>第二層：落差</h2>
+
+  <p>但這張圖真正要看的，不是紅條和藍條誰長，而是同一種顏色從上到下長了多少。</p>
+
+  <p>美國的藍條幾乎是平的。全體戶長五二‧七％，七十五歲以上五七‧一％，只多了四個多百分點，倍數是一‧○八。台灣的紅條則一路往右衝：從全體的三六‧二六％，到七十五歲以上的六三‧三八％，多了二十七個百分點，倍數是一‧七五。</p>
+
+  <div class="pull">美國的老房子住著所有人；台灣的老房子，住的是老人。</div>
+
+  <p>把美國的年齡層攤開看會更清楚。三十五歲以下的年輕戶長，住在四十年以上老宅的比率約四八％；三十五到四十四歲約五二％；五十五到六十四歲約五五％。從剛成家到退休，每一個年齡層都有大約一半的人住在老房子裡。在美國，住老宅不是一個年齡現象，而是一個國家的常態。</p>
+
+  <figure>
+    <div class="chart">
+      <div class="chart-tab"></div>
+      <div class="chart-title">在美國，老房子不挑年紀</div>
+      <div class="chart-sub">美國戶長住在屋齡四十年以上住宅的比率，依戶長年齡，％，2024年（中間估計）</div>
+      <svg viewBox="0 0 560 262" role="img" aria-label="美國各年齡層戶長住在四十年以上老宅比率長條圖">
+        <line class="gridline" x1="260" y1="6" x2="260" y2="244"/>
+        <line class="gridline" x1="370" y1="6" x2="370" y2="244"/>
+        <line class="gridline" x1="480" y1="6" x2="480" y2="244"/>
+
+        <!-- x0=150, scale 5.5px per 1% -->
+        <text class="bar-lbl" x="142" y="26" text-anchor="end">35歲以下</text>
+        <rect x="150" y="12" width="265" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="407" y="28" text-anchor="end">48.1</text>
+
+        <text class="bar-lbl" x="142" y="60" text-anchor="end">35–44歲</text>
+        <rect x="150" y="46" width="285" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="427" y="62" text-anchor="end">51.8</text>
+
+        <text class="bar-lbl" x="142" y="94" text-anchor="end">45–54歲</text>
+        <rect x="150" y="80" width="266" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="408" y="96" text-anchor="end">48.3</text>
+
+        <text class="bar-lbl" x="142" y="128" text-anchor="end">55–64歲</text>
+        <rect x="150" y="114" width="300" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="442" y="130" text-anchor="end">54.6</text>
+
+        <text class="bar-lbl" x="142" y="162" text-anchor="end">65–74歲</text>
+        <rect x="150" y="148" width="310" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="452" y="164" text-anchor="end">56.3</text>
+
+        <text class="bar-lbl" x="142" y="196" text-anchor="end">75歲以上</text>
+        <rect x="150" y="182" width="314" height="22" fill="#006BA2"/>
+        <text class="bar-val" x="456" y="198" text-anchor="end">57.1</text>
+
+        <text class="bar-lbl" x="142" y="230" text-anchor="end">全體</text>
+        <rect x="150" y="216" width="290" height="22" fill="#3EBCD2"/>
+        <text class="bar-val" x="432" y="232" text-anchor="end">52.7</text>
+
+        <line class="axis" x1="150" y1="6" x2="150" y2="246"/>
+        <text class="tick" x="150" y="258">0</text>
+        <text class="tick" x="260" y="258" text-anchor="middle">20</text>
+        <text class="tick" x="370" y="258" text-anchor="middle">40</text>
+        <text class="tick" x="480" y="258" text-anchor="middle">60</text>
+      </svg>
+      <div class="chart-src">資料來源：U.S. EIA, 2024 RECS Table HC9.3（初步資料），本文推估。僅含有人常住之主要住所，不含空屋、季節性住宅與第二住宅。</div>
+    </div>
+  </figure>
+
+  <p>台灣是另一幅圖像。報告的交叉分析顯示，住宅屋齡和戶長年齡呈現明顯的正相關：屋齡二十年以下的房子，戶長集中在二十六到五十五歲；屋齡四十一年以上的房子，戶長集中在五十六歲以上，高峰落在六十六到七十五歲。新房子歸年輕人，老房子留給老人，兩群人幾乎分住在兩個不同年代的台灣。</p>
+
+  <p>為什麼會這樣？一部分原因是新房子本來就不是為老人蓋的。屋齡十年以下的新屋，有四九‧五九％只設籍一個人；新屋六成以上在二十五坪以下。這是為單身上班族與小家庭設計的產品，市場自然把它賣給年輕人。另一部分原因是老人很少搬家，而且越老越難搬：七十五歲以上的戶長，有三四‧四九％名下沒有單獨持有任何一間房子，比六十六到七十五歲的二五‧七八％高出一截。沒有房產可以賣，就沒有本錢換屋。</p>
+
+  <h2>樓梯比屋齡更要命</h2>
+
+  <p>就算比率相近，兩國的「老宅」也不是同一種東西。</p>
+
+  <p>美國的老房子多半是獨棟或連棟的透天住宅，前門通常就在地面層，必要時可以把臥室搬到一樓，或在門口加一段坡道。台灣四十年以上的老房子，有很大一部分是四、五層樓、沒有電梯的公寓。對一位住在五樓的八十歲長者來說，屋齡幾年其實不是重點，重點是每天進出都要爬的那四層樓梯。房子老了可以修，樓梯卻不會自己變短。</p>
+
+  <p>而且台灣的時間表比美國更急。全國六十六歲以上的戶長已占二九‧七五％，臺北市是三四‧五一％，嘉義縣更達三八‧二二％。在房子這一側，依本案推估，二○三五年屋齡超過五十一年的住宅將占三三‧九三％，二○四五年達四七‧四九％；臺北市與嘉義縣在二○三五年就會率先跨過五成。人和房子正以相同的方向、相近的速度一起變老，而兩條曲線交會的地方，就是那些沒有電梯的老公寓。</p>
+
+  <div class="pull">美國的問題是房子老；台灣的問題是，老房子和老人被綁在一起。</div>
+
+  <h2>所以，誰比較嚴重？</h2>
+
+  <p>如果只問「老人有多少比例住在老房子裡」，答案是兩國差不多，台灣七十五歲以上那一組略高一點。</p>
+
+  <p>但如果問「老人是不是被留在了老房子裡」，答案就很清楚：台灣嚴重得多。在美國，老宅是整個社會共同承擔的存量，年輕人和老人一起住、一起修，修繕的需求和市場也因此一直存在；美國人口普查局甚至為此出過一份報告，標題就叫《老房子，新需求》。在台灣，老宅的風險高度集中在一群最不方便搬家、最不方便爬樓梯、也最不方便自己出錢整修的人身上。</p>
+
+  <p>這個差別直接決定了政策的方向。</p>
+
+  <p>台灣不能只靠「多蓋新房子」來解決老人住老宅的問題。屋齡與戶長年齡的交叉分析已經說明，新房子會流向年輕人與小家庭，不會自動流向老人。真正的缺口要從人的那一端補起，而不是從房子的那一端：讓老公寓能加裝電梯，讓長者的家能做無障礙修繕，讓社會住宅與高齡友善住宅保留給需要換屋的長者，讓危老重建與都市更新在規劃時就把原住戶的高齡化算進去，而不是只算容積。</p>
+
+  <p>美國的經驗也提醒我們另一件事：房子老不可怕，可怕的是只有老人住老房子。一個健康的住宅市場，老宅會被翻修、被轉手、被新的家庭接住。台灣的老宅之所以危險，是因為它們正在變成一種隔離，把最需要照顧的人，留在最難照顧的房子裡。</p>
+
+  <p>台灣的老人住老宅，比率和美國相當，處境卻比美國孤單得多。<span class="sq"></span></p>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>台灣數據引自住宅狀況調查，基準日二○二五年六月三十日。戶長年齡與住宅屋齡交叉分析以設籍住宅之宅內代表戶長為準，屋齡以房屋稅籍資料計算；全體戶長住在四十年以上老宅比率為三六‧二六％。住宅老化推估假設未來維持過去十年之新建量。</p>
+    <p>美國數據引自美國能源資訊署（U.S. EIA）二○二四年住宅能源消費調查（RECS）Table HC9.3，二○二六年三月初步釋出。統計對象為五十州及華盛頓特區有人常住之主要住所，不含空屋、季節性住宅、第二住宅、軍眷住宅與團體住所；年齡指填答問卷之戶長，興建年代為受訪者申報。</p>
+    <p>美國原表興建年代以十年為一級距，未直接提供「四十年以上」分組。本文以一九八○年以前興建者為下限（約四十五年以上）、一九九○年以前興建者為上限（約三十五年以上），並假設一九八○年代住宅平均分布，取一九八○至一九八三年興建部分（該級距之十分之四）估算中間值。兩國對住宅、戶長與屋齡的定義不盡相同，比較結果僅供量級參考。</p>
+  </div>
+
+</article>
+
+</body>
+</html>
