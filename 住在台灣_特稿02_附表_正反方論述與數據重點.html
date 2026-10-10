@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>等來的房子附表｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+  .endnote .ref-link{margin-top:14px;padding-top:12px;border-top:1px solid #CFCFCF;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;}
+  .endnote .ref-link a{color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);}
+  .endnote .ref-link a:hover{border-bottom-width:2px;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+
+
+  /* ── 附表 ── */
+  article.wide{max-width:760px;}
+  .ref-note{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14px;color:var(--grey);margin:0 0 8px;}
+  table.ref{
+    width:100%;border-collapse:collapse;margin:6px 0 10px;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;
+  }
+  table.ref th{
+    text-align:left;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--grey);
+    border-bottom:2px solid var(--ink);padding:8px 10px 6px;
+  }
+  table.ref td{border-bottom:1px solid var(--rule);padding:10px;vertical-align:top;}
+  table.ref td:first-child{font-weight:700;width:26%;}
+  table.ref tr:nth-child(even) td{background:#FAFAFA;}
+  .tag{display:inline-block;font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;
+       letter-spacing:.1em;color:#fff;padding:2px 8px;margin-right:8px;vertical-align:2px;}
+  .tag.con{background:var(--blue);} .tag.pro{background:var(--red);} .tag.ur{background:#3EBCD2;} .tag.sum{background:var(--ink);}
+  @media (max-width:640px){
+    table.ref{font-size:13.5px;}
+    table.ref td{padding:8px 6px;}
+    table.ref td:first-child{width:30%;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article class="wide">
+
+  <div class="kicker">參考資料</div>
+
+  <h1>附表：正反方論述與數據重點</h1>
+
+  <p class="standfirst">〈等來的房子〉一文的論點與數據對照</p>
+
+  <div class="byline-rule"></div>
+
+  <h2><span class="tag con">正方</span>等得到：房子終究會傳下來</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>繼承已成重要的換手管道</td><td>2025年建物繼承移轉7萬8,324棟，創歷史新高；買賣移轉26萬1,308棟，9年來最少；繼承約占移轉17%、贈與約11.7%，合計近3成。</td></tr>
+      <tr><td>房子集中在即將交棒的世代</td><td>住宅所有權人46到75歲合計69.79%；屋齡31年以上住宅，56歲以上所有權人各占6成5以上；69.95%住戶至少單獨持有1宅。</td></tr>
+      <tr><td>傳承速度加快</td><td>自然人單獨持有772萬宅中，繼承6.43%、贈與4.72%，合計11.15%，兩者逐年上升；2026年第1季繼承1萬7,879棟、贈與1萬6,182棟，合計3萬4,061棟，2023年起連續4年首季破3萬4,000棟；臺北市繼承與贈與合計12.55%，直轄市最高。</td></tr>
+      <tr><td>家庭已提前分配居住資源</td><td>35歲以下戶長所住房屋，4成到4成4產權在46到55歲者名下；18到25歲戶長62.77%住在不同戶籍親屬名下的房子；18歲以下所有權人56.45%受贈取得；贈與取得者26到45歲占30.90%。</td></tr>
+      <tr><td>少子化使每人分得更多</td><td>Resolution Foundation（2017年）推估英國遺產總額往後20年增加1倍以上、2035年前後達高峰；不與父母同住的20到35歲年輕人，64%至少有1位父母擁有房產。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag pro">反方</span>等不到：傳承無法取代住宅政策</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>時間：來得太晚</td><td>2025年平均壽命81.27歲；死亡人口19萬9,639人，65歲以上占76.1%；粗估子女約50歲繼承（非統計結果）；英國千禧世代最常見繼承年齡61歲；美國收到遺產機率在59到63歲最高。</td></tr>
+      <tr><td>品質：等來的多半是老屋</td><td>繼承取得住宅83.03%屋齡31年以上、60.93%屋齡41年以上；贈與69.11%、拍賣70.37%屋齡31年以上；買賣僅46.92%。繼承占屋齡10年以下住宅0.38%，占51年以上住宅15.29%，加贈與7.66%合計22.95%。</td></tr>
+      <tr><td>產權：共有難以處分</td><td>屋齡51年以上住宅的設籍住戶，42.92%未單獨持有任何住宅、單獨持有1宅38.87%；屋齡10年以下為62.46%單獨持有1宅；全國多人共有住宅77萬254宅；2025年度逾期未辦繼承登記土地7萬2,000餘筆、約3,400公頃，建物近5,000戶。</td></tr>
+      <tr><td>地點：房子不在工作所在地</td><td>繼承與贈與合計比重：澎湖19.28%、臺東17.33%、屏東16.50%、南投16.21%；本島最低為新竹縣7.26%、桃園8.08%（全國11.15%）。</td></tr>
+      <tr><td>公平：無房家庭等不到</td><td>英國所得最高5分之1收到大額遺產或贈與的比例50%，最低5分之1為25%；台灣有241萬186個住戶未單獨持有任何住宅。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag ur">補充</span>日本經驗：繼承後無人登記</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>所有權人不明土地</td><td>民間研究會2017年推估約410萬公頃，大於九州面積，主因為繼承後未辦登記。</td></tr>
+      <tr><td>空屋多來自繼承</td><td>國土交通省2024年空屋所有者實態調查：空屋取得方式57.9%為繼承；73.2%建於1980年以前。</td></tr>
+      <tr><td>繼承登記義務化</td><td>2024年4月起強制辦理，知悉取得後3年內未辦者可處10萬日圓以下罰款。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag sum">綜合</span>共識、分歧與結論</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>雙方共識</td><td>房子一定會傳下去，且傳承規模會愈來愈大。</td></tr>
+      <tr><td>主要分歧</td><td>傳承潮能否替代住宅政策，解決年輕世代的居住問題。</td></tr>
+      <tr><td>本文結論</td><td>不能，至少不能照現在的樣子：繼承改善的是50、60歲者的資產，送來的多是老屋、持分與遠方的地址。政策方向為：①繼承登記與共有處分「辦得下來」；②繼承老屋「接得上」都更危老；③透過稅制與包租代管讓繼承宅「動得了」；④年輕人居住保障不因「反正會繼承」而退場。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>住宅取得原因、屋齡、所有權人年齡、戶長年齡、共有與擁屋數據引自住宅狀況調查，基準日2025年6月30日；取得原因以本國自然人單獨所有住宅為母體。</p>
+    <p>建物移轉棟數引自內政部建物所有權登記統計及住商機構整理；逾期未辦繼承登記引自內政部2025年度公告；平均壽命與死亡人數引自內政部2025年簡易生命表。</p>
+    <p>日本所有權人不明土地引自「所有者不明土地問題研究會」推估，空屋數據引自國土交通省2024年空屋所有者實態調查；英國數據引自Resolution Foundation 2017年與2022年報告；美國數據引自聯準會2018年FEDS Notes。</p>
+    <p class="ref-link"><a href="住在台灣_特稿02_等來的房子.html">← 回到本文〈等來的房子〉</a></p>
+  </div>
+
+</article>
+
+</body>
+</html>
