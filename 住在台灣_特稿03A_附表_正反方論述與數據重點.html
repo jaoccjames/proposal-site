@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>正反方論述附表｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+
+  .endnote .ref-link{margin-top:14px;padding-top:12px;border-top:1px solid #CFCFCF;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;}
+  .endnote .ref-link a{color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);}
+  .endnote .ref-link a:hover{border-bottom-width:2px;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+
+  /* ── 附表 ── */
+  article.wide{max-width:760px;}
+  table.ref{
+    width:100%;border-collapse:collapse;margin:6px 0 10px;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;
+  }
+  table.ref th{
+    text-align:left;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--grey);
+    border-bottom:2px solid var(--ink);padding:8px 10px 6px;
+  }
+  table.ref td{border-bottom:1px solid var(--rule);padding:10px;vertical-align:top;}
+  table.ref td:first-child{font-weight:700;width:26%;}
+  table.ref tr:nth-child(even) td{background:#FAFAFA;}
+  .tag{display:inline-block;font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;
+       letter-spacing:.1em;color:#fff;padding:2px 8px;margin-right:8px;vertical-align:2px;}
+  .tag.con{background:var(--blue);} .tag.pro{background:var(--red);} .tag.ur{background:#3EBCD2;} .tag.sum{background:var(--ink);}
+  @media (max-width:640px){
+    table.ref{font-size:13.5px;}
+    table.ref td{padding:8px 6px;}
+    table.ref td:first-child{width:30%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article class="wide">
+
+  <div class="kicker">參考資料</div>
+
+  <h1>附表：正反方論述與數據重點</h1>
+
+  <p class="standfirst">〈老人住老宅，誰比較嚴重？〉一文的論點與數據對照</p>
+
+  <div class="byline-rule"></div>
+
+  <h2><span class="tag con">反方</span>只看比率：台灣不比美國嚴重</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>美國整體住宅更老</td><td>美國全體戶長住在屋齡超過40年住宅的比率約52.7%（範圍47.7%–60.2%）；台灣全體設籍住宅為36.26%。</td></tr>
+      <tr><td>美國長者同樣住老宅</td><td>美國65–74歲戶長約56.3%（範圍50.8%–64.6%）、75歲以上約57.1%（範圍51.7%–65.2%）；台灣66–75歲47.86%、75歲以上63.38%。</td></tr>
+      <tr><td>75歲以上大致平手</td><td>台灣63.38%略高於美國中間估計57.1%，但仍落在美國的範圍之內；66–75歲一組台灣反而較低。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag pro">正方</span>看落差與結構：台灣嚴重得多</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>老宅集中在長者身上</td><td>台灣75歲以上戶長住老宅比率是全體的1.75倍（63.38%對36.26%，差27.12個百分點）；美國僅1.08倍（57.1%對52.7%，差4.4個百分點）。</td></tr>
+      <tr><td>美國各年齡層都住老宅</td><td>美國35歲以下約48.1%、35–44歲51.8%、45–54歲48.3%、55–64歲54.6%、65–74歲56.3%、75歲以上57.1%。</td></tr>
+      <tr><td>台灣新屋歸年輕人、老屋留給長者</td><td>屋齡20年以下住宅戶長集中在26–55歲；屋齡41年以上住宅戶長集中在56歲以上，高峰66–75歲。</td></tr>
+      <tr><td>新屋不以長者為對象</td><td>屋齡10年以下住宅設籍1人占49.59%；屋齡1年以內住宅25坪以下占60.09%。</td></tr>
+      <tr><td>長者換屋不易</td><td>75歲以上戶長未單獨持有住宅34.49%，比66–75歲（25.78%）高8.71個百分點（含共同持有與未持有）。</td></tr>
+      <tr><td>樓梯比屋齡更要命</td><td>美國1980年以前興建住宅約6,324萬戶，獨棟約67%、加連棟約73%，5戶以上公寓不到16%。台灣4到5層樓住宅占21.85%（臺北市42.80%）；65歲以上長者11.5%住在無電梯公寓。</td></tr>
+      <tr><td>台灣的時間表更急</td><td>66歲以上戶長占29.75%（臺北市34.51%、嘉義縣38.22%）；屋齡51年以上住宅推估2035年占33.93%、2045年占47.49%，臺北市與嘉義縣2035年即超過5成。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag ur">補充</span>美國數字怎麼算</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>原始資料</td><td>U.S. EIA 2024 RECS Table HC9.3（2026年3月初步資料），興建年代 × 戶長年齡，單位百萬戶。</td></tr>
+      <tr><td>65–74歲</td><td>1980年以前：4.32＋2.45＋2.74＋3.75＝13.26；1980年代3.62；分母26.11。下限13.26÷26.11＝50.8%；上限16.88÷26.11＝64.6%；中間值（13.26＋3.62×0.4）÷26.11＝56.3%。</td></tr>
+      <tr><td>75歲以上</td><td>1980年以前：2.68＋1.63＋1.96＋3.09＝9.36；1980年代2.44；分母18.11。下限51.7%；上限65.2%；中間值（9.36＋2.44×0.4）÷18.11＝57.1%。</td></tr>
+      <tr><td>全體</td><td>（20.25＋12.17＋12.73＋18.09＋16.60×0.4）÷132.54＝52.7%。</td></tr>
+      <tr><td>為何取0.4</td><td>假設1980年代住宅平均分布，取1980–1983年興建部分，對應2024年屋齡41年以上，與台灣「41年以上」老舊住宅定義一致。</td></tr>
+      <tr><td>住宅類型</td><td>RECS Table HC2.1：1980年以前興建63.24百萬戶中，獨棟42.30、連棟3.53、5戶以上公寓9.99百萬戶。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag sum">綜合</span>共識、分歧與結論</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>雙方共識</td><td>兩國都有約一半以上的高齡戶長住在屋齡超過40年的住宅；單看比率，兩國差距不大。</td></tr>
+      <tr><td>主要分歧</td><td>該看「比率」還是看「集中程度與建築型態」：美國老宅由各年齡層共同居住、多為透天；台灣老宅集中於長者，且多無電梯公寓。</td></tr>
+      <tr><td>本文結論</td><td>台灣較嚴重。政策不能只靠多蓋新房，應從人的那一端補起：老公寓加裝電梯、無障礙修繕、社會住宅與高齡友善住宅保留給需換屋的長者、危老與都更規劃納入原住戶高齡化。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>台灣數據引自住宅狀況調查，基準日2025年6月30日；65歲以上長者居住無電梯公寓比率引自內政部統計通報（2025年6月底）。</p>
+    <p>美國數據引自U.S. EIA 2024年住宅能源消費調查（RECS）Table HC9.3與HC2.1（2026年3月初步資料），僅含有人常住之主要住所。兩國定義不盡相同，比較結果僅供數量級參考。</p>
+    <p class="ref-link"><a href="https://jaoccjames.github.io/proposal-site/住在台灣_特稿03A_老人住老宅誰比較嚴重.html">← 回到本文〈老人住老宅，誰比較嚴重？〉</a></p>
+  </div>
+
+</article>
+
+</body>
+</html>
