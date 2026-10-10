@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>正反方論述附表｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+  .endnote .ref-link{margin-top:14px;padding-top:12px;border-top:1px solid #CFCFCF;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;}
+  .endnote .ref-link a{color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);}
+  .endnote .ref-link a:hover{border-bottom-width:2px;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+
+
+  /* ── 附表 ── */
+  article.wide{max-width:760px;}
+  .ref-note{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14px;color:var(--grey);margin:0 0 8px;}
+  table.ref{
+    width:100%;border-collapse:collapse;margin:6px 0 10px;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;
+  }
+  table.ref th{
+    text-align:left;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--grey);
+    border-bottom:2px solid var(--ink);padding:8px 10px 6px;
+  }
+  table.ref td{border-bottom:1px solid var(--rule);padding:10px;vertical-align:top;}
+  table.ref td:first-child{font-weight:700;width:26%;}
+  table.ref tr:nth-child(even) td{background:#FAFAFA;}
+  .tag{display:inline-block;font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;
+       letter-spacing:.1em;color:#fff;padding:2px 8px;margin-right:8px;vertical-align:2px;}
+  .tag.con{background:var(--blue);} .tag.pro{background:var(--red);} .tag.ur{background:#3EBCD2;} .tag.sum{background:var(--ink);}
+  @media (max-width:640px){
+    table.ref{font-size:13.5px;}
+    table.ref td{padding:8px 6px;}
+    table.ref td:first-child{width:30%;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article class="wide">
+
+  <div class="kicker">參考資料</div>
+
+  <h1>附表：正反方論述與數據重點</h1>
+
+  <p class="standfirst">〈該加法還是減法？〉一文的論點與數據對照</p>
+
+  <div class="byline-rule"></div>
+
+  <h2><span class="tag con">反方</span>一座蓋滿了的島：不必再蓋</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>總量已經過剩</td><td>全國住宅供給率107.6%；22個縣市中21個供給率超過100%，唯一例外臺北市為99.97%。</td></tr>
+      <tr><td>空屋多，且長期閒置</td><td>低度用電住宅97萬6,796宅，占10.42%；其中52.8%連續2年以上，約51萬6,000宅，約等於5年份完工量（年完工約10萬戶）。</td></tr>
+      <tr><td>新屋去化不佳</td><td>屋齡1年以下住宅低度用電27.28%、設籍率33.1%，均為各屋齡級距最差；待售新成屋由2021年第4季6萬9,000多間增至2025年第4季11萬2,500間，5年增加6成。</td></tr>
+      <tr><td>家戶數成長有虛胖</td><td>房屋稅差別稅率2.0於2024年7月上路（非自住最高4.8%、自住1.2%）；隔年設籍住宅增加33萬1,000多宅，年增4.3%；25歲以下戶長10年增加逾9成，2025年第4季達21萬3,800人。</td></tr>
+      <tr><td>戶量緩衝有限，存量會自然流動</td><td>平均戶內人數2.38人，下限為1人；2026年第1季繼承與贈與移轉3萬4,000餘棟；繼承占所有權移轉比重由14.0%升至17.4%；臺北市每2.6件買賣登記就有1件繼承。</td></tr>
+      <tr><td>日本前車之鑑</td><td>人口自2008年起下降，2024年新建住宅開工仍有81萬6,000戶；2023年總住宅數6,502萬戶，5年增加261萬戶；空屋900萬戶、空屋率13.8%，均創新高。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag pro">正方</span>一座正在變老的島：仍需要蓋</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>需求以「戶」計，而非以「人」計</td><td>家戶數仍在增加；野村總研預測日本2023年空屋率16.9%，實際13.8%；2033年預測值由30.2%下修至18.3%，主因是家戶數增加超出推算。</td></tr>
+      <tr><td>住宅存量其實不多</td><td>每千人住宅數：台灣407宅，低於OECD平均470宅、日本523宅（各國定義不同，僅供數量級參考）。</td></tr>
+      <tr><td>房子正在變老</td><td>平均屋齡33.92年；41年以上占38.10%，20年以下占23.68%，住宅替代率62.14%；推估51年以上住宅2035年占33.93%、2045年占47.49%（已假設維持年均約10萬5,000戶新建）。</td></tr>
+      <tr><td>耐震風險</td><td>41年以上住宅357萬宅，多建於1999年921地震前的舊規範年代；行政院2026年7月通過修正草案，刪除危老落日條款。</td></tr>
+      <tr><td>高齡者住在老屋</td><td>36.90%家戶有66歲以上成員；75歲以上戶長有63.38%住在40年以上住宅，全國平均為36.26%。</td></tr>
+      <tr><td>空屋與需求區位錯配</td><td>低度用電比率：金門縣17.35%、臺東縣16.12%，臺北市7.20%、新北市7.79%；臺北市供給率全國唯一未達100%，41年以上住宅占57.45%（全國最老），替代率26.88%（全國最低）。</td></tr>
+      <tr><td>未來供給可能斷層</td><td>住宅建照2022年18萬674戶（高峰），2025年13萬8,792戶，2026年上半年5萬723戶（年減28.2%）；以3到5年工期推算，2029年前後完工量將明顯下滑。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag ur">補充</span>都更危老：汰換跟不上老化</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>重建速度慢</td><td>近8年都更與危老重建29萬3,965戶，年均約3萬6,700戶，僅占住宅存量0.39%；以此速度，357萬宅老屋需97年、全國存量需255年才汰換一輪。重建戶數為改建後新戶數，實際汰換更慢。</td></tr>
+      <tr><td>重建集中在都會</td><td>六都占全國都更危老約9成；其餘16個縣市合計每年約3,600戶。</td></tr>
+      <tr><td>新建中的汰換比例</td><td>年均住宅建照約14萬5,000戶，其中都更危老約3萬7,000戶，占25.3%；其餘近11萬戶未經都更危老。</td></tr>
+      <tr><td>縣市差異</td><td>都更危老占新建比：臺北市95.7%、新竹市36.7%、新北市35.3%、全國25.3%、桃園市8.2%、雲林縣2.5%。建照占存量比超過2%者：金門3.2%、臺中2.4%、桃園2.2%、新竹縣2.2%（全國1.6%）。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag sum">綜合</span>共識、分歧與結論</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>雙方共識</td><td>全國總量不缺；真正病灶是錯配（空屋在偏鄉、需求在都會）；新屋空置27.28%、待售量創新高的供給並不健康；缺的是有電梯的高齡友善住宅與可負擔租賃。</td></tr>
+      <tr><td>主要分歧</td><td>①家戶數還能撐多久；②老屋能否以整建維護延壽而不必重建；③繼承潮釋出的存量能否替代新建。</td></tr>
+      <tr><td>本文結論</td><td>以淨增加為目的的新建不必再有；以汰換為目的的新建需要，且量能不足；區位應集中都會區（尤其雙北）；型態應補足市場不願意蓋的高齡友善住宅與可負擔租賃。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>住宅存量、屋齡、替代率、低度用電、設籍與家戶結構數據引自住宅狀況調查，基準日2025年6月30日。</p>
+    <p>建照使照、待售新成屋、設籍住宅年增、繼承贈與移轉引自內政部統計；人口推估引自國家發展委員會；日本數據引自總務省住宅・土地統計調查、國土交通省住宅着工統計與野村總合研究所推估；每千人住宅數引自OECD資料。</p>
+    <p>都更與危老重建戶數為近8年累計，住宅建照戶數為2017至2025年合計，均先換算為年均值後相比；重建率分母為房屋稅籍住宅類存量937萬8,000餘宅。</p>
+    <p class="ref-link"><a href="住在台灣_特稿01_加法還是減法.html">← 回到本文〈該加法還是減法？〉</a></p>
+  </div>
+
+</article>
+
+</body>
+</html>
