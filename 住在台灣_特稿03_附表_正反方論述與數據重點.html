@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5樓的80歲附表｜住宅狀況調查特稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3120B;
+    --blue:#006BA2;
+    --blue-lt:#3EBCD2;
+    --ink:#121212;
+    --grey:#5E5E5E;
+    --rule:#D9D9D9;
+    --wash:#F3F3F3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    font-weight:400;
+  }
+  .sans{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",Helvetica,Arial,sans-serif;}
+
+  /* ── 報頭 ── */
+  .masthead{
+    border-top:5px solid var(--red);
+    background:#fff;
+  }
+  .masthead-inner{
+    max-width:760px;margin:0 auto;padding:14px 24px 12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+  }
+  .brand{
+    background:var(--red);color:#fff;
+    font-weight:700;font-size:15px;letter-spacing:.22em;
+    padding:5px 12px 5px 14px;
+  }
+  .issue{font-size:12.5px;color:var(--grey);letter-spacing:.12em;}
+  .hairline{border-bottom:1px solid var(--rule);}
+
+  /* ── 文章 ── */
+  article{max-width:660px;margin:0 auto;padding:0 24px 80px;}
+  .kicker{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    color:var(--red);font-weight:700;font-size:13.5px;
+    letter-spacing:.2em;margin:44px 0 14px;
+  }
+  h1{
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+    font-weight:900;font-size:46px;line-height:1.18;
+    letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .standfirst{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:400;font-size:20px;line-height:1.55;
+    color:#3A3A3A;margin:0 0 26px;
+  }
+  .byline-rule{border-top:1px solid var(--ink);margin:0 0 30px;}
+
+  p{margin:0 0 20px;text-align:justify;}
+  .dateline{font-weight:700;}
+  .lede{font-weight:600;letter-spacing:.04em;}
+
+  h2{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:23px;line-height:1.4;
+    margin:44px 0 16px;
+  }
+  h2::before{
+    content:"";display:block;width:34px;height:4px;
+    background:var(--red);margin-bottom:12px;
+  }
+  strong{font-weight:700;}
+
+  /* ── 引文 ── */
+  .pull{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:500;font-size:25px;line-height:1.48;
+    color:var(--ink);
+    border-top:3px solid var(--red);
+    border-bottom:1px solid var(--rule);
+    padding:20px 0 22px;margin:38px 0;
+    text-align:left;
+  }
+
+  /* ── 圖表 ── */
+  figure{margin:40px 0;padding:0;}
+  .chart{background:var(--wash);padding:20px 22px 16px;}
+  .chart-tab{width:34px;height:6px;background:var(--red);margin-bottom:14px;}
+  .chart-title{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-weight:700;font-size:17.5px;line-height:1.35;margin:0 0 2px;
+  }
+  .chart-sub{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--grey);margin:0 0 16px;line-height:1.4;
+  }
+  .chart-src{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:11.5px;color:var(--grey);
+    border-top:1px solid #CFCFCF;padding-top:9px;margin-top:12px;
+  }
+  svg{display:block;width:100%;height:auto;}
+  .bar-lbl{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;fill:var(--ink);}
+  .bar-val{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#fff;}
+  .bar-val-out{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);}
+  .axis{stroke:#C8C8C8;stroke-width:1;}
+  .gridline{stroke:#DCDCDC;stroke-width:1;}
+  .tick{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:11.5px;fill:var(--grey);}
+
+  /* ── 文末 ── */
+  .endnote{
+    background:var(--wash);border-top:3px solid var(--ink);
+    padding:20px 22px;margin-top:52px;
+    font-size:14px;line-height:1.7;color:#3A3A3A;
+  }
+  .endnote h3{
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;
+    font-size:13px;letter-spacing:.16em;font-weight:700;
+    margin:0 0 10px;color:var(--ink);
+  }
+  .endnote p{margin:0 0 10px;text-align:left;}
+  .endnote p:last-child{margin:0;}
+  .sq{display:inline-block;width:9px;height:9px;background:var(--red);margin-left:6px;vertical-align:baseline;}
+  .endnote .ref-link{margin-top:14px;padding-top:12px;border-top:1px solid #CFCFCF;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;}
+  .endnote .ref-link a{color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);}
+  .endnote .ref-link a:hover{border-bottom-width:2px;}
+
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    h1{font-size:33px;}
+    .standfirst{font-size:18px;}
+    .pull{font-size:20px;}
+    h2{font-size:20px;}
+    article{padding:0 18px 60px;}
+    .masthead-inner{padding:12px 18px 10px;}
+  }
+  @media print{
+    body{font-size:11.5pt;}
+    .chart{background:#fff;border:1px solid #CCC;}
+    .endnote{background:#fff;}
+    h1{font-size:30pt;}
+  }
+
+
+  /* ── 附表 ── */
+  article.wide{max-width:760px;}
+  .ref-note{font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14px;color:var(--grey);margin:0 0 8px;}
+  table.ref{
+    width:100%;border-collapse:collapse;margin:6px 0 10px;
+    font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;
+  }
+  table.ref th{
+    text-align:left;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--grey);
+    border-bottom:2px solid var(--ink);padding:8px 10px 6px;
+  }
+  table.ref td{border-bottom:1px solid var(--rule);padding:10px;vertical-align:top;}
+  table.ref td:first-child{font-weight:700;width:26%;}
+  table.ref tr:nth-child(even) td{background:#FAFAFA;}
+  .tag{display:inline-block;font-family:"Noto Sans TC",Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;
+       letter-spacing:.1em;color:#fff;padding:2px 8px;margin-right:8px;vertical-align:2px;}
+  .tag.con{background:var(--blue);} .tag.pro{background:var(--red);} .tag.ur{background:#3EBCD2;} .tag.sum{background:var(--ink);}
+  @media (max-width:640px){
+    table.ref{font-size:13.5px;}
+    table.ref td{padding:8px 6px;}
+    table.ref td:first-child{width:30%;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="masthead hairline">
+  <div class="masthead-inner">
+    <span class="brand">住都觀察</span>
+    <span class="issue">住宅狀況調查特稿　│　2026</span>
+  </div>
+</div>
+
+<article class="wide">
+
+  <div class="kicker">參考資料</div>
+
+  <h1>附表：正反方論述與數據重點</h1>
+
+  <p class="standfirst">〈5樓的80歲〉一文的論點與數據對照</p>
+
+  <div class="byline-rule"></div>
+
+  <h2><span class="tag ur">背景</span>人和房子一起變老</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>高齡人口</td><td>2025年6月底65歲以上457萬人；2025年底占總人口20.06%，正式進入超高齡社會。</td></tr>
+      <tr><td>住在無電梯公寓的長者</td><td>65歲以上長者11.5%住無電梯公寓，換算約52萬人（估算值）。</td></tr>
+      <tr><td>高齡戶長住老屋</td><td>住在屋齡40年以上住宅的比例：75歲以上戶長63.38%、66到75歲戶長47.86%，全國平均36.26%。</td></tr>
+      <tr><td>無電梯公寓的分布</td><td>4到5層樓住宅全國占21.85%（約205萬宅）；臺北市42.80%（約39萬宅），3層以下僅8.23%，全台唯一不到1成。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag con">正方</span>修：讓長輩留在原地</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>長輩不想搬，在地老化是國際共識</td><td>質性論點：熟悉的鄰里、市場與診所是長輩獨立生活的支撐。</td></tr>
+      <tr><td>長輩多半是屋主，資產鎖在老屋</td><td>戶長66到75歲的住戶僅25.78%未單獨持有任何住宅，約4分之3至少單獨持有1宅。</td></tr>
+      <tr><td>老屋規模太大，重建趕不上</td><td>屋齡41年以上住宅357萬宅（38.10%）；危老累計核准4,608件（2025年9月）；都更與危老合計核准6,421件（2026年7月底）。</td></tr>
+      <tr><td>政策已轉向修繕</td><td>老宅延壽計畫50億元特別預算，補助屋齡30年以上4到6樓公寓與6樓以下透天，各項工程最高補助65%；2026年9月底19縣市開辦、正式申請1,042件，高雄308件、臺南249件、桃園210件，3市合計逾7成。危老條例修法：內政部2025年11月版曾列入老宅延壽；行政院2026年7月版以重建常態化與容積獎勵為主。</td></tr>
+      <tr><td>防跌改善便宜又有效</td><td>65歲以上約每6人有1人1年內曾跌倒（15.5%）；受傷地點52%在室內；跌倒為長者事故傷害死因第2位，也是因傷住院與急診的最主要原因。</td></tr>
+      <tr><td>新加坡證明可大規模改造</td><td>電梯翻新計畫2001年啟動，5,300多棟組屋缺每層停靠電梯；2023年僅剩約140棟（約2,000戶）；公民戶自付上限3,000新加坡幣，75%合格公民戶同意即可動工。</td></tr>
+      <tr><td>以房養老讓資產留在原地發揮</td><td>截至2026年第2季累計核貸1萬1,011件、656億元；上半年增加671件、51.5億元，創同期新高；北北基5,388件，約占件數一半。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag pro">反方</span>修不動：很多房子修不好，很多人等不到</h2>
+  <table class="ref">
+    <thead><tr><th>論點</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>骨架：好住不等於安全</td><td>加強磚造（含磚造）占18.26%，約171萬宅；加強磚造與其他非鋼筋混凝土構造合計：臺東縣66.2%、嘉義縣65.3%、澎湖縣61.2%、雲林縣61.1%、南投縣51.9%、花蓮縣51.3%。屋齡41年以上約建於1984年以前，早於921地震後耐震規範大修15年以上。</td></tr>
+      <tr><td>電梯：卡在人，不在錢</td><td>臺北市2015年至2025年10月取得增設電梯雜照191件、獲補助149件，以約1萬棟可裝估算約1.5%；高雄市2019到2025年度僅核定10案。須區分所有權人過半數同意（臺北市2024年以前須全體同意），取消法定車位須繳代金。</td></tr>
+      <tr><td>產權：老屋的持分更複雜</td><td>屋齡51年以上住宅的設籍住戶42.92%未單獨持有任何住宅；屋齡10年以下住戶62.46%單獨持有1宅。</td></tr>
+      <tr><td>人：房子修好不等於有人照顧</td><td>長者一人戶25.8%、老老照顧12.5%；住家200公尺內有醫療院所的長者54.0%。</td></tr>
+      <tr><td>時間：老化比修繕快</td><td>屋齡51年以上住宅占比：2025年14.51%、2035年33.93%、2045年47.49%；臺北市2035年達53.13%。屋齡51年以上住宅設籍率67.86%，屋齡6到50年均在8成以上。</td></tr>
+      <tr><td>想搬也沒地方搬</td><td>戶長75歲以上住戶未單獨持有住宅34.49%，比66到75歲（25.78%）高8.71個百分點；新建住宅以小坪數、高總價為主。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag ur">補充</span>國際經驗：不只修房子，也幫忙搬家</h2>
+  <table class="ref">
+    <thead><tr><th>國家</th><th>數據重點</th></tr></thead>
+    <tbody>
+      <tr><td>日本：附服務高齡者住宅</td><td>2026年8月底登錄8,312棟、29萬950戶；有電梯、無障礙，附安全確認與生活諮詢的出租住宅。</td></tr>
+      <tr><td>新加坡：電梯通達購屋補助</td><td>有迫切醫療或行動需求者購買有直達電梯的組屋，家庭最高補助3萬新加坡幣、單身1萬5,000新加坡幣。</td></tr>
+      <tr><td>新加坡制度前提</td><td>組屋土地與公共空間由政府統一管理，屋主承租99年，建屋發展局可統一排程施工；台灣老公寓多為10到20戶左右的所有權人共有。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="tag sum">綜合</span>共識、分歧與結論</h2>
+  <table class="ref">
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>雙方共識</td><td>老屋數量太大，重建不可能是多數人的答案；長輩時間太短，任何方案都要快。</td></tr>
+      <tr><td>主要分歧</td><td>資源應該先放在房子（修），還是先放在人（搬）。</td></tr>
+      <tr><td>本文結論</td><td>不是二選一，而是分流：①結構安全、低樓層、產權單純的老屋應該修，室內防跌優先；②結構安全但卡在4、5樓者應裝電梯，政策重點在1樓補償、停車代金減免與代為整合；③結構不安全者不再以修繕延長，優先重建並提供中繼與安置；④裝不了電梯又獨居或老老照顧者，幫他「搬得動」（無障礙社宅、換屋減稅、以房養老搭配換屋）。前提是用住宅狀況調查交叉戶長年齡、屋齡、樓層、結構與產權，畫出高齡居住風險地圖。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="endnote">
+    <h3>資料說明</h3>
+    <p>戶長年齡、屋齡、樓層、構造、擁屋、設籍率與老屋推估數據引自住宅狀況調查，基準日2025年6月30日；擁屋狀況以同一門牌之設籍住戶為單位。</p>
+    <p>高齡人口、一人戶、老老照顧、無電梯公寓與生活機能引自內政部統計通報（2025年6月底）及內政部人口統計（2025年12月底）；跌倒數據引自國民健康署2017年國民健康訪問調查；危老與都更核准件數引自內政部；老宅延壽申請件數引自國土管理署（2026年9月底）；增設電梯件數引自臺北市議會質詢及媒體報導；以房養老引自金管會（2026年第2季）；新加坡數據引自新加坡國家發展部與建屋發展局；日本數據引自國土交通省。</p>
+    <p class="ref-link"><a href="住在台灣_特稿03_五樓的八十歲.html">← 回到本文〈5樓的80歲〉</a></p>
+  </div>
+
+</article>
+
+</body>
+</html>
